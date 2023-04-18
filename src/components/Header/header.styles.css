@@ -1,0 +1,99 @@
+.header {
+  display: flex;
+  max-width: 1440px;
+  height: 112px;
+  align-items: center;
+  position: relative;
+  padding: 20px 0;
+  padding-left: 108px;
+  background-color: #F8F8F9;
+
+}
+
+.header-title {
+  width: 311px;
+  height: 34px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 130%;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 82px;
+  color: #343447;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 142px;
+}
+
+.header-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #DEDEE9;;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  /* identical to box height */
+
+  /* Principais/Verde| Normal */
+
+  color: #0e8750;
+}
+
+.header-username {
+  margin: 0;
+  font-size: 18px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  /* identical to box height */
+
+  /* Principais/Verde| Normal */
+
+  color: #0e8750;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.header-user-options-btn {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.line {
+  width: 1268px;
+  height: 1px;
+  background-color: #acd9c5;
+  position: absolute;
+  bottom: 0;
+  right: 32px;
+}

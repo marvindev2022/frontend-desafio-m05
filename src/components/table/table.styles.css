@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+
+#root {
+  --clr--btn: #da0175;
+  --clr--fff: #fff;
+  --clr--bs: rgba(218, 1, 117, 0.05);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.Table {
+  width: calc(100vw - 108px);
+  height: calc(94vh - 7vh);
+  padding: 0px 96px;
+  margin-left: 108px;
+  font-family: "Nunito", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header-table {
+  width: 100%;
+  height: 100px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.client-header {
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+}
+
+.nav-header-table {
+  gap: 28px;
+
+  display: flex;
+  align-items: center;
+}
+
+.nav-header-table button {
+  width: 201px;
+  font-size: 14px;
+  height: 33px;
+
+  background-color: var(--clr--btn);
+  color: var(--clr--fff);
+}
+
+.nav-header-table input,
+.nav-header-table button {
+  border-radius: 10px;
+
+  border: none;
+}
+
+.input-div {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-div img {
+  right: 10px;
+
+  position: absolute;
+}
+
+.nav-header-table input {
+  width: 261px;
+  height: 39px;
+  padding: 16px;
+
+  box-shadow: 0 3px 3px 3px var(--clr--bs);
+}
+
+.filtro-img {
+  height: 39px;
+  width: 39px;
+  padding: 8px;
+  border-radius: 8px;
+
+  background-color: var(--clr--fff);
+}
+
+.table-charge {
+  height: 80%;
+  width: 100%;
+  border-radius: 30px;
+  padding: 12px 23px;
+
+  background-color: var(--clr--fff);
+}
+
+.header-charge {
+  height: 68px;
+  padding-left: 16px;
+  width: 100%;
+
+  border-bottom: solid 0.1rem #eff0f6;
+  display: flex;
+}
+
+.header-charge b {
+  font-size: 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+.client {
+  gap: 8px;
+}
+
+.client img {
+  width: 18px;
+}
+
+.client,
+.cpf,
+.email,
+.tell,
+.status,
+.criate-charge {
+  width: 200px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+}
+
+.criate-charge img {
+  height: 50px;
+}
+
+.charge-list {
+  height: 68px;
+  width: 100%;
+}
+
+.charge-specific {
+  padding-left: 16px;
+
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid 0.1rem #eff0f6;
+
+  color: #747488;
+}
+
+.inadimplente,
+.em-dia {
+  border-radius: 8px;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+}
+
+.inadimplente {
+  width: 120px;
+  height: 22px;
+
+  background-color: #ffefef;
+  color: #971d1d;
+}
+
+.em-dia {
+  width: 105px;
+  height: 22px;
+
+  background-color: #eef6f6;
+  color: #1fa7af;
+}

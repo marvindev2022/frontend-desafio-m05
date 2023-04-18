@@ -1,0 +1,194 @@
+@media (max-width: 1440px) {
+  .container-main-signin {
+    max-width: 1440px;
+    max-height: 894px;
+    margin: 0;
+  }
+  .Container-background-signin {
+    background-image: url("./../../assets/background-signin.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 482px;
+    height: 894px;
+  }
+  .container-section-form-signin {
+  width: 949px;
+  height: 894px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0);
+}
+
+}
+.container-main-signin {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  max-width: 1990px;
+  max-height: 1220px;
+  margin: 0 auto;
+}
+
+.container-section-form-signin {
+  width: 949px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0);
+}
+
+.Container-background-signin {
+  background-image: url("./../../assets/background-signin.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  height: 100vh;
+}
+
+
+
+.h1-signin {
+  width: 388px;
+  height: 93px;
+  margin-left: 56px;
+  margin-top: 158px;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #034a2a;
+}
+
+
+.container-form-signin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 355px;
+  height: 335px;
+}
+
+.h2-form-signin {
+  width: 188px;
+  height: 31px;
+  left: 877px;
+  top: 235px;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
+  color: #343447;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recover-password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 344px;
+}
+
+.container-span-email-signin,
+.container-span-password-signin {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  min-width: 344px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #344054;
+}
+
+.input-email,
+.input-password {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.container-span-btn-signin {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 45px;
+}
+
+.btn-signin {
+  width: 160px;
+  height: 33px;
+
+  text-align: center;
+
+  background: #da0175;
+
+  border-radius: 10px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+  color: #f8f8f9;
+  z-index: 5;
+}
+.container-signup-here {
+  width: 284px;
+  height: 18px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+
+  margin-top: 15px;
+
+  color: #3f3f55;
+}
+.link,
+.link-register {
+  all: unset;
+  color: #da0175;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-register {
+  min-width: 200px;
+}

@@ -1,0 +1,36 @@
+.dialog-user-options {
+  position: absolute;
+  width: 92px;
+  height: 59px;
+  left: 1270px;
+  top: 77px;
+
+  border: none;
+}
+.dialog-user-options section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 15px;
+  gap: 16px;
+
+  width: 92px;
+  height: 51px;
+  right: 78px;
+  top: 75px;
+  background-color: white;
+  border-radius: 8px;
+}
+.dialog-user-options-edit-btn {
+  display: block;
+
+  width: 25px;
+  height: 35px;
+}
+
+.dialog-user-options-exit-btn {
+  display: block;
+  width: 28px;
+  height: 41px;
+}

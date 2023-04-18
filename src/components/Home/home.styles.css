@@ -1,0 +1,163 @@
+.home-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 19px;
+  background-color: #f8f8f9;
+}
+
+.paid-invoice {
+  padding: 23px 40px;
+  gap: 10px;
+
+  width: 360px;
+  height: 111px;
+
+  background-color: #eef6f6;
+  border-radius: 30px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.paid-invoice-container,
+.overdue-invoice-container,
+.predicted-invoice-container {
+  display: flex;
+  gap: 55px;
+  width: 300px;
+}
+.invoice-section h1,
+h2 {
+  height: 23px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 130%;
+
+  display: flex;
+  align-items: center;
+
+  color: #3f3f55;
+}
+.invoice-section strong {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 130%;
+
+  display: flex;
+  align-items: center;
+
+  color: #3f3f55;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.overdue-invoice {
+  padding: 23px 40px;
+  gap: 10px;
+
+  width: 360px;
+  height: 111px;
+
+  background: #ffefef;
+  border-radius: 30px;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.predicted-invoice {
+  padding: 23px 40px;
+  gap: 10px;
+
+  width: 346.17px;
+  height: 111px;
+
+  background: #fcf6dc;
+  border-radius: 30px;
+
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.image-card {
+  width: 32px;
+  height: 33px;
+}
+.invoice-section span {
+  width: 191px;
+  height: 195px;
+}
+
+.billing-container {
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 397px;
+  border: 2px solid red;
+  margin-left: -40px;
+
+}
+.container-card-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 360px;
+  max-height: 58px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(172, 217, 197, 0.25);
+}
+.container-card-header h2 {
+  width: 188px;
+  height: 23px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 130%;
+  text-align: center;
+}
+.predicted-length,
+.paid-length,
+.overdue-length {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 15px;
+
+  width: 52px;
+  height: 21px;
+
+  border-radius: 8px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 130%;
+}
+.predicted-length {
+  background: #ffefef;
+  color: #971d1d;
+}
+.overdue-length {
+  background: #fcf6dc;
+  color: #c5a605;
+}
+.paid-length {
+  background: #eef6f6;
+  color: #1fa7af;
+}
