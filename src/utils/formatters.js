@@ -26,12 +26,21 @@ export function formatToMoney(value) {
 }
 
 export function getInitials(fullName) {
-  const initials =
-    fullName.split(" ").length > 1
-      ? fullName
-          .split(" ")
-          .map((substring) => substring.slice(0, 1))
-          .join("")
-      : fullName.slice(0, 2);
-  return initials;
+  const nameArray = fullName.split(" ");
+  let initials = "";
+
+  if (nameArray.length === 1) {
+    initials = nameArray[0].slice(0, 2);
+  } else {
+    const firstName = nameArray[0];
+    const middleName = nameArray.length > 2 ? nameArray[1] : "";
+    const lastName = nameArray[nameArray.length - 1];
+
+    initials = `${firstName.slice(0, 1)}${middleName.slice(
+      0,
+      1
+    )}${lastName.slice(0, 1)}`;
+  }
+
+  return initials.toLowerCase();
 }
