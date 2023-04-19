@@ -27,9 +27,9 @@ export default function Signin() {
       const {user, token} = data;
       if (!user) return notifyError("Email/senha invalido");
 
-      notifySucess(`Bem vindo,${user.nome}`);
+      notifySucess(`Bem vindo,${user.name}`);
       setItem("token", token);
-      setItem("userName", user.nome);
+      setItem("userName", user.name);
       setItem("userId", user.id);
       return navigate("/main");
     } catch (error) {
