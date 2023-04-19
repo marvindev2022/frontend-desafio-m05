@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://backend-desafio-05.herokuapp.com/",
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
