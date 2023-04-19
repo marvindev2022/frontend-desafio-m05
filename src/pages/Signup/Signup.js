@@ -9,7 +9,7 @@ import Success from "../../assets/Success.svg";
 import "./signup.styles.css";
 import { notifyError, notifySucess } from "../../utils/notify";
 import api from "./../../service/instance";
-import { getItem, setItem } from "../../utils/storage";
+import { clear, getItem, setItem } from "../../utils/storage";
 const phaseStorage = getItem("phase") ?? "data";
 
 export default function SignUp() {
@@ -38,12 +38,12 @@ export default function SignUp() {
     if (!email) return notifyError("Email deve ser informado!");
     if (!password) return notifyError("Senha deve ser informada!");
     try {
-      const { data } = await api.post("/users", {
+      const { data } = await api.post("/user", {
         name,
         email,
         password,
       });
-      if (data.user) {
+      if (data.user && data.token) {
         const { user, token } = data;
 
         setItem("token", token);
@@ -185,7 +185,7 @@ export default function SignUp() {
                   setPhase("final");
                   handleSubmit();
                   notifySucess("Cadastrado com sucesso!");
-                  localStorage.clear();
+                  clear();
                 }
               }
             }}
