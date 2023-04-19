@@ -15,7 +15,7 @@
     "react-toastify": "^9.0.8",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "http://marvindev2022/github.io/frontend-desafio-m05/signin",
+  "homepage": "https://marvindev2022.github.io/frontend-desafio-m05/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
