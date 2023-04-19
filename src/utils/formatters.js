@@ -42,5 +42,5 @@ export function getInitials(fullName) {
     )}${lastName.slice(0, 1)}`;
   }
 
-  return initials;
+  return initials
 }

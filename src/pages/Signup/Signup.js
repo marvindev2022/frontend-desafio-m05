@@ -43,7 +43,7 @@ export default function SignUp() {
         email,
         password,
       });
-      if (data.user && data.token) {
+      if (data.user) {
         const { user, token } = data;
 
         setItem("token", token);
@@ -53,6 +53,7 @@ export default function SignUp() {
         return navigate("/main");
       }
     } catch (error) {
+      console.log(error)
       notifyError(`${error.response.data}`);
     }
   }
@@ -184,7 +185,6 @@ export default function SignUp() {
                   setItem("phase", "final");
                   setPhase("final");
                   handleSubmit();
-                  notifySucess("Cadastrado com sucesso!");
                   clear();
                 }
               }

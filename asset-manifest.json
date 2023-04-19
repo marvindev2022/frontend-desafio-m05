@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/frontend-desafio-m05/static/css/main.7794c2dc.css",
-    "main.js": "/frontend-desafio-m05/static/js/main.40d09413.js",
+    "main.css": "/frontend-desafio-m05/static/css/main.88b9fca2.css",
+    "main.js": "/frontend-desafio-m05/static/js/main.825777bb.js",
     "static/media/background-signin.svg": "/frontend-desafio-m05/static/media/background-signin.3e6d970f0d4b3b1b80e9.svg",
     "static/media/charge.svg": "/frontend-desafio-m05/static/media/charge.57705faa7aabcb5fc45dcc75b69fa58a.svg",
     "static/media/charges.svg": "/frontend-desafio-m05/static/media/charges.6c5171680a82008d1e7165587b98c636.svg",
@@ -27,11 +27,11 @@
     "static/media/magnifier.svg": "/frontend-desafio-m05/static/media/magnifier.719049ada5c59c73bbf063b46c6680a1.svg",
     "static/media/next.svg": "/frontend-desafio-m05/static/media/next.3e3b536ea215944da720de4cc67abdaf.svg",
     "static/media/In.svg": "/frontend-desafio-m05/static/media/In.a72de57bc568611523ffc230bf0ed68d.svg",
-    "main.7794c2dc.css.map": "/frontend-desafio-m05/static/css/main.7794c2dc.css.map",
-    "main.40d09413.js.map": "/frontend-desafio-m05/static/js/main.40d09413.js.map"
+    "main.88b9fca2.css.map": "/frontend-desafio-m05/static/css/main.88b9fca2.css.map",
+    "main.825777bb.js.map": "/frontend-desafio-m05/static/js/main.825777bb.js.map"
   },
   "entrypoints": [
-    "static/css/main.7794c2dc.css",
-    "static/js/main.40d09413.js"
+    "static/css/main.88b9fca2.css",
+    "static/js/main.825777bb.js"
   ]
 }

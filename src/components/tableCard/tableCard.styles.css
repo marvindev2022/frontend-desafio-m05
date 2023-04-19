@@ -1,0 +1,49 @@
+/* style.css */
+
+.table-list-card {
+  width: 360px;
+  height: 291px;
+
+  background: #ffffff;
+  border-radius: 0px;
+}
+.tr-thead th {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 50px;
+
+  letter-spacing: 0.005em;
+
+  color: #3f3f55;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.tr-container {
+
+  width: 360px;
+  height: 91px;
+  border: 20px solid rgb(51, 83, 2);
+  overflow-x: auto;
+
+}
+
+.td-name,
+.td-id,
+.td-value {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 40px;
+  letter-spacing: 0.005em;
+  color: #6e6e85;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  max-height: 20px;
+}
