@@ -8,6 +8,6 @@ export async function loadClients() {
       return data;
     }
   } catch (error) {
-    notifyError(error);
+    notifyError(error.response.data);
   }
 }

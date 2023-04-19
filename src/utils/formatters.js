@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 export function capitalizeWord(word) {
   return word[0].toUpperCase() + word.slice(1, word.length);
@@ -8,13 +8,13 @@ export function capitalizeWord(word) {
 export function formatToDate(date) {
   const generatedDate = new Date(date);
 
-  return format(generatedDate, 'dd/MM/yyyy');
+  return format(generatedDate, "dd/MM/yyyy");
 }
 
 export function formatToWeekDay(date) {
   const generatedDate = new Date(date);
 
-  const weekDay = format(generatedDate, 'eee', {
+  const weekDay = format(generatedDate, "eee", {
     locale: ptBR,
   });
 
@@ -22,7 +22,7 @@ export function formatToWeekDay(date) {
 }
 
 export function formatToMoney(value) {
-  return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+  return value.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
 }
 
 export function getInitials(fullName) {
@@ -30,7 +30,7 @@ export function getInitials(fullName) {
     fullName.split(" ").length > 1
       ? fullName
           .split(" ")
-          .map(substring => substring.slice(0, 1))
+          .map((substring) => substring.slice(0, 1))
           .join("")
       : fullName.slice(0, 2);
   return initials;

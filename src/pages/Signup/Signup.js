@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import In from "../../assets/In.svg";
 import Next from "../../assets/next.svg";
 import Check from "../../assets/check.svg";
@@ -7,9 +7,9 @@ import Eye from "../../assets/eye.svg";
 import EyeOff from "../../assets/eye-off.svg";
 import Success from "../../assets/Success.svg";
 import "./signup.styles.css";
-import {notifyError, notifySucess} from "../../utils/notify";
+import { notifyError, notifySucess } from "../../utils/notify";
 import api from "./../../service/instance";
-import {getItem, setItem} from "../../utils/storage";
+import { getItem, setItem } from "../../utils/storage";
 const phaseStorage = getItem("phase") ?? "data";
 
 export default function SignUp() {
@@ -21,30 +21,30 @@ export default function SignUp() {
     name: "",
     email: "",
     password: "",
-    confpassword: ""
+    confpassword: "",
   });
 
-  function handleChange({target}) {
-    setForm(prevForm => ({
+  function handleChange({ target }) {
+    setForm((prevForm) => ({
       ...prevForm,
-      [target.name]: target.value
+      [target.name]: target.value,
     }));
   }
 
   async function handleSubmit() {
     if (!form) return notifyError("Preencha todos os campos!");
-    const {name, email, password} = form;
+    const { name, email, password } = form;
 
     if (!email) return notifyError("Email deve ser informado!");
     if (!password) return notifyError("Senha deve ser informada!");
     try {
-      const {data} = await api.post("/usuarios", {
+      const { data } = await api.post("/users", {
         name,
         email,
-        password
+        password,
       });
       if (data.user) {
-        const {user, token} = data;
+        const { user, token } = data;
 
         setItem("token", token);
         setItem("userName", user.name);
@@ -53,7 +53,7 @@ export default function SignUp() {
         return navigate("/main");
       }
     } catch (error) {
-      notifyError(`${error.message}`);
+      notifyError(`${error.response.data}`);
     }
   }
 
@@ -89,7 +89,7 @@ export default function SignUp() {
         {phase === "data" && <h1>Adicione seus dados</h1>}
         {phase === "password" && <h1>Escolha uma senha</h1>}
         <div
-          style={phase === "final" ? {display: "none"} : {}}
+          style={phase === "final" ? { display: "none" } : {}}
           className="form"
         >
           {phase === "data" && <label htmlFor="name">Nome*</label>}

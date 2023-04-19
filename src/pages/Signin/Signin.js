@@ -33,7 +33,7 @@ export default function Signin() {
       setItem("userId", user.id);
       return navigate("/main");
     } catch (error) {
-      notifyError(`${error.response.data.message}`);
+      notifyError(`${error.response.data}`);
     }
   }
 
