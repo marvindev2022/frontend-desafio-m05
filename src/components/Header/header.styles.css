@@ -6,10 +6,20 @@
   position: relative;
   padding: 20px 0;
   padding-left: 108px;
-  background-color: #F8F8F9;
-
+  background-color: #f8f8f9;
 }
 
+.header-title-clients {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  position: absolute;
+  top:82px;
+  left: 220px;
+  color: #0e8750;
+}
 .header-title {
   width: 311px;
   height: 34px;
@@ -42,7 +52,7 @@
   height: 48px;
   margin-right: 10px;
   border-radius: 50%;
-  background: #DEDEE9;;
+  background: #dedee9;
 
   flex: none;
   order: 0;

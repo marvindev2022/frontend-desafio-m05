@@ -11,7 +11,12 @@ export default function Header() {
 
   return (
     <header className="header">
-      <h1 className="header-title">Resumo das cobranças</h1>
+      {getItem("sectionSelected") === "home" ? (
+        <h1 className="header-title">Resumo das cobranças</h1>
+      ) : (
+        <h1 className="header-title-clients">Clientes</h1>
+      )}
+
       <span className="header-user">
         <div className="header-avatar">{abrevName}</div>
         <h2 className="header-username">{getItem("userName")}</h2>
@@ -25,9 +30,8 @@ export default function Header() {
         />
       </span>
 
-
-     <DialogHeader edit={edit} exit={exit}/>
-      <div className="line"/>
+      <DialogHeader edit={edit} exit={exit} />
+      <div className="line" />
     </header>
   );
 }

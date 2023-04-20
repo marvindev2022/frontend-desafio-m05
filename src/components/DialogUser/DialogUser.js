@@ -17,7 +17,7 @@ const defaultForm = {
 
 const alert = "Este campo deve ser preenchido!";
 
-export default function DialgUser() {
+export default function DialgoUser() {
   const dialogRef = useRef();
   const [form, setForm] = useState(defaultForm);
   const { name, email, password, confirmPassword, cpf, phone } = form;
@@ -71,7 +71,7 @@ export default function DialgUser() {
   }
 
   return (
-    <dialog open ref={dialogRef} className="dialog-user">
+    <dialog  ref={dialogRef} className="dialog-user">
       <section className="container-dialog">
         <span className="header-dialog">
           <h1>Edite seu cadastro</h1>

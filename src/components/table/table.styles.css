@@ -3,13 +3,19 @@
   --clr--fff: #fff;
   --clr--bs: rgba(218, 1, 117, 0.05);
 }
-
+.header-clients {
+  width: 1120px;
+  height: 100px;
+  margin-left: 108px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Table {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 12px 23px;
-  gap: 10px;
 
   position: absolute;
   width: 1116px;
@@ -19,15 +25,6 @@
 
   background: #ffffff;
   border-radius: 30px;
-}
-
-.header-table {
-  width: 100%;
-  height: 100px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .client-header {
@@ -98,7 +95,7 @@
 
 .header-charge {
   height: 68px;
-  padding-left: 16px;
+  padding: 16px;
   width: 100%;
 
   border-bottom: solid 0.1rem #eff0f6;
@@ -132,7 +129,9 @@
   display: flex;
   align-items: center;
 }
-
+.criate-charge {
+  padding-top: 5px;
+}
 .criate-charge img {
   height: 50px;
 }
@@ -166,6 +165,13 @@
   height: 22px;
 
   background-color: #ffefef;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+text-align: center;
+padding-top: 2px;
   color: #971d1d;
 }
 
@@ -174,5 +180,19 @@
   height: 22px;
 
   background-color: #eef6f6;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+text-align: center;
+padding-top: 2px;
   color: #1fa7af;
+}
+
+.Table th,
+td {
+  text-align: start;
+  max-width: 180px;
+  height: 20px;
 }
