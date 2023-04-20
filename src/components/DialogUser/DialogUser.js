@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { notifyError, notifySucess } from "../../utils/notify";
+import { notifyError, notifySuccess } from "../../utils/notify";
 import InputMask from "react-input-mask";
 import "./dialogUser.css";
 import api from "./../../service/instance";
@@ -50,7 +50,7 @@ export default function DialgoUser() {
         setItem("userId", user.id);
         setForm(defaultForm)
         dialogRef.current.close()
-        return notifySucess("Cadastro alterado com sucesso!");
+        return notifySuccess("Cadastro alterado com sucesso!");
       }
       return notifyError(user);
     } catch (error) {

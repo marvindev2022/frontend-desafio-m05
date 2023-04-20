@@ -15,7 +15,7 @@ useEffect(()=>{
 },[render])
   return (
     <ClientsListProvider>
-      <main>
+      <main style={{margin:"0 auto"}}>
         <Header />
         <Menu setRender={setRender}/>
         <section

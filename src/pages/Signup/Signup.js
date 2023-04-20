@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import In from "../../assets/In.svg";
 import Next from "../../assets/next.svg";
@@ -7,15 +7,17 @@ import Eye from "../../assets/eye.svg";
 import EyeOff from "../../assets/eye-off.svg";
 import Success from "../../assets/Success.svg";
 import "./signup.styles.css";
-import { notifyError, notifySucess } from "../../utils/notify";
+import { notifyError, notifySuccess } from "../../utils/notify";
 import api from "../../service/instance";
 import { clear, getItem, setItem } from "../../utils/storage";
-const phaseStorage = getItem("phase") ?? "data";
+
+const phaseStorage = "data";
 
 export default function SignUp() {
   const [visible, setVisible] = useState(false);
   const [visibleConf, setVisibleConf] = useState(false);
   const [phase, setPhase] = useState(phaseStorage);
+  const [render, setRender] = useState(false);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -24,35 +26,36 @@ export default function SignUp() {
     confpassword: "",
   });
 
-  function handleChange({ target }) {
+  const handleChange = ({ target }) => {
     setForm((prevForm) => ({
       ...prevForm,
       [target.name]: target.value,
     }));
-  }
+  };
 
-  async function handleSubmit() {
-    if (!form) return notifyError("Preencha todos os campos!");
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.password || !form.confpassword) {
+      return notifyError("Preencha todos os campos!");
+    }
+
     const { name, email, password } = form;
 
-    if (!email) return notifyError("Email deve ser informado!");
-    if (!password) return notifyError("Senha deve ser informada!");
     try {
-      const { data } = await api.post("/user", {
-        name,
-        email,
-        password,
-      });
-      if (data.user) {
-        notifySucess(`Cadastro realizado`);
-        navigate("/signin");
-        return;
+      const { data } = await api.post("/user", { name, email, password });
+
+      if (data) {
+        setItem("Success", true);
+        notifySuccess("Cadastro realizado");
+        setItem("phase", "final");
+        setPhase("final")
+        console.log(render)
       }
     } catch (error) {
       notifyError(`${error.response.data}`);
+      clear();
+      navigate("/signin");
     }
-  }
-
+  };
   return (
     <div className="sign-up">
       <div className="sidebar">
@@ -155,29 +158,26 @@ export default function SignUp() {
         )}
         {phase !== "final" && (
           <button
-            onClick={() => {
+            onClick={async () => {
               if (phase === "data") {
                 if (form.email === "" && form.name === "") {
-                  notifyError("Preencha todos os campos!");
+                  return notifyError("Preencha todos os campos!");
                 } else if (form.email === "") {
-                  notifyError("Email deve ser preenchido!");
+                  return notifyError("Email deve ser preenchido!");
                 } else if (form.name === "") {
-                  notifyError("Nome deve ser preenchido!");
+                  return notifyError("Nome deve ser preenchido!");
                 } else {
                   setItem("phase", "password");
                   setPhase("password");
                 }
               } else if (phase === "password") {
                 if (form.password === "" && form.confpassword === "") {
-                  notifyError("Preencha todos os campos!");
+                  return notifyError("Preencha todos os campos!");
                 } else if (form.password !== form.confpassword) {
-                  notifyError("Senhas não coincidem");
-                } else {
-                  handleSubmit();
+                  return notifyError("Senhas não coincidem");
                 }
-                setItem("phase", "final");
-                setPhase("final");
-                clear();
+                handleSubmit();
+                if (getItem("Success")) setPhase("final");
               }
             }}
           >

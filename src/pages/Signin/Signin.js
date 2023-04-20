@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {notifySucess, notifyError} from "../../utils/notify";
+import {notifySuccess, notifyError} from "../../utils/notify";
 import {Link, useNavigate} from "react-router-dom";
 import {setItem} from "../../utils/storage";
 import api from "../../service/instance";
@@ -27,7 +27,7 @@ export default function Signin() {
       const {user, token} = data;
       if (!user) return notifyError("Email/senha invalido");
 
-      notifySucess(`Bem vindo,${user.name}`);
+      notifySuccess(`Bem vindo,${user.name}`);
       setItem("token", token);
       setItem("userName", user.name);
       setItem("userId", user.id);

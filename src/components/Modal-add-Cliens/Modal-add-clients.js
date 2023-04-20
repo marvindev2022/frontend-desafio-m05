@@ -4,7 +4,7 @@ import { useState } from "react";
 import api from "../../service/instance";
 import "./modal-add-clients.styles.css";
 import { getItem } from "../../utils/storage";
-import { notifyError, notifySucess } from "../../utils/notify";
+import { notifyError, notifySuccess } from "../../utils/notify";
 const defaultForm = {
   name: "",
   email: "",
@@ -96,7 +96,7 @@ export default function ModalAddClients({ modal, setModal }) {
       );
       if (data === "Cadastro realizado com sucesso!") {
         setForm(defaultForm);
-        return notifySucess(data);
+        return notifySuccess(data);
       }
       return notifyError(data);
     } catch (error) {
