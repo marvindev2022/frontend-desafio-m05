@@ -29,5 +29,8 @@ button {
 }
 main {
   background-color: #F8F8F9;
-height:100vw ;
+min-height:100vw ;
+}
+.hidden {
+  display: none;
 }

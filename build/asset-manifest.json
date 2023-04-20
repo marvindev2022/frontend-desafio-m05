@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/frontend-desafio-m05/static/css/main.88b9fca2.css",
-    "main.js": "/frontend-desafio-m05/static/js/main.825777bb.js",
+    "main.css": "/frontend-desafio-m05/static/css/main.17f0db5d.css",
+    "main.js": "/frontend-desafio-m05/static/js/main.de54d980.js",
     "static/media/background-signin.svg": "/frontend-desafio-m05/static/media/background-signin.3e6d970f0d4b3b1b80e9.svg",
     "static/media/charge.svg": "/frontend-desafio-m05/static/media/charge.57705faa7aabcb5fc45dcc75b69fa58a.svg",
     "static/media/charges.svg": "/frontend-desafio-m05/static/media/charges.6c5171680a82008d1e7165587b98c636.svg",
@@ -16,7 +16,10 @@
     "static/media/eye-off.svg": "/frontend-desafio-m05/static/media/eye-off.af30560c8fabcfdef57bd442a07bb4be.svg",
     "static/media/Frame.svg": "/frontend-desafio-m05/static/media/Frame.d761c9a0a643105d414ba9b349a2b05e.svg",
     "static/media/ícone- Corbança Pendente-Color.svg": "/frontend-desafio-m05/static/media/ícone- Corbança Pendente-Color.cde22d3f3a1f9e809e147018bb9cb5fc.svg",
+    "static/media/ícone- Cliente Inadimplente-Color.svg": "/frontend-desafio-m05/static/media/ícone- Cliente Inadimplente-Color.31868a72f2fda088b518dbfc962d025a.svg",
     "static/media/ícone- Corbança Vencida-Color.svg": "/frontend-desafio-m05/static/media/ícone- Corbança Vencida-Color.64186f09018c66d52b946254de0df0f7.svg",
+    "static/media/x.svg": "/frontend-desafio-m05/static/media/x.cd090b31a251c8fe93b5a61367392194.svg",
+    "static/media/Frame (1).svg": "/frontend-desafio-m05/static/media/Frame (1).0ce0833a5ece2bc7e1acf7a07d1e4f08.svg",
     "index.html": "/frontend-desafio-m05/index.html",
     "static/media/Success.svg": "/frontend-desafio-m05/static/media/Success.58b448c467b5727d83a4033ad974eb99.svg",
     "static/media/ícone- Cobrança Paga-Color.svg": "/frontend-desafio-m05/static/media/ícone- Cobrança Paga-Color.6e28f6a219118e441e6cef3fdc4e93f1.svg",
@@ -27,11 +30,11 @@
     "static/media/magnifier.svg": "/frontend-desafio-m05/static/media/magnifier.719049ada5c59c73bbf063b46c6680a1.svg",
     "static/media/next.svg": "/frontend-desafio-m05/static/media/next.3e3b536ea215944da720de4cc67abdaf.svg",
     "static/media/In.svg": "/frontend-desafio-m05/static/media/In.a72de57bc568611523ffc230bf0ed68d.svg",
-    "main.88b9fca2.css.map": "/frontend-desafio-m05/static/css/main.88b9fca2.css.map",
-    "main.825777bb.js.map": "/frontend-desafio-m05/static/js/main.825777bb.js.map"
+    "main.17f0db5d.css.map": "/frontend-desafio-m05/static/css/main.17f0db5d.css.map",
+    "main.de54d980.js.map": "/frontend-desafio-m05/static/js/main.de54d980.js.map"
   },
   "entrypoints": [
-    "static/css/main.88b9fca2.css",
-    "static/js/main.825777bb.js"
+    "static/css/main.17f0db5d.css",
+    "static/js/main.de54d980.js"
   ]
 }

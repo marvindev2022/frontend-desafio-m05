@@ -1,0 +1,70 @@
+.table-list-clients,
+.container-viewall {
+  font-family: "Nunito";
+  font-style: normal;
+  letter-spacing: 0.005em;
+  background: #ffffff;
+}
+
+.table-list-clients {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 32px;
+  width: 556px;
+  height: 291px;
+  border-radius: 0px;
+}
+
+.container-viewall {
+  min-width: 556px;
+  min-height: 48px;
+  padding-top: 10px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+  text-decoration-line: underline;
+  color: #da0175;
+  box-shadow: 0px 4px 4px rgba(172, 217, 197, 0.25);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.tr-thead-clients th {
+  width: 160px;
+  height: 50px;
+  padding: 0 20px;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 50px;
+  text-align: start;
+  color: #3f3f55;
+  border-top: 1px solid #eff0f7;
+  border-bottom: 1px solid #eff0f7;
+}
+
+.tr-container-clients {
+  width: 360px;
+  height: 91px;
+  overflow-x: auto;
+}
+
+.td-name-clients,
+.td-id-clients,
+.td-value-clients {
+  width: 160px;
+  height: 40px;
+  text-align: start;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 40px;
+  padding: 0 20px;
+  color: #747488;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  border-bottom: 1px solid #eff0f7;
+}

@@ -8,7 +8,7 @@ import EyeOff from "../../assets/eye-off.svg";
 import Success from "../../assets/Success.svg";
 import "./signup.styles.css";
 import { notifyError, notifySucess } from "../../utils/notify";
-import api from "./../../service/instance";
+import api from "../../service/instance";
 import { clear, getItem, setItem } from "../../utils/storage";
 const phaseStorage = getItem("phase") ?? "data";
 
@@ -44,16 +44,11 @@ export default function SignUp() {
         password,
       });
       if (data.user) {
-        const { user, token } = data;
-
-        setItem("token", token);
-        setItem("userName", user.name);
-        setItem("userId", user.id);
-        notifySucess(`Bem vindo,${user.name}`);
-        return navigate("/main");
+        notifySucess(`Cadastro realizado`);
+        navigate("/signin");
+        return
       }
     } catch (error) {
-      console.log(error)
       notifyError(`${error.response.data}`);
     }
   }
@@ -175,18 +170,14 @@ export default function SignUp() {
               } else if (phase === "password") {
                 if (form.password === "" && form.confpassword === "") {
                   notifyError("Preencha todos os campos!");
-                } else if (
-                  !form.password ||
-                  !form.confpassword ||
-                  form.password !== form.confpassword
-                ) {
+                } else if (form.password !== form.confpassword) {
                   notifyError("Senhas não coincidem");
                 } else {
-                  setItem("phase", "final");
-                  setPhase("final");
                   handleSubmit();
-                  clear();
                 }
+                setItem("phase", "final");
+                setPhase("final");
+                clear();
               }
             }}
           >

@@ -91,7 +91,7 @@
   color: #343447;
 }
 
-form {
+.form-signin {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -110,7 +110,7 @@ form {
   flex-direction: column;
 }
 
-label {
+.form-signin label {
   min-width: 344px;
   min-height: 44px;
   display: flex;

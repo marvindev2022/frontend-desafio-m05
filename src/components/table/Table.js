@@ -42,7 +42,7 @@ export default function Table() {
   ];
 
   return (
-    <div className="Table">
+    <>
       <div className="header-table">
         <div className="client-header">
           <img src={IconeClients} alt="Icone Clientes" />
@@ -57,41 +57,45 @@ export default function Table() {
           </div>
         </div>
       </div>
-      <div className="table-charge">
-        <div className="header-charge">
-          <div className="client">
-            <img src={Group} alt="" />
-            <b>Cliente</b>
-          </div>
-          <b className="cpf">CPF</b>
-          <b className="email">E-mail</b>
-          <b className="tell">Telefone</b>
-          <b className="status">Status</b>
-          <b className="criate-charge">Criar Cobrança</b>
-        </div>
-        <div className="charge-list">
-          {listCharge.map((charge, index) => (
-            <div key={charge.id} className="charge-specific">
-              <span className="client">{charge.name}</span>
-              <span className="cpf">{charge.cpf}</span>
-              <span className="email">{charge.email}</span>
-              <span className="tell">{charge.tell}</span>
-              <div className="status">
-                <span
-                  className={`${
-                    charge.status === "Inadimplente" ? "inadimplente" : "em-dia"
-                  }`}
-                >
-                  {charge.status}
-                </span>
-              </div>
-              <div className="criate-charge">
-                <img src={Charge} alt="" />
-              </div>
+      <div className="Table">
+        <div className="table-charge">
+          <div className="header-charge">
+            <div className="client">
+              <img src={Group} alt="" />
+              <b>Cliente</b>
             </div>
-          ))}
+            <b className="cpf">CPF</b>
+            <b className="email">E-mail</b>
+            <b className="tell">Telefone</b>
+            <b className="status">Status</b>
+            <b className="criate-charge">Criar Cobrança</b>
+          </div>
+          <div className="charge-list">
+            {listCharge.map((charge, index) => (
+              <div key={charge.id} className="charge-specific">
+                <span className="client">{charge.name}</span>
+                <span className="cpf">{charge.cpf}</span>
+                <span className="email">{charge.email}</span>
+                <span className="tell">{charge.tell}</span>
+                <div className="status">
+                  <span
+                    className={`${
+                      charge.status === "Inadimplente"
+                        ? "inadimplente"
+                        : "em-dia"
+                    }`}
+                  >
+                    {charge.status}
+                  </span>
+                </div>
+                <div className="criate-charge">
+                  <img src={Charge} alt="" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

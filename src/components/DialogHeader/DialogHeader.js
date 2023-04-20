@@ -1,20 +1,24 @@
-import {useNavigate} from "react-router-dom";
-import {clear} from "../../utils/storage";
-import "./dialogHeader.styles.css"
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { clear } from "../../utils/storage";
+import "./dialogHeader.styles.css";
 
-export default function DialogHeader({edit, exit}) {
+export default function DialogHeader({ edit, exit }) {
   const navigate = useNavigate();
+  const dialogRef = useRef();
+
   function HandleEdit() {
-    console.log("Ainda vou montar");
+    
+    dialogRef.current.close();
+    document.querySelector(".dialog-user").showModal();
   }
   function HandleExit() {
     clear();
     navigate("/signin");
-  
   }
 
   return (
-    <dialog className="dialog-user-options">
+    <dialog ref={dialogRef} className="dialog-user-options">
       <section>
         <img
           onClick={HandleEdit}

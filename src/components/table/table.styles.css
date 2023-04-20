@@ -1,21 +1,24 @@
-
 #root {
   --clr--btn: #da0175;
   --clr--fff: #fff;
   --clr--bs: rgba(218, 1, 117, 0.05);
 }
 
-
-
 .Table {
-  width: calc(100vw - 108px);
-  height: calc(94vh - 7vh);
-  padding: 0px 96px;
-  margin-left: 108px;
-  font-family: "Nunito", sans-serif;
-
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  padding: 12px 23px;
+  gap: 10px;
+
+  position: absolute;
+  width: 1116px;
+  height: 642.49px;
+  left: 212px;
+  top: 206px;
+
+  background: #ffffff;
+  border-radius: 30px;
 }
 
 .header-table {

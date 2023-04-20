@@ -49,7 +49,7 @@ export default function Signin() {
           <h2 className="h2-form-signin">Faça seu login!</h2>
           <form className="form-signin" onSubmit={handleSubmit}>
             <span className="container-span-email-signin">
-              <label>E-mail</label>
+              <label className="label-sigin">E-mail</label>
               <input
                 type="email"
                 name="email"

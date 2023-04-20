@@ -1,6 +1,6 @@
-import {useContext} from "react";
-import {ClientsContext} from "./../../context/clientsContext";
-import {getItem, setItem} from "../../utils/storage";
+import { useContext } from "react";
+import { ClientsContext } from "./../../context/clientsContext";
+import { getItem, setItem } from "../../utils/storage";
 import homePink from "../../assets/home-pink.svg";
 import clientsPink from "../../assets/clients-pink.svg";
 import chargesPink from "./../../assets/charges-pink.svg";
@@ -10,25 +10,25 @@ import charges from "../../assets/charges.svg";
 import "./menu.styles.css";
 
 const menuItems = [
-  {id: "home", image: home, activeImage: homePink},
-  {id: "clients", image: clients, activeImage: clientsPink},
-  {id: "charges", image: charges, activeImage: chargesPink}
+  { id: "home", image: home, activeImage: homePink },
+  { id: "clients", image: clients, activeImage: clientsPink },
+  { id: "charges", image: charges, activeImage: chargesPink },
 ];
 
-export default function Menu() {
-  const {setSectionSelect, setRender} = useContext(ClientsContext);
+export default function Menu({ setRender }) {
+  const { setSectionSelect } = useContext(ClientsContext);
   const activeItemId = getItem("sectionSelected") || "home";
 
-  const handleItemClick = itemId => {
+  const handleItemClick = (itemId) => {
     setItem("sectionSelected", itemId);
     setSectionSelect(itemId);
-    setRender(prevRender => !prevRender);
+    setRender((prevRender) => !prevRender);
   };
 
   return (
     <menu className="menu-container">
       <ul className="menu-list">
-        {menuItems.map(item => (
+        {menuItems.map((item) => (
           <li
             key={item.id}
             className={`menu-item ${
