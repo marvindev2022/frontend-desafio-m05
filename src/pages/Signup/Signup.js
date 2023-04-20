@@ -46,7 +46,7 @@ export default function SignUp() {
       if (data.user) {
         notifySucess(`Cadastro realizado`);
         navigate("/signin");
-        return
+        return;
       }
     } catch (error) {
       notifyError(`${error.response.data}`);

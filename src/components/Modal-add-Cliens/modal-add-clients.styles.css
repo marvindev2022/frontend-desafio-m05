@@ -1,0 +1,102 @@
+
+.Modal-add-clients {
+  z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-family: 'Nunito', sans-serif;
+
+  background-color: rgba(145, 154, 150, 0.3);
+}
+
+.form-add-client {
+  width: 600px;
+height: 820px;
+  padding: 40px;
+  border-radius: 30px;
+  gap: 8px;
+
+
+  display: flex;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+
+  background-color: #FFF;
+}
+
+.form-add-client h1 {
+  margin-bottom: 20px;
+  gap: 16px;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  height: 36px;
+  border-radius: 8px;
+  padding: 16px;
+  border: solid 1px #D0D5DD;
+}
+
+.divider-form {
+  width: 100%;
+  gap: 24px;
+
+  display: flex;
+}
+
+.column {
+  gap: 8px;
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.divider-form button {
+  height: 33px;
+  width: 50%;
+  border-radius: 8px;
+  margin-top: 36px;
+
+  border: none;
+}
+
+.grey {
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+
+color: #0E8750;
+
+}
+
+.pink {
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+  background-color: #DA0175;
+  color: #FFF;
+}
+
+.form-add-client span {
+  color: #E70000;
+}
+
+.btn-sair {
+  top: 16px;
+  right: 16px;
+
+  position: absolute;
+}
