@@ -1,6 +1,6 @@
 .alerts {
   color: #e70000;
-  position: absolute;
+  margin-top:5px
 }
 dialog {
   width: 100vw;
@@ -50,7 +50,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 20px;
-
+margin-top: 10px;
 
 color: #344054;
 

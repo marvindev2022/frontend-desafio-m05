@@ -5,6 +5,7 @@ import api from "../../service/instance";
 import "./modal-add-clients.styles.css";
 import { getItem } from "../../utils/storage";
 import { notifyError, notifySuccess } from "../../utils/notify";
+import {useNavigate} from "react-router-dom"
 const defaultForm = {
   name: "",
   email: "",
@@ -23,7 +24,7 @@ export default function ModalAddClients({ modal, setModal }) {
   const [erroCPF, setErroCPF] = useState("");
   const [erroPhone, setErroPhone] = useState("");
   const [form, setForm] = useState(defaultForm);
-
+  const navigate = useNavigate()
   function handleChange({ target }) {
     setForm((prevForm) => ({
       ...prevForm,
@@ -61,7 +62,7 @@ export default function ModalAddClients({ modal, setModal }) {
     setErroPhone("");
 
     try {
-      let {
+      const {
         name,
         email,
         cpf,
@@ -94,11 +95,12 @@ export default function ModalAddClients({ modal, setModal }) {
           },
         }
       );
-      if (data === "Cadastro realizado com sucesso!") {
+      if (data === "Cliente cadastrado com sucesso!") {
         setForm(defaultForm);
+        fecharModal();
+        navigate("/")
         return notifySuccess(data);
       }
-      return notifyError(data);
     } catch (error) {
       notifyError(error.response.data);
     }
@@ -154,6 +156,8 @@ export default function ModalAddClients({ modal, setModal }) {
               name="cpf"
               value={form.cpf}
               type="text"
+              minLength={11}
+              maxLength={11}
               placeholder="Digite o CPF"
             />
             <span>{erroCPF}</span>
@@ -165,6 +169,8 @@ export default function ModalAddClients({ modal, setModal }) {
               name="phone"
               value={form.phone}
               type="text"
+              minLength={11}
+              maxLength={11}
               placeholder="Digite o telefone"
             />
             <span>{erroPhone}</span>

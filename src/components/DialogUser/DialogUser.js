@@ -5,10 +5,12 @@ import "./dialogUser.css";
 import api from "./../../service/instance";
 import { getItem, setItem } from "../../utils/storage";
 import exit from "./../../assets/x.svg";
+import Eye from "../../assets/eye.svg";
+import EyeOff from "../../assets/eye-off.svg";
 
 const defaultForm = {
-  name: "",
-  email: "",
+  name: getItem("userName") ?? "",
+  email: getItem("email") ?? "",
   password: "",
   confirmPassword: "",
   cpf: "",
@@ -21,6 +23,9 @@ export default function DialgoUser() {
   const dialogRef = useRef();
   const [form, setForm] = useState(defaultForm);
   const { name, email, password, confirmPassword, cpf, phone } = form;
+  const [viewPassword, setViewPassword] = useState(false);
+  const [viewConfirmPassword, setViewConfirmPassword] = useState(false);
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (!name) showErrorMessage("name");
@@ -36,8 +41,8 @@ export default function DialgoUser() {
           name,
           email,
           password,
-          cpf: cpf.replace(/\D/g, ""),
-          phone: phone.replace(/\D/g, ""),
+          cpf,
+          phone,
         },
         {
           headers: {
@@ -48,8 +53,9 @@ export default function DialgoUser() {
       if (user.id) {
         setItem("userName", user.name);
         setItem("userId", user.id);
-        setForm(defaultForm)
-        dialogRef.current.close()
+        setItem("email", user.email);
+        setForm(defaultForm);
+        dialogRef.current.close();
         return notifySuccess("Cadastro alterado com sucesso!");
       }
       return notifyError(user);
@@ -59,8 +65,13 @@ export default function DialgoUser() {
   }
 
   function handleChange({ target }) {
-    setForm({ ...form, [target.name]: target.value });
+    if (target.name === "cpf" || target.name === "phone") {
+      setForm({ ...form, [target.name]: target.value.replace(/\D/g, "") });
+    } else {
+      setForm({ ...form, [target.name]: target.value });
+    }
     const alertElement = document.querySelector(`.alert-${target.name}`);
+
     if (target.value !== "") {
       alertElement.classList.add("hidden");
     }
@@ -71,7 +82,7 @@ export default function DialgoUser() {
   }
 
   return (
-    <dialog  ref={dialogRef} className="dialog-user">
+    <dialog ref={dialogRef} className="dialog-user">
       <section className="container-dialog">
         <span className="header-dialog">
           <h1>Edite seu cadastro</h1>
@@ -154,29 +165,52 @@ export default function DialgoUser() {
           <span>
             <label className="label-form" htmlFor="password">
               Nova Senha *
-            </label>
-            <input
-              name="password"
-              id="password"
-              placeholder="●●●●●●●●"
-              onChange={handleChange}
-              value={password}
-              type="password"
-            />
+            </label>{" "}
+            <span
+              style={{ display: "flex", position: "relative", width: "100%" }}
+            >
+              <input
+                type={viewPassword ? "text" : "password"}
+                style={{ width: "100%" }}
+                className="input-password"
+                name="password"
+                id="password"
+                placeholder="●●●●●●●●"
+                onChange={handleChange}
+              />
+              <img
+                onClick={() => setViewPassword(!viewPassword)}
+                style={{ position: "absolute", top: "5px", right: "15px" }}
+                src={viewPassword ? Eye : EyeOff}
+                alt="Ver senha"
+              />
+            </span>
             <p className="alert-password alerts hidden">{alert}</p>
           </span>
           <span>
             <label className="label-form" htmlFor="confirmPassword">
               Confirmar Senha*
             </label>
-            <input
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="●●●●●●●●"
-              onChange={handleChange}
-              value={confirmPassword}
-              type="password"
-            />
+            <span
+              style={{ display: "flex", position: "relative", width: "100%" }}
+            >
+              <input
+                type={viewConfirmPassword ? "text" : "password"}
+                style={{ width: "100%" }}
+                className="input-password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="●●●●●●●●"
+                onChange={handleChange}
+              />
+              <img
+                onClick={() => setViewConfirmPassword(!viewConfirmPassword)}
+                style={{ position: "absolute", top: "5px", right: "15px" }}
+                src={viewConfirmPassword ? Eye : EyeOff}
+                alt="Ver senha"
+              />
+            </span>
+         
             <p className="alert-confirmPassword alerts hidden">{alert}</p>
           </span>
           <button type="submit">Submit</button>

@@ -36,11 +36,14 @@ export function getInitials(fullName) {
     const middleName = nameArray.length > 2 ? nameArray[1] : "";
     const lastName = nameArray[nameArray.length - 1];
 
-    initials = `${firstName.slice(0, 1)}${middleName.slice(
-      0,
-      1
-    )}${lastName.slice(0, 1)}`;
+    initials = `${firstName.slice(0, 1)}${lastName[0]}`
   }
 
-  return initials
+  return initials;
+}
+
+export function validatePassword(password) {
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*[!@#$%^&*()\-+={[}\]|\\:;"'<,>.?/])(?=.*\d).{8,}$/;
+  return passwordRegex.test(password);
 }

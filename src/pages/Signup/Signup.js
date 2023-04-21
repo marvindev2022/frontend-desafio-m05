@@ -10,6 +10,7 @@ import "./signup.styles.css";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import api from "../../service/instance";
 import { clear, getItem, setItem } from "../../utils/storage";
+import { validatePassword } from "../../utils/formatters";
 
 const phaseStorage = "data";
 
@@ -17,7 +18,6 @@ export default function SignUp() {
   const [visible, setVisible] = useState(false);
   const [visibleConf, setVisibleConf] = useState(false);
   const [phase, setPhase] = useState(phaseStorage);
-  const [render, setRender] = useState(false);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -47,8 +47,7 @@ export default function SignUp() {
         setItem("Success", true);
         notifySuccess("Cadastro realizado");
         setItem("phase", "final");
-        setPhase("final")
-        console.log(render)
+        setPhase("final");
       }
     } catch (error) {
       notifyError(`${error.response.data}`);
@@ -159,6 +158,7 @@ export default function SignUp() {
         {phase !== "final" && (
           <button
             onClick={async () => {
+              const isValidPassword = validatePassword(form.password);
               if (phase === "data") {
                 if (form.email === "" && form.name === "") {
                   return notifyError("Preencha todos os campos!");
@@ -176,8 +176,13 @@ export default function SignUp() {
                 } else if (form.password !== form.confpassword) {
                   return notifyError("Senhas não coincidem");
                 }
+                if (!isValidPassword) {
+                  return notifyError(` A senha deve ter pelo menos 8 caracteres, incluindo pelo menos
+                  um número, um caractere especial (!@#$%&* etc.), uma letra
+                  maiúscula e uma letra minúscula.`);
+                }
                 handleSubmit();
-                if (getItem("Success")) setPhase("final");
+                if (getItem("Success")) return setPhase("final");
               }
             }}
           >

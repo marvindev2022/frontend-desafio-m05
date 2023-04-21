@@ -1,13 +1,17 @@
 import {useState} from "react";
 import {notifySuccess, notifyError} from "../../utils/notify";
 import {Link, useNavigate} from "react-router-dom";
-import {setItem} from "../../utils/storage";
+import {clear, setItem} from "../../utils/storage";
 import api from "../../service/instance";
 import "./signin.styles.css";
+import Eye from "../../assets/eye.svg";
+import EyeOff from "../../assets/eye-off.svg";
 
 export default function Signin() {
   const [inputState, setInputState] = useState();
+  const [viewPassword, setViewPassword] = useState(false);
   const navigate = useNavigate();
+  clear()
   function handleChange({target}) {
     setInputState({...inputState, [target.name]: target.value});
     return;
@@ -16,9 +20,9 @@ export default function Signin() {
     event.preventDefault();
     if (!inputState) return notifyError("Preencha todos os campos!");
     const {email, password} = inputState;
-
     if (!email) return notifyError("Email deve ser informado!");
     if (!password) return notifyError("Senha deve ser informada!");
+    
     try {
       const {data} = await api.post("/login", {
         email,
@@ -30,6 +34,7 @@ export default function Signin() {
       notifySuccess(`Bem vindo,${user.name}`);
       setItem("token", token);
       setItem("userName", user.name);
+      setItem("email",user.email)
       setItem("userId", user.id);
       return navigate("/main");
     } catch (error) {
@@ -67,13 +72,17 @@ export default function Signin() {
                   </Link>
                 }
               </label>
-              <input
-                type="password"
-                name="password"
-                className="input-password"
-                placeholder="Senha"
-                onChange={handleChange}
-              />
+              <span style={{display:"flex", position:"relative",width:"100%"}}>
+                <input
+                  type={viewPassword ? "text" : "password"}
+                  style={{width:"100%"}}
+                  name="password"
+                  className="input-password"
+                  placeholder="Senha"
+                  onChange={handleChange}
+                />
+                <img onClick={()=>setViewPassword(!viewPassword)} style={{position:"absolute",top:"5px",right:"15px"}} src={viewPassword?Eye : EyeOff} alt="Ver senha"/>
+              </span>
             </span>
             <span className="container-span-btn-signin">
               <button type="submit" className="btn-signin">
