@@ -9,11 +9,6 @@ function ProtectedRoutes({ redirectTo }) {
   const token = getItem("token");
   return token ? <Outlet /> : <Navigate to={redirectTo} />;
 }
-function Logged({ redirectTo }) {
-  const token = !getItem("token");
-  console.log(token)
-  return token ? <Outlet /> : <Navigate to={redirectTo} />;
-}
 
 function MainRoutes() {
   return (
@@ -27,10 +22,7 @@ function MainRoutes() {
           <Route path="/main" element={<Main />} />
           <Route path="*" element={<Main />} />
         </Route>
-        <Route element={<Logged redirectTo="/main" />}>
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Route>
+       
       </Routes>
     </>
   );

@@ -7,6 +7,7 @@ import "./table.styles.css";
 import { useState } from "react";
 import ModalAddClients from "../Modal-add-Cliens/Modal-add-clients";
 import useClientsProvider from "../../hooks/useClientsProvider";
+import { formatCpf, formatPhone } from "../../utils/formatters";
 
 export default function Table() {
   const { clientsList } = useClientsProvider();
@@ -48,15 +49,15 @@ export default function Table() {
           {listCharge.slice(0, 11).map((charge, index) => (
             <tr key={charge.id} className="charge-specific">
               <td className="client">{charge.name}</td>
-              <td className="cpf">{charge.cpf}</td>
+              <td className="cpf">{formatCpf(charge.cpf)}</td>
               <td className="email">{charge.email}</td>
-              <td className="tell">{charge.phone}</td>
+              <td className="tell">{formatPhone(charge.phone)}</td>
               <td className="status">
                 <span
                   className={`${
                     (charge.status ?? "Inadimplente") === "Inadimplente"
-                      ? "inadimplente"
-                      : "em-dia"
+                      ? "pendent-state"
+                      : "paid-state"
                   }`}
                 >
                   {charge.status ?? "Inadimplente"}

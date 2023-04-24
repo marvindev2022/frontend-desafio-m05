@@ -1,38 +1,42 @@
+import { useState, useEffect } from "react";
+import { getItem, setItem } from "./../../utils/storage";
+import { ClientsListProvider } from "./../../context/clientsContext";
+import { InvoicesListProvider } from "./../../context/invoices/invoicesContext";
 import Header from "./../../components/Header/Header";
 import Table from "./../../components/table/Table";
+import TableInvoices from "../../components/TableInvoices/TableInvoices";
 import Menu from "./../../components/Menu/Menu";
-import { ClientsListProvider } from "./../../context/clientsContext";
-import { InvoicedListProvider } from "./../../context/invoiced/invoicedContext";
-import { getItem, setItem } from "./../../utils/storage";
 import Home from "./../../components/Home/home";
-import "./main.tyles.css.css";
 import DialgUser from "../../components/DialogUser/DialogUser";
-import { useState, useEffect } from "react";
+import "./main.tyles.css.css";
+
 export default function Main() {
   setItem("sectionSelected", getItem("sectionSelected") ?? "home");
   const [render, setRender] = useState(false);
   useEffect(() => {
     setRender(false);
   }, [render]);
+
   return (
     <ClientsListProvider>
-      <InvoicedListProvider>
-        <main
-          style={{ minWidth: "100vw", minHeight: "100vh", margin: "0 auto" }}
-        >
+      <InvoicesListProvider>
+        <main>
           <Header />
           <Menu setRender={setRender} />
           <section
-            style={{
-              paddingLeft: "110px",
-            }}
+          className="section-main"
           >
             {getItem("sectionSelected") === "home" ? <Home /> : <></>}
             {getItem("sectionSelected") === "clients" ? <Table /> : <></>}
+            {getItem("sectionSelected") === "charges" ? (
+              <TableInvoices />
+            ) : (
+              <></>
+            )}
           </section>
           <DialgUser />
         </main>
-      </InvoicedListProvider>
+      </InvoicesListProvider>
     </ClientsListProvider>
   );
 }

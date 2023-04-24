@@ -10,23 +10,31 @@ export async function loadClients() {
           authorization: `Bearer ${getItem("token")}`,
         },
       });
-      return data
+      return data;
     }
   } catch (error) {
     notifyError(error.response.data);
   }
 }
 
-export async function loadInvoiced() {
+export async function loadInvoices() {
   try {
-    if ((1+1) === 3) {
-      const { data } = await api.get("/invoiced", {
-        headers: {
-          authorization: `Bearer ${getItem("token")}`,
-        },
-      });
-      return data;
-    }
+    const { data } = await api.get("/invoices", {
+      headers: {
+        authorization: `Bearer ${getItem("token")}`,
+      },
+    });
+
+    const paidInvoices = data.filter((invoice) => invoice.status === "pago");
+    const unpaidInvoices = data.filter(
+      (invoice) => invoice.status === "pendente"
+    );
+
+    return {
+      all: data,
+      paid: paidInvoices,
+      unpaid: unpaidInvoices,
+    };
   } catch (error) {
     notifyError(error.response.data);
   }

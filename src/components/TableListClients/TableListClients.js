@@ -1,6 +1,3 @@
-
-
-
 import "./TableListClients.styles.css";
 
 export default function TableListClients({ transactions }) {
@@ -15,13 +12,14 @@ export default function TableListClients({ transactions }) {
       </thead>
       <tbody className="">
         {transactions.slice(0, 5).map((transacao) => (
-        <tr className="tr-tbody-clients" key={Math.random()*1000}>
-          <td className="td-name-clients">{transacao.name}</td>
-          <td className="td-id-clients">{transacao.date}</td>
-          <td className="td-value-clients">{transacao.value}</td>
-        </tr>
+          <tr className="tr-tbody-clients" key={Math.random() * 1000}>
+            <td className="td-name-clients">{transacao.client_name}</td>
+            <td className="td-id-clients">{transacao.due_date}</td>
+            <td className="td-value-clients">{transacao.invoice_value}</td>
+          </tr>
         ))}
       </tbody>
     </table>
   );
 }
+

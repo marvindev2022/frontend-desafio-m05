@@ -13,11 +13,11 @@ export default function TableListCard({invoice}) {
         </tr>
       </thead>
       <tbody className="">
-          {invoice.slice(0,5).map((transacao) => (
+          {invoice?.slice(0,5).map((transacao) => (
             <tr className="tr-tbody" key={transacao.id - Math.random()}>
-              <td className="td-name">{transacao.name}</td>
+              <td className="td-name">{transacao.client_name}</td>
               <td className="td-id">{transacao.id}</td>
-              <td className="td-value">{transacao.value}</td>
+              <td className="td-value">{transacao.invoice_value}</td>
             </tr>
           ))}
       </tbody>

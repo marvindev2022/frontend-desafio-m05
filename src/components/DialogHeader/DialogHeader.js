@@ -1,15 +1,14 @@
-import { useRef } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { clear } from "../../utils/storage";
 import "./dialogHeader.styles.css";
 
 export default function DialogHeader({ edit, exit }) {
   const navigate = useNavigate();
-  const dialogRef = useRef();
 
   function HandleEdit() {
     
-    dialogRef.current.close();
+    document.querySelector(".dialog-user-options").close();
     document.querySelector(".dialog-user").showModal();
   }
   function HandleExit() {
@@ -18,7 +17,7 @@ export default function DialogHeader({ edit, exit }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="dialog-user-options">
+    <dialog  className="dialog-user-options">
       <section>
         <img
           onClick={HandleEdit}

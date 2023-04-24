@@ -1,9 +1,4 @@
 import { format } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
-
-export function capitalizeWord(word) {
-  return word[0].toUpperCase() + word.slice(1, word.length);
-}
 
 export function formatToDate(date) {
   const generatedDate = new Date(date);
@@ -11,18 +6,8 @@ export function formatToDate(date) {
   return format(generatedDate, "dd/MM/yyyy");
 }
 
-export function formatToWeekDay(date) {
-  const generatedDate = new Date(date);
-
-  const weekDay = format(generatedDate, "eee", {
-    locale: ptBR,
-  });
-
-  return capitalizeWord(weekDay);
-}
-
 export function formatToMoney(value) {
-  return value.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
+  return value?.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
 }
 
 export function getInitials(fullName) {
@@ -34,9 +19,8 @@ export function getInitials(fullName) {
   } else {
     const firstName = nameArray[0];
     const middleName = nameArray.length > 2 ? nameArray[1] : "";
-    const lastName = nameArray[nameArray.length - 1];
 
-    initials = `${firstName.slice(0, 1)}${lastName[0]}`
+    initials = `${firstName.slice(0, 1)}${middleName[0]}`;
   }
 
   return initials;
@@ -46,4 +30,28 @@ export function validatePassword(password) {
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*[!@#$%^&*()\-+={[}\]|\\:;"'<,>.?/])(?=.*\d).{8,}$/;
   return passwordRegex.test(password);
+}
+
+export function formatToValue(valueParams) {
+  const value = valueParams.replace(/[\D]+/g, "");
+  const reais = value
+    .substr(0, value.length - 2)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const centavos = value.substr(value.length - 2);
+  const formatedValue = `${reais},${centavos}`;
+  return formatedValue;
+}
+export function formatCpf(cpf) {
+  cpf = cpf.replace(/\D/g, ""); // remove tudo que não é dígito
+  cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+  cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+  cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  return cpf;
+}
+
+export function formatPhone(phone) {
+  phone = phone.replace(/\D/g, "");
+  phone = phone.replace(/^(\d{2})(\d)/g, "($1) $2");
+  phone = phone.replace(/(\d)(\d{4})$/, "$1-$2");
+  return phone;
 }

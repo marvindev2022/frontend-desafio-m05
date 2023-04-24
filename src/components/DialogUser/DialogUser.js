@@ -1,12 +1,12 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { notifyError, notifySuccess } from "../../utils/notify";
-import InputMask from "react-input-mask";
 import "./dialogUser.css";
 import api from "./../../service/instance";
 import { getItem, setItem } from "../../utils/storage";
 import exit from "./../../assets/x.svg";
 import Eye from "../../assets/eye.svg";
 import EyeOff from "../../assets/eye-off.svg";
+import { formatCpf, formatPhone } from "../../utils/formatters";
 
 const defaultForm = {
   name: getItem("userName") ?? "",
@@ -20,7 +20,6 @@ const defaultForm = {
 const alert = "Este campo deve ser preenchido!";
 
 export default function DialgoUser() {
-  const dialogRef = useRef();
   const [form, setForm] = useState(defaultForm);
   const { name, email, password, confirmPassword, cpf, phone } = form;
   const [viewPassword, setViewPassword] = useState(false);
@@ -28,12 +27,30 @@ export default function DialgoUser() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (!name) showErrorMessage("name");
-    if (!email) showErrorMessage("email");
-    if (!password) showErrorMessage("password");
-    if (!confirmPassword) return showErrorMessage("confirmPassword");
-    if (password !== confirmPassword)
-      return notifyError("Senhas devem ser iguais");
+    let error = false;
+    if (!name) {
+      showErrorMessage("name");
+      error = true;
+    }
+    if (!email) {
+      showErrorMessage("email");
+      error = true;
+    }
+    if (!password) {
+      showErrorMessage("password");
+      error = true;
+    }
+    if (!confirmPassword) {
+      showErrorMessage("confirmPassword");
+      error = true;
+    }
+    if (password !== confirmPassword) {
+      notifyError("Senhas devem ser iguais");
+      error = true;
+    }
+    if (error) {
+      return;
+    }
     try {
       const { data: user } = await api.put(
         "user",
@@ -41,8 +58,8 @@ export default function DialgoUser() {
           name,
           email,
           password,
-          cpf,
-          phone,
+          cpf: cpf.replace(/\D/g, ""),
+          phone: phone.replace(/\D/g, ""),
         },
         {
           headers: {
@@ -55,7 +72,7 @@ export default function DialgoUser() {
         setItem("userId", user.id);
         setItem("email", user.email);
         setForm(defaultForm);
-        dialogRef.current.close();
+        document.querySelector(".dialog-user").close();
         return notifySuccess("Cadastro alterado com sucesso!");
       }
       return notifyError(user);
@@ -66,8 +83,8 @@ export default function DialgoUser() {
 
   function handleChange({ target }) {
     if (target.name === "cpf" || target.name === "phone") {
-      setForm({ ...form, [target.name]: target.value.replace(/\D/g, "") });
-    } else {
+      setForm({ ...form, [target.name]: target.value });
+  }else {
       setForm({ ...form, [target.name]: target.value });
     }
     const alertElement = document.querySelector(`.alert-${target.name}`);
@@ -82,14 +99,14 @@ export default function DialgoUser() {
   }
 
   return (
-    <dialog ref={dialogRef} className="dialog-user">
+    <dialog className="dialog-user">
       <section className="container-dialog">
         <span className="header-dialog">
           <h1>Edite seu cadastro</h1>
           <img
             src={exit}
             className="exit-dialog"
-            onClick={() => dialogRef.current.close()}
+            onClick={() => document.querySelector(".dialog-user").close()}
             alt="exit"
           />
         </span>
@@ -129,14 +146,15 @@ export default function DialgoUser() {
               <label className="label-form" htmlFor="cpf">
                 CPF
               </label>
-              <InputMask
+              <input
                 name="cpf"
                 id="cpf"
                 className="input-cpf"
-                mask="999.999.999-99"
                 placeholder="Digite seu CPF"
+                value={formatCpf(cpf)}
                 onChange={handleChange}
-                value={cpf}
+                minLength={14}
+                maxLength={14}
                 type="text"
               />
               <p className="alert-cpf alerts hidden">
@@ -147,14 +165,15 @@ export default function DialgoUser() {
               <label className="label-form" htmlFor="phone">
                 Telefone
               </label>
-              <InputMask
+              <input
                 name="phone"
                 id="phone"
                 className="input-phone"
-                mask="(99) 9 9999-9999"
                 placeholder="Digite seu Telefone"
                 onChange={handleChange}
-                value={phone}
+                value={formatPhone(phone)}
+                minLength={15}
+                maxLength={15}
                 type="text"
               />
               <p className="alert-phone alerts hidden">
@@ -210,7 +229,7 @@ export default function DialgoUser() {
                 alt="Ver senha"
               />
             </span>
-         
+
             <p className="alert-confirmPassword alerts hidden">{alert}</p>
           </span>
           <button type="submit">Submit</button>

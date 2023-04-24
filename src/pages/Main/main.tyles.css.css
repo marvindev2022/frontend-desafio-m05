@@ -1,4 +1,10 @@
-main{
+main {
   max-width: 1440px;
   max-height: 1280px;
+}
+.section-main {
+  padding-left: 110px;
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0 auto;
 }

@@ -15,10 +15,10 @@ import { validatePassword } from "../../utils/formatters";
 const phaseStorage = "data";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [visibleConf, setVisibleConf] = useState(false);
   const [phase, setPhase] = useState(phaseStorage);
-  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -51,8 +51,9 @@ export default function SignUp() {
       }
     } catch (error) {
       notifyError(`${error.response.data}`);
+      setPhase("data");
       clear();
-      navigate("/signin");
+      navigate("/sign-up");
     }
   };
   return (
@@ -192,7 +193,7 @@ export default function SignUp() {
         {phase === "final" && (
           <button
             onClick={() => {
-              setPhase("data");
+              clear();
               navigate("/signin");
             }}
           >
@@ -202,7 +203,7 @@ export default function SignUp() {
         {phase !== "final" && (
           <div className="register">
             Já possui uma conta? Faça seu
-            <Link className="link" to={"/sign-in"}>
+            <Link className="link" to={"/signin"}>
               Login
             </Link>
           </div>

@@ -6,92 +6,94 @@ import unpaidInvoiceIcon from "./../../assets/ícone- Corbança Vencida-Color.sv
 import iconUnpaid from "./../../assets/ícone- Cliente Inadimplente-Color.svg";
 import iconPaid from "./../../assets/Frame (1).svg";
 import "./home.styles.css";
+import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 const cobranca = [
   {
-    name: "Sara Silva",
+    client_name: "Sara Silva",
     id: "315153135131",
-    value: "R$1000,00",
+    invoice_value: "R$1000,00",
   },
   {
-    name: "João Santos",
+    client_name: "João Santos",
     id: "532135134511",
-    value: "R$500,00",
+    invoice_value: "R$500,00",
   },
   {
-    name: "Maria Oliveira",
+    client_name: "Maria Oliveira",
     id: "135135135135",
-    value: "R$750,00",
+    invoice_value: "R$750,00",
   },
   {
-    name: "Pedro Souza",
+    client_name: "Pedro Souza",
     id: "213515313515",
-    value: "R$250,00",
+    invoice_value: "R$250,00",
   },
   {
-    name: "Ana Pereira",
+    client_name: "Ana Pereira",
     id: "351351351351",
-    value: "R$1250,00",
+    invoice_value: "R$1250,00",
   },
   {
-    name: "Lucas Vieira",
+    client_name: "Lucas Vieira",
     id: "531531351351",
-    value: "R$300,00",
+    invoice_value: "R$300,00",
   },
   {
-    name: "Paula Santos",
+    client_name: "Paula Santos",
     id: "351351531351",
-    value: "R$900,00",
+    invoice_value: "R$900,00",
   },
   {
-    name: "Rafaela Rodrigues",
+    client_name: "Rafaela Rodrigues",
     id: "135135135135",
-    value: "R$1500,00",
+    invoice_value: "R$1500,00",
   },
 ];
 const transactions = [
   {
-    name: "Sara Silva",
-    date: "12/05/1990",
-    value: "R$1000,00",
+    client_name: "Sara Silva",
+    due_date: "12/05/1990",
+    invoice_value: "R$1000,00",
   },
   {
-    name: "João Santos",
-    date: "12/05/1990",
-    value: "R$500,00",
+    client_name: "João Santos",
+    due_date: "12/05/1990",
+    invoice_value: "R$500,00",
   },
   {
-    name: "Maria Oliveira",
-    date: "12/05/1990",
-    value: "R$750,00",
+    client_name: "Maria Oliveira",
+    due_date: "12/05/1990",
+    invoice_value: "R$750,00",
   },
   {
-    name: "Pedro Souza",
-    date: "12/05/1990",
-    value: "R$250,00",
+    client_name: "Pedro Souza",
+    due_date: "12/05/1990",
+    invoice_value: "R$250,00",
   },
   {
-    name: "Ana Pereira",
-    date: "12/05/1990",
-    value: "R$1250,00",
+    client_name: "Ana Pereira",
+    due_date: "12/05/1990",
+    invoice_value: "R$1250,00",
   },
   {
-    name: "Lucas Vieira",
-    date: "12/05/1990",
-    value: "R$300,00",
+    client_name: "Lucas Vieira",
+    due_date: "12/05/1990",
+    invoice_value: "R$300,00",
   },
   {
-    name: "Paula Santos",
-    date: "12/05/1990",
-    value: "R$900,00",
+    client_name: "Paula Santos",
+    due_date: "12/05/1990",
+    invoice_value: "R$900,00",
   },
   {
-    name: "Rafaela Rodrigues",
-    date: "12/05/1990",
-    value: "R$1500,00",
+    client_name: "Rafaela Rodrigues",
+    due_date: "12/05/1990",
+    invoice_value: "R$1500,00",
   },
 ];
 export default function Home() {
-
+  const { invoicesList } = useInvoicesProvider();
+  const { all, paid, unpaid } = invoicesList;
   function handleClick(referencelist) {
     if (referencelist === "paid") return;
     if (referencelist === "unpaid") return;
@@ -115,10 +117,10 @@ export default function Home() {
           <div className="billing-container paid-invoice-billing-container">
             <span className="container-card-header">
               <h2>Cobranças vencidas</h2>
-              <h3 className="unpaid-length">{cobranca.slice(0, 8).length}</h3>
+              <h3 className="unpaid-length">{unpaid?.length}</h3>
             </span>
             <span className="section-table-card">
-              <TableListCard invoice={cobranca.slice(0, 8)} />
+              <TableListCard invoice={unpaid} />
             </span>
             <span onClick={handleClick("unPaid")} className="container-link">
               Ver Tudo
@@ -140,12 +142,10 @@ export default function Home() {
           <div className="billing-container predicted-invoice-billing-container">
             <span className="container-card-header">
               <h2>Cobranças previstas</h2>
-              <h3 className="predicted-length">
-                {cobranca.slice(0, 5).length}
-              </h3>
+              <h3 className="predicted-length">{all?.length}</h3>
             </span>
             <span className="section-table-card">
-              <TableListCard invoice={cobranca.slice(0, 5)} />
+              <TableListCard invoice={all} />
             </span>
             <span onClick={handleClick("predicted")} className="container-link">
               Ver Tudo
@@ -167,10 +167,10 @@ export default function Home() {
           <div className="billing-container unpaid-invoice-billing-container">
             <span className="container-card-header">
               <h2>Cobranças pagas</h2>
-              <h3 className="paid-length">{cobranca.slice(0, 4).length}</h3>
+              <h3 className="paid-length">{unpaid?.length}</h3>
             </span>
             <span className="section-table-card">
-              <TableListCard invoice={cobranca.slice(0, 4)} />
+              <TableListCard invoice={unpaid} />
             </span>
             <span onClick={handleClick("paid")} className="container-link">
               Ver Tudo
@@ -186,7 +186,7 @@ export default function Home() {
               <img src={iconUnpaid} alt="Clientes inadimplente" />
               <p> Clientes inadimplente</p>
             </span>
-            <h3 className="unpaid-length">{cobranca.slice(0, 8).length}</h3>
+            <h3 className="unpaid-length">{unpaid?.length}</h3>
           </div>
           <div>
             <TableListClients transactions={transactions} />
@@ -202,7 +202,7 @@ export default function Home() {
               <img src={iconPaid} alt="Clientes em dia" />
               <p> Clientes em dia</p>{" "}
             </span>
-            <h3 className="paid-length">{cobranca.slice(0, 4).length}</h3>
+            <h3 className="paid-length">{paid?.length}</h3>
           </div>
           <div>
             <TableListClients transactions={transactions} />

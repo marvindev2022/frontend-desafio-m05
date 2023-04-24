@@ -1,11 +1,12 @@
 import IconeClients from "../../assets/Frame.svg";
 import Close from "../../assets/x.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../service/instance";
 import "./modal-add-clients.styles.css";
 import { getItem } from "../../utils/storage";
 import { notifyError, notifySuccess } from "../../utils/notify";
-import {useNavigate} from "react-router-dom"
+import { formatCpf, formatPhone } from "../../utils/formatters";
+import findAddress from "../../utils/findAdress";
 const defaultForm = {
   name: "",
   email: "",
@@ -24,12 +25,35 @@ export default function ModalAddClients({ modal, setModal }) {
   const [erroCPF, setErroCPF] = useState("");
   const [erroPhone, setErroPhone] = useState("");
   const [form, setForm] = useState(defaultForm);
-  const navigate = useNavigate()
-  function handleChange({ target }) {
+
+  async function handleChange({ target }) {
     setForm((prevForm) => ({
       ...prevForm,
       [target.name]: target.value,
     }));
+    if (target.name === "cep") {
+      let address;
+
+      if (target.value.length === 8) {
+        const {
+          cep,
+          logradouro: street,
+          bairro: neighborhood,
+          localidade: city,
+          uf,
+        } = await findAddress(target.value);
+        address = {
+          cep,
+          logradouro: street,
+          bairro: neighborhood,
+          localidade: city,
+          uf,
+        };
+        if (address) {
+          setForm({ ...form, cep, street, neighborhood, city, uf });
+        }
+      }
+    }
   }
 
   async function handleSubmit() {
@@ -80,8 +104,8 @@ export default function ModalAddClients({ modal, setModal }) {
         {
           name,
           email,
-          cpf,
-          phone,
+          cpf: cpf.replace(/\D/g, ""),
+          phone: phone.replace(/\D/g, ""),
           street,
           complement,
           cep,
@@ -96,9 +120,7 @@ export default function ModalAddClients({ modal, setModal }) {
         }
       );
       if (data === "Cliente cadastrado com sucesso!") {
-        setForm(defaultForm);
         fecharModal();
-        navigate("/")
         return notifySuccess(data);
       }
     } catch (error) {
@@ -154,10 +176,10 @@ export default function ModalAddClients({ modal, setModal }) {
             <input
               onChange={handleChange}
               name="cpf"
-              value={form.cpf}
+              value={formatCpf(form.cpf)}
               type="text"
-              minLength={11}
-              maxLength={11}
+              minLength={14}
+              maxLength={14}
               placeholder="Digite o CPF"
             />
             <span>{erroCPF}</span>
@@ -167,10 +189,10 @@ export default function ModalAddClients({ modal, setModal }) {
             <input
               onChange={handleChange}
               name="phone"
-              value={form.phone}
+              value={formatPhone(form.phone)}
               type="text"
-              minLength={11}
-              maxLength={11}
+              minLength={15}
+              maxLength={15}
               placeholder="Digite o telefone"
             />
             <span>{erroPhone}</span>
@@ -178,9 +200,9 @@ export default function ModalAddClients({ modal, setModal }) {
         </div>
         <label htmlFor="street">Endereço</label>
         <input
-          onChange={handleChange}
           name="street"
           value={form.street}
+          disabled
           type="text"
           placeholder="Digite o endereço"
         />
@@ -199,6 +221,8 @@ export default function ModalAddClients({ modal, setModal }) {
               onChange={handleChange}
               name="cep"
               value={form.cep}
+              minLength={8}
+              maxLength={8}
               type="text"
               placeholder="Digite o CEP"
             />
@@ -206,9 +230,9 @@ export default function ModalAddClients({ modal, setModal }) {
           <div className="column">
             <label htmlFor="neighborhood">Bairro</label>
             <input
-              onChange={handleChange}
               name="neighborhood"
               value={form.neighborhood}
+              disabled
               type="text"
               placeholder="Digite o bairro"
             />
@@ -218,9 +242,9 @@ export default function ModalAddClients({ modal, setModal }) {
           <div className="column">
             <label htmlFor="city">Cidade</label>
             <input
-              onChange={handleChange}
               name="city"
               value={form.city}
+              disabled
               type="text"
               placeholder="Digite o cidade"
             />
@@ -228,9 +252,9 @@ export default function ModalAddClients({ modal, setModal }) {
           <div className="column">
             <label htmlFor="uf">UF</label>
             <input
-              onChange={handleChange}
               name="uf"
               value={form.uf}
+              disabled
               type="text"
               placeholder="Digite o UF"
             />

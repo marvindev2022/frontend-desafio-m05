@@ -29,9 +29,16 @@ button {
 }
 main {
   background-color: #F8F8F9;
-min-height:100vw ;
+min-height:894px ;
 
 }
-.hidden {
+
+ .hidden {
   display: none;
+
+} 
+dialog {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.034);
 }
