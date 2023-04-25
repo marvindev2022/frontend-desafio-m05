@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { formatToDate, formatToMoney } from "../../utils/formatters";
+import { formatToMoney } from "../../utils/formatters";
 import { getItem } from "../../utils/storage";
 import api from "./../../service/instance";
 import exit from "./../../assets/x.svg";
@@ -92,13 +92,15 @@ export default function DialogInvoice({ selectInvoice }) {
             value={formatToMoney(Number(invoice_value))}
             onChange={handleChange}
           />
+
           <label className="label-form">Data de vencimento:</label>
           <input
             name="due_date"
-            type="text"
-            value={due_date ? formatToDate(due_date) : due_date}
+            type="date"
+            value={due_date?.slice(0, 10)}
             onChange={handleChange}
           />
+
           <span className="container-btn-send">
             <button className="btn-send" type="submit">
               Enviar

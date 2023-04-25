@@ -1,5 +1,5 @@
 import "./tableCard.styles.css";
-
+import { formatToMoney } from "../../utils/formatters";
 export default function TableListCard({invoice}) {
   
 
@@ -17,7 +17,7 @@ export default function TableListCard({invoice}) {
             <tr className="tr-tbody" key={transacao.id - Math.random()}>
               <td className="td-name">{transacao.client_name}</td>
               <td className="td-id">{transacao.id}</td>
-              <td className="td-value">{transacao.invoice_value}</td>
+              <td className="td-value">{formatToMoney(Number(transacao.invoice_value))}</td>
             </tr>
           ))}
       </tbody>

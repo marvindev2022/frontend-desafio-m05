@@ -32,15 +32,6 @@ export function validatePassword(password) {
   return passwordRegex.test(password);
 }
 
-export function formatToValue(valueParams) {
-  const value = valueParams.replace(/[\D]+/g, "");
-  const reais = value
-    .substr(0, value.length - 2)
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  const centavos = value.substr(value.length - 2);
-  const formatedValue = `${reais},${centavos}`;
-  return formatedValue;
-}
 export function formatCpf(cpf) {
   cpf = cpf.replace(/\D/g, ""); // remove tudo que não é dígito
   cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
@@ -54,4 +45,9 @@ export function formatPhone(phone) {
   phone = phone.replace(/^(\d{2})(\d)/g, "($1) $2");
   phone = phone.replace(/(\d)(\d{4})$/, "$1-$2");
   return phone;
+}
+
+export function isValidEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
 }

@@ -1,5 +1,5 @@
 import "./TableListClients.styles.css";
-
+import { formatToDate, formatToMoney } from "./../../utils/formatters";
 export default function TableListClients({ transactions }) {
   return (
     <table className="table-list-clients">
@@ -11,15 +11,18 @@ export default function TableListClients({ transactions }) {
         </tr>
       </thead>
       <tbody className="">
-        {transactions.slice(0, 5).map((transacao) => (
+        {transactions?.slice(0, 5).map((transacao) => (
           <tr className="tr-tbody-clients" key={Math.random() * 1000}>
             <td className="td-name-clients">{transacao.client_name}</td>
-            <td className="td-id-clients">{transacao.due_date}</td>
-            <td className="td-value-clients">{transacao.invoice_value}</td>
+            <td className="td-id-clients">
+              {formatToDate(transacao.due_date)}
+            </td>
+            <td className="td-value-clients">
+              {formatToMoney(Number(transacao.invoice_value))}
+            </td>
           </tr>
         ))}
       </tbody>
     </table>
   );
 }
-

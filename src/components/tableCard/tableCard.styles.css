@@ -1,4 +1,4 @@
-/* style.css */
+ 
 
 .table-list-card {
   width: 360px;
@@ -22,6 +22,232 @@
 
   border-top: 1px solid #eff0f7;
   border-bottom: 1px solid #eff0f7;
+}
+:root {
+  --primary-color: #3f3f55;
+  --secondary-color: #ffffff;
+  --paid-color: #eef6f6;
+  --predicted-color: #ffefef;
+  --unpaid-color: #fcf6dc;
+  --card-width: 360px;
+  --card-height: 111px;
+  --card-radius: 30px;
+}
+
+.home-main {
+  position: relative;
+  height: calc(100vh - 400px); 
+}
+
+.home-main section {
+  display: flex;
+  height: 580px;
+
+  padding: 19px 0 0 82px;
+  flex-direction: row;
+  gap: 32px;
+  background-color: #f8f8f9;
+}
+
+.invoice-section h1,
+h2 {
+  height: 23px;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.invoice-section h1 {
+  margin-left: -25px;
+}
+
+.invoice-section strong {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.paid-invoice,
+.predicted-invoice,
+.unpaid-invoice {
+  padding: 23px 40px;
+  gap: 10px;
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: var(--card-radius);
+  flex: none;
+  flex-grow: 0;
+}
+
+.paid-invoice {
+  background-color: var(--paid-color);
+}
+
+.predicted-invoice {
+  background-color: var(--predicted-color);
+}
+
+.unpaid-invoice {
+  background-color: var(--unpaid-color);
+}
+
+.image-card {
+  width: 32px;
+  height: 33px;
+  margin-top: 10px;
+}
+
+.invoice-section span {
+  width: 191px;
+  height: 195px;
+}
+
+.paid-invoice-container,
+.predicted-invoice-container,
+.unpaid-invoice-container {
+  display: flex;
+  justify-content: center;
+  gap: 46px;
+  width: 300px;
+  height: 100px;
+  
+}
+
+.billing-container {
+  display: flex;
+  flex-direction: column;
+  width: var(--card-width);
+  height: 400px;
+  margin-left: -40px;
+  position: relative;
+  background: #ffffff;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+
+}
+
+.container-card-header {
+  display: flex;
+  justify-content: space-around;
+  min-width: var(--card-width);
+  max-height: 58px;
+  background: var(--secondary-color);
+  background-color: #eef6f600;
+  padding: 20px 18px 20px 56px;
+}
+
+.container-card-header h2 {
+  width: 188px;
+  height: 23px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 130%;
+  text-align: center;
+}
+.unpaid-length,
+.paid-length,
+.predicted-length {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0px 15px;
+
+  width: 52px;
+  height: 21px;
+
+  border-radius: 8px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 130%;
+  
+}
+.unpaid-length {
+  background: #ffefef;
+  color: #971d1d;
+}
+.predicted-length {
+  background: #fcf6dc;
+  color: #c5a605;
+}
+.paid-length {
+  background: #eef6f6;
+  color: #1fa7af;
+}
+
+.container-clients-list {
+  border: #c5a605;
+  width: 900px;
+}
+
+.container-link {
+  min-width: 360px;
+  max-height: 48px;
+  position: absolute;
+  bottom: 0;
+  background: #ffffff00;
+  padding-top: 10px;
+  text-align: center;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+
+  text-decoration-line: underline;
+
+  color: #da0175;
+}
+.section-clients-home {
+  display: flex;
+  background-color: #f8f8f900;
+  background-color: #3f3f55;
+}
+
+.container-details {
+  display: flex;
+  gap: 16px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 130%;
+
+  color: #3f3f55;
+}
+
+.container-clients-list-transactions {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 30px 10px 34px;
+  width: 556px;
+  height: 58px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(172, 217, 197, 0.25);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 .tr-container {

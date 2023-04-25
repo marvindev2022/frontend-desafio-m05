@@ -10,7 +10,7 @@ import "./tableInvoiced.styles.css";
 import { useState } from "react";
 import ModalAddClients from "../Modal-add-Cliens/Modal-add-clients";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
-import { formatToDate, formatToMoney } from "../../utils/formatters";
+import {  formatToMoney } from "../../utils/formatters";
 import DialogInvoice from "../DialogInvoice/DialogInvoice";
 import { verifyDue } from "../../utils/verifyDue";
 
@@ -73,7 +73,7 @@ export default function TableInvoiced() {
                   {formatToMoney(Number(charge.invoice_value))}
                 </td>
                 <td className="invoices-date">
-                  {formatToDate(charge.due_date)}
+                  {charge.due_date?.slice(0, 10)}
                 </td>
                 <td className="invoices-state">
                   <span

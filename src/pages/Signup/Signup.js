@@ -10,7 +10,8 @@ import "./signup.styles.css";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import api from "../../service/instance";
 import { clear, getItem, setItem } from "../../utils/storage";
-import { validatePassword } from "../../utils/formatters";
+import { validatePassword,isValidEmail } from "../../utils/formatters";
+
 
 const phaseStorage = "data";
 
@@ -53,7 +54,6 @@ export default function SignUp() {
       notifyError(`${error.response.data}`);
       setPhase("data");
       clear();
-      navigate("/sign-up");
     }
   };
   return (
@@ -125,7 +125,7 @@ export default function SignUp() {
           {phase === "data" && (
             <input
               name="email"
-              value={form.email}
+              value={form.email.trim()}
               onChange={handleChange}
               type="text"
               placeholder="Digite seu e-mail"
@@ -165,7 +165,9 @@ export default function SignUp() {
                   return notifyError("Preencha todos os campos!");
                 } else if (form.email === "") {
                   return notifyError("Email deve ser preenchido!");
-                } else if (form.name === "") {
+                } else if(!isValidEmail(form.email)){
+                  return notifyError("Email no formato invalido!")
+                }else if (form.name === "") {
                   return notifyError("Nome deve ser preenchido!");
                 } else {
                   setItem("phase", "password");

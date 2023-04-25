@@ -1,6 +1,7 @@
 import api from "./../service/instance";
 import { getItem } from "./storage";
 import { notifyError } from "./notify";
+import { verifyDue } from "./verifyDue";
 
 export async function loadClients() {
   try {
@@ -25,13 +26,21 @@ export async function loadInvoices() {
       },
     });
 
-    const paidInvoices = data.filter((invoice) => invoice.status === "pago");
+    const paidInvoices = data.filter((invoice) => {
+      let array;
+      if (invoice.status === "pago") {
+        array = invoice;
+      }
+      return array;
+    });
     const unpaidInvoices = data.filter(
-      (invoice) => invoice.status === "pendente"
+      (invoice) =>
+        invoice.status === "pendente" && verifyDue(invoice.due_date) === "due"
     );
 
     return {
-      all: data,
+      all:data,
+      predicted: data.filter((invoice) => invoice.status === "pendente"),
       paid: paidInvoices,
       unpaid: unpaidInvoices,
     };

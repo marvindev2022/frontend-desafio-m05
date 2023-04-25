@@ -9,11 +9,11 @@
 .table-list-clients {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 24px 32px;
   width: 556px;
   height: 291px;
   border-radius: 0px;
+  
 }
 
 .container-viewall {
@@ -53,8 +53,8 @@
 .td-name-clients,
 .td-id-clients,
 .td-value-clients {
-  width: 120px;
-  height: 40px;
+  max-width: 158px;
+  max-height: 20px;
   text-align: start;
   font-weight: 400;
   font-size: 14px;
@@ -65,7 +65,11 @@
   order: 0;
   flex-grow: 0;
   border-bottom: 1px solid #eff0f7;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
 .td-name-clients,
 .td-id-clients {
   width: 160px;
