@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ClientsContext } from "./../../context/clientsContext";
 import { getItem, setItem } from "../../utils/storage";
 import homePink from "../../assets/home-pink.svg";
@@ -8,6 +8,7 @@ import home from "../../assets/home.svg";
 import clients from "../../assets/clients.svg";
 import charges from "../../assets/charges.svg";
 import "./menu.styles.css";
+import useClientsProvider from "../../hooks/useClientsProvider";
 
 const menuItems = [
   { id: "home", image: home, activeImage: homePink },
@@ -16,14 +17,20 @@ const menuItems = [
 ];
 
 export default function Menu({ setRender }) {
+  const {setDetalhandoCliente} = useClientsProvider()
   const { setSectionSelect } = useContext(ClientsContext);
   const activeItemId = getItem("sectionSelected") || "home";
-
   const handleItemClick = (itemId) => {
+
+    setItem("detailClient", false);
+    setDetalhandoCliente((prevState)=>!prevState)
     setItem("sectionSelected", itemId);
     setSectionSelect(itemId);
     setRender((prevRender) => !prevRender);
   };
+  useEffect(() => {
+    setRender((prevRender) => !prevRender);
+  }, [setRender]);
 
   return (
     <menu className="menu-container">

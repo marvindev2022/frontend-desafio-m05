@@ -7,7 +7,14 @@ import "./dialogInvoices.css";
 import { notifySuccess } from "../../utils/notify";
 
 export default function DialogInvoice({ selectInvoice }) {
-  const [formInvoice, setFormInvoice] = useState([]);
+  const [formInvoice, setFormInvoice] = useState({
+    description: "",
+    status: "",
+    invoice_value: "",
+    due_date: "",
+    client_name: "",
+    client_email: "",
+  });
   const {
     id,
     description,

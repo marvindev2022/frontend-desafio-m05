@@ -23,7 +23,6 @@ export default function TableInvoiced() {
   }
 
   function handleDelete() {}
-
   return (
     <>
       <DialogInvoice selectInvoice={formInvoice} />
@@ -62,7 +61,7 @@ export default function TableInvoiced() {
           </tr>
         </thead>
         <tbody>
-          {invoicesList.all
+          {invoicesList?.all
             ?.sort((a, b) => b.id - a.id)
             .slice(0, 10)
             .map((charge, index) => (
@@ -84,7 +83,7 @@ export default function TableInvoiced() {
                     }
                   >
                     {charge.status === "pago"
-                      ? "pago"
+                      ? "Pago"
                       : verifyDue(charge.due_date) === "due"
                       ? "Vencido"
                       : "Pendente"}

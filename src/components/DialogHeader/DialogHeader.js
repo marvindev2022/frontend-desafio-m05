@@ -1,9 +1,8 @@
-
 import { useNavigate } from "react-router-dom";
 import { clear } from "../../utils/storage";
 import "./dialogHeader.styles.css";
 
-export default function DialogHeader({ edit, exit }) {
+export default function DialogHeader({ edit, exit, }) {
   const navigate = useNavigate();
 
   function HandleEdit() {
@@ -15,6 +14,7 @@ export default function DialogHeader({ edit, exit }) {
     clear();
     navigate("/signin");
   }
+  
 
   return (
     <dialog  className="dialog-user-options">

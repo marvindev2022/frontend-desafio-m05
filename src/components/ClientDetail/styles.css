@@ -1,0 +1,167 @@
+.ClientDetail {
+  width: calc(1440px - 108px);
+  height: 700px;
+  padding: 44px 110px;
+  margin-bottom: 24px;
+  font-family: "Nunito", sans-serif;
+}
+
+.ClientDetail h2 {
+  color: #000000;
+}
+
+.info {
+  width: 100%;
+  height: 300px;
+  padding: 24px;
+  margin-bottom: 24px;
+  gap: 40px;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #fff;
+}
+
+.info-row {
+  gap: 100px;
+
+  display: flex;
+}
+
+.justify {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.justify button {
+  width: 250px;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #0e8750;
+  background-color: #f8f8f9;
+  border: solid 1px #dedee9;
+}
+
+.gap {
+  gap: 16px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom {
+  margin-bottom: 16px;
+}
+
+.info-charge-header {
+  width: 100%;
+  height: 44px;
+  padding-left: 16px;
+  margin-top: 24px;
+
+  display: flex;
+}
+
+.pink {
+  background-color: #da0175 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.ht {
+  height: 26px;
+  gap: 8px;
+
+  display: flex;
+  align-items: center;
+}
+
+.id {
+  width: 160px;
+}
+
+.dv {
+  width: 198px;
+}
+
+.v {
+  width: 147px;
+}
+
+.stt {
+  width: 145px;
+}
+
+.dcp {
+  width: calc(100% - 650px);
+}
+
+.info-charge-list {
+  width: 100%;
+  height: 64px;
+  padding-left: 16px;
+  border-top: solid 1px #dedee9;
+
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+}
+
+.info-charge {
+  width: 100%;
+  height: 320px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #fff;
+}
+
+.vencido,
+.pendente,
+.pago {
+  font-weight: 700;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.vencido {
+  width: 80px;
+
+  background-color: #ffefef;
+  color: red;
+}
+
+.pendente {
+  width: 90px;
+
+  background-color: #fcf6dc;
+  color: #c5a605;
+}
+
+.pago {
+  width: 60px;
+
+  background-color: #eef6f6;
+  color: #1fa7af;
+}
+
+.gap-list {
+  gap: 24px;
+
+  display: flex;
+}

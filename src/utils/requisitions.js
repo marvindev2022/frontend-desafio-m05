@@ -17,6 +17,21 @@ export async function loadClients() {
     notifyError(error.response.data);
   }
 }
+export async function loadDetailClient(clientId) {
+  try {
+    if (clientId > 0) {
+      const { data } = await api.get(`/client/${clientId}`, {
+        headers: {
+          authorization: `Bearer ${getItem("token")}`,
+        },
+      });
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+    notifyError(error.response.data);
+  }
+}
 
 export async function loadInvoices() {
   try {
@@ -39,7 +54,7 @@ export async function loadInvoices() {
     );
 
     return {
-      all:data,
+      all: data,
       predicted: data.filter((invoice) => invoice.status === "pendente"),
       paid: paidInvoices,
       unpaid: unpaidInvoices,

@@ -1,15 +1,15 @@
 export function setItem(key, value) {
-  localStorage.setItem(key, value);
+  sessionStorage.setItem(key, value);
 }
 
 export function getItem(key) {
-  return localStorage.getItem(key);
+  return sessionStorage.getItem(key);
 }
 
 export function clear() {
-  localStorage.clear();
+  sessionStorage.clear();
 }
 
 export function removeItem(key) {
-  localStorage.removeItem(key);
+  sessionStorage.removeItem(key);
 }

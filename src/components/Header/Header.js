@@ -1,4 +1,4 @@
-import { getItem } from "../../utils/storage";
+import { getItem,  setItem } from "../../utils/storage";
 import icon from "../../assets/Icon.svg";
 import exit from "../../assets/Frame 7921.svg";
 import edit from "../../assets/Botão- Editar- Tabela.svg";
@@ -8,6 +8,9 @@ import DialogHeader from "../DialogHeader/DialogHeader";
 
 export default function Header() {
   const abrevName = getInitials(getItem("userName"));
+  function handleClick() {
+    setItem("sectionSelected", false);
+  }
 
   return (
     <header className="header">
@@ -15,8 +18,11 @@ export default function Header() {
         <h1 className="header-title">Resumo das cobranças</h1>
       )}
       {getItem("sectionSelected") === "clients" && (
-        <h1 className="header-title-clients">Clientes</h1>
+        <h1 onClick={handleClick} className="header-title-clients">
+          Clientes
+        </h1>
       )}
+     
       {getItem("sectionSelected") === "charges" && (
         <h1 className="header-title-clients">Cobranças</h1>
       )}

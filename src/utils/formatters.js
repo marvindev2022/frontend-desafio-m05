@@ -51,3 +51,14 @@ export function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }
+
+export function formatCep(cep) {
+  const cepRegex = /^(\d{5})(\d{3})$/;
+  const match = cepRegex.exec(cep);
+
+  if (!match) {
+    return cep;
+  }
+
+  return `${match[1]}-${match[2]}`;
+}

@@ -12,13 +12,35 @@
 .header-title-clients {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   position: absolute;
   top:82px;
   left: 220px;
   color: #0e8750;
+}
+.header-title-clients-detail {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  position: absolute;
+  top:82px;
+  left: 310px;
+  color:#747488
+}
+.header-title-clients-p{
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  position: absolute;
+  top:82px;
+  left: 290px;
+  color:#747488
 }
 .header-title {
   width: 311px;
