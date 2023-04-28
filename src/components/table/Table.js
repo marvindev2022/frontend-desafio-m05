@@ -11,15 +11,16 @@ import { formatCpf, formatPhone } from "../../utils/formatters";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import ClientDetail from "./../../components/ClientDetail/ClientDetail";
 import { setItem } from "../../utils/storage";
+import useInvoicesProvider from "../../../../frontend/src/hooks/Invoices/useInvoicesProvider";
+import { verifyDue } from "../../utils/verifyDue";
 export default function Table({ render, setRender }) {
   const { clientsList, detalhandoCliente, setDetalhandoCliente } =
     useClientsProvider();
-
+  const { invoicesList, setInvoicesList } = useInvoicesProvider();
   const [idClient, setIdClient] = useState(0);
   const [modalCharge, setModalCharge] = useState(false);
   const [modal, setModal] = useState(false);
   const listCharge = clientsList.sort((a, b) => b.id - a.id);
-  
   return (
     <>
       {detalhandoCliente ? (
@@ -80,12 +81,30 @@ export default function Table({ render, setRender }) {
                   <td className="status">
                     <span
                       className={`${
-                        (charge.status ?? "Em dia") === "Inadimplente"
+                        invoicesList?.all
+                          ?.filter(
+                            (invoice) => invoice.client_email === charge.email
+                          )
+                          .filter(
+                            (invoice) =>
+                              invoice.client_email === charge.email &&
+                              verifyDue(invoice.due_date) === "due"
+                          )
                           ? "pendent-state"
                           : "paid-state"
                       }`}
                     >
-                      {charge.status ?? "Em Dia"}
+                      {invoicesList?.all
+                        ?.filter(
+                          (invoice) => invoice.client_email === charge.email
+                        )
+                        .filter(
+                          (invoice) =>
+                            invoice.client_email === charge.email &&
+                            verifyDue(invoice.due_date) === "due"
+                        )
+                        ? "Inadimplente"
+                        : "Em dia "}
                     </span>
                   </td>
                   <td className="create-charge">
