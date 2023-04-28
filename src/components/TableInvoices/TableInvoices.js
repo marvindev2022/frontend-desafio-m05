@@ -60,10 +60,9 @@ export default function TableInvoiced() {
             <th className="edit-charge-th-invoices"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="tbody-invoices">
           {invoicesList?.all
             ?.sort((a, b) => b.id - a.id)
-            .slice(0, 10)
             .map((charge, index) => (
               <tr key={index + 1} className="charge-specific-invoices">
                 <td className="invoices-client">{charge.client_name}</td>
@@ -93,6 +92,7 @@ export default function TableInvoiced() {
                 <td className="edit-charge-invoices">
                   <span className="container-alter-icons">
                     <img
+                      className="btn-edit"
                       onClick={() => {
                         setFormInvoice(charge);
                         handleClick();
@@ -101,6 +101,7 @@ export default function TableInvoiced() {
                       alt=""
                     />
                     <img
+                      className="btn-delete"
                       onClick={() => {
                         document
                           .getElementById(`${charge.id}`)

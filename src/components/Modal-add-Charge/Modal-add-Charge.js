@@ -4,12 +4,15 @@ import File from "../../assets/file.svg";
 import Close from "../../assets/x.svg";
 import { useState } from "react";
 import InputMask from "react-input-mask";
-import api from "./../../service/instance"
+import api from "./../../service/instance";
+import { formatToDate, formatToMoney } from "../../utils/formatters";
+import { getItem } from "../../utils/storage";
+import { notifyError, notifySuccess } from "../../utils/notify";
 export default function ModalAddCharge({
+  idClient,
   setIdClient,
   setModalCharge,
 }) {
-  const [clientName, setClientName] = useState("");
   const [erroDate, setErroDate] = useState("");
   const [erroValue, setErroValue] = useState("");
   const [erroDescription, setErroDescription] = useState("");
@@ -19,15 +22,13 @@ export default function ModalAddCharge({
     date: "",
     value: "",
   });
-
   function fecharModal() {
     setForm({
       description: "",
       date: "",
       value: "",
     });
-    setClientName("");
-    setIdClient(0);
+    setIdClient({ id: 0, name: "" });
 
     setModalCharge(false);
   }
@@ -39,38 +40,54 @@ export default function ModalAddCharge({
     }));
   }
 
- async function handleSubmit() {
+  async function handleSubmit() {
     if (!form.description || !form.date || !form.value) {
       if (!form.description) {
-        setErroDescription("Este campo deve ser preenchido");
-        
+       return notifyError("Descrição deve ser preenchido");
       } else {
         setErroDescription("");
       }
       if (!form.date) {
-        setErroDate("Este campo deve ser preenchido");
-        
+      return  notifyError("Data deve ser preenchido");
       } else {
         setErroDate("");
       }
       if (!form.value) {
-        setErroValue("Este campo deve ser preenchido");
-        
+       return notifyError("Valor deve ser preenchido");
       } else {
         setErroValue("");
       }
-      
-     await api.post("/",{},{
-    headers:{
-      authorization:`bearer token`
     }
-  })
-    }
+      let status = pay === true ? "pago" : "pendente";
 
-    // let status = pay === true ? "pago" : "pendente";
+      try {
+        const {data} = await api.post(
+          "/invoice",
+          {
+            description: form.description,
+            status,
+            invoice_value: form.value,
+            due_date: form.date,
+            client_id: idClient.id,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${getItem("token")}`,
+            },
+          }
+        );
+        if(data){
+         setForm({
+           description: "",
+           date: "",
+           value: "",
+         });
+         setIdClient({ id: 0, name: "" });
 
-    try {
-    } catch (error) {}
+         setModalCharge(false);
+         notifySuccess(data)
+      }
+      } catch (error) {}
   }
 
   return (
@@ -81,12 +98,13 @@ export default function ModalAddCharge({
           Cadastro de cobranças
         </h1>
         <label>Nome*</label>
-        <span className="name">{clientName}</span>
+        <span className="name">{idClient.name}</span>
         <label htmlFor="description">Descrição*</label>
-        <input
+        <textarea
           name="description"
           value={form.description}
           className="descricao"
+          onChange={handleChange}
           type="text"
           placeholder="Digite a descrição"
         />
@@ -94,22 +112,21 @@ export default function ModalAddCharge({
         <div className="divider-form">
           <div className="column">
             <label htmlFor="date">Vencimento:*</label>
-            <InputMask
-              mask={"99/99/9999"}
+            <input
               onChange={handleChange}
               name="date"
-              value={form.date}
-              type="text"
+              value={form.date?.slice(0, 10)}
+              type="date"
               placeholder="Data de Vencimento"
-            ></InputMask>
+            />
             <span>{erroDate}</span>
           </div>
           <div className="column">
             <label htmlFor="value">Valor:*</label>
             <input
               onChange={handleChange}
-              name="phone"
-              value={form.value}
+              name="value"
+              value={formatToMoney(form.value)}
               type="text"
               placeholder="Digite o valor"
             />

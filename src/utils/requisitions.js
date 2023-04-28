@@ -17,6 +17,7 @@ export async function loadClients() {
     notifyError(error.response.data);
   }
 }
+
 export async function loadDetailClient(clientId) {
   try {
     if (clientId > 0) {
@@ -28,7 +29,6 @@ export async function loadDetailClient(clientId) {
       return data;
     }
   } catch (error) {
-    console.log(error);
     notifyError(error.response.data);
   }
 }

@@ -8,17 +8,17 @@ import DialogHeader from "../DialogHeader/DialogHeader";
 
 export default function Header() {
   const abrevName = getInitials(getItem("userName"));
-  function handleClick() {
-    setItem("sectionSelected", false);
-  }
+ 
+  
+
 
   return (
     <header className="header">
       {getItem("sectionSelected") === "home" && (
         <h1 className="header-title">Resumo das cobranças</h1>
       )}
-      {getItem("sectionSelected") === "clients" && (
-        <h1 onClick={handleClick} className="header-title-clients">
+      {(getItem("sectionSelected") === "clients" )&& (
+        <h1  className="header-title-clients">
           Clientes
         </h1>
       )}

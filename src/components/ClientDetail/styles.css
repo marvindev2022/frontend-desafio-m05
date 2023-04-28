@@ -9,7 +9,15 @@
 .ClientDetail h2 {
   color: #000000;
 }
-
+.ClientDetail table {
+  display: flex;
+  flex-direction: column;
+  padding: 23px 23px 23px 40px;
+  background: #ffffff;
+  border-radius: 30px;
+  min-width: 1113px;
+  margin-left: -26px;
+}
 .info {
   width: 100%;
   height: 300px;
@@ -85,26 +93,6 @@
   align-items: center;
 }
 
-.id {
-  width: 160px;
-}
-
-.dv {
-  width: 198px;
-}
-
-.v {
-  width: 147px;
-}
-
-.stt {
-  width: 145px;
-}
-
-.dcp {
-  width: calc(100% - 650px);
-}
-
 .info-charge-list {
   width: 100%;
   height: 64px;
@@ -164,4 +152,51 @@
   gap: 24px;
 
   display: flex;
+}
+
+.header-charge-invoices {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.header-charge-invoices th,
+.charge-specific-invoices td {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 123px;
+  height: 60px;
+  box-sizing: border-box;
+  padding: 5px 20px;
+
+  text-align: start;
+}
+
+.charge-specific-invoices {
+  display: flex;
+  height: 50px;
+  border-top: solid 0.1rem #eff0f6;
+  color: #747488;
+}
+
+.charge-specific-invoices td {
+  display: flex;
+  flex-direction: row;
+  border-top: solid 0.1rem #eff0f6;
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  height: 50px;
+  color: #6e6e85;
+}
+.tbody-container {
+  height:250px ;
+  overflow-x: auto;
 }

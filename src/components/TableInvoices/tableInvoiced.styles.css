@@ -108,3 +108,8 @@
   background-color: #ffefef;
   color: #971d1d;
 }
+.tbody-invoices {
+  max-height: 500px;
+  overflow-x: auto;
+
+}

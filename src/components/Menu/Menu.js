@@ -16,7 +16,7 @@ const menuItems = [
   { id: "charges", image: charges, activeImage: chargesPink },
 ];
 
-export default function Menu({ setRender }) {
+export default function Menu({render, setRender }) {
   const {setDetalhandoCliente} = useClientsProvider()
   const { setSectionSelect } = useContext(ClientsContext);
   const activeItemId = getItem("sectionSelected") || "home";
@@ -30,7 +30,7 @@ export default function Menu({ setRender }) {
   };
   useEffect(() => {
     setRender((prevRender) => !prevRender);
-  }, [setRender]);
+  }, [render ,setRender]);
 
   return (
     <menu className="menu-container">

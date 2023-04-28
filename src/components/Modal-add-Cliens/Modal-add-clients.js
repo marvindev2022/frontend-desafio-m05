@@ -1,6 +1,6 @@
 import IconeClients from "../../assets/Frame.svg";
 import Close from "../../assets/x.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import api from "../../service/instance";
 import "./modal-add-clients.styles.css";
 import { getItem } from "../../utils/storage";
@@ -25,7 +25,6 @@ export default function ModalAddClients({ modal, setModal }) {
   const [erroCPF, setErroCPF] = useState("");
   const [erroPhone, setErroPhone] = useState("");
   const [form, setForm] = useState(defaultForm);
-
   async function handleChange({ target }) {
     setForm((prevForm) => ({
       ...prevForm,

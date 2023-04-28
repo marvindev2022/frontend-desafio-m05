@@ -31,7 +31,7 @@ export default function DialogInvoice({ selectInvoice }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    if (!description || !status || !invoice_value || !due_date) return;
     const { data } = await api.put(
       `/invoice/${id}`,
       {
@@ -46,6 +46,7 @@ export default function DialogInvoice({ selectInvoice }) {
         },
       }
     );
+   
     notifySuccess(data);
     document.querySelector(".dialog-invoices").close();
   }
@@ -96,7 +97,7 @@ export default function DialogInvoice({ selectInvoice }) {
           <input
             name="invoice_value"
             type="text"
-            value={formatToMoney(Number(invoice_value))}
+            value={invoice_value}
             onChange={handleChange}
           />
 

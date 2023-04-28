@@ -41,3 +41,6 @@ dialog {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.034);
 }
+.container-link ,.btn-exit,.btn-edit,.btn-delete,.client,.container-viewall {
+  cursor:pointer
+}

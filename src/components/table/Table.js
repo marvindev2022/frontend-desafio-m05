@@ -10,8 +10,8 @@ import useClientsProvider from "../../hooks/useClientsProvider";
 import { formatCpf, formatPhone } from "../../utils/formatters";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import ClientDetail from "./../../components/ClientDetail/ClientDetail";
-import { removeItem, setItem } from "../../utils/storage";
-export default function Table({ setRender }) {
+import { setItem } from "../../utils/storage";
+export default function Table({ render, setRender }) {
   const { clientsList, detalhandoCliente, setDetalhandoCliente } =
     useClientsProvider();
 
@@ -19,15 +19,15 @@ export default function Table({ setRender }) {
   const [modalCharge, setModalCharge] = useState(false);
   const [modal, setModal] = useState(false);
   const listCharge = clientsList.sort((a, b) => b.id - a.id);
-
-  useEffect(() => {
-    setRender((prevRender) => !prevRender);
-    removeItem("detailClient");
-  }, [setRender]);
+  
   return (
     <>
       {detalhandoCliente ? (
-        <ClientDetail setRender={setRender} idClient={idClient} />
+        <ClientDetail
+          render={render}
+          setRender={setRender}
+          idClient={idClient}
+        />
       ) : (
         <>
           <div className="header-clients">
@@ -92,7 +92,7 @@ export default function Table({ setRender }) {
                     <img
                       onClick={() => {
                         setModalCharge(!modalCharge);
-                        setIdClient(charge.id);
+                        setIdClient({ name: charge.name, id: charge.id });
                       }}
                       src={Charge}
                       alt=""

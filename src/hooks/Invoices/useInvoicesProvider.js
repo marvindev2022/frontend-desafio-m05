@@ -12,7 +12,7 @@ export default function useInvoicesProvider() {
   const [formInvoice, setFormInvoice] = useState(defaultForm);
   const [sectionSelect, setSectionSelect] = useState("home");
   const [invoicesList, setInvoicesList] = useState([]);
-  const [render, setRender] = useState(false);
+  const [renderInvoices, setRenderInvoices] = useState(false);
 
   useEffect(() => {
     async function fetchInvoices() {
@@ -20,11 +20,11 @@ export default function useInvoicesProvider() {
       setInvoicesList(allInvoice);
     }
     fetchInvoices();
-  }, [formInvoice, render]);
+  }, [formInvoice, renderInvoices]);
 
   return {
-    render,
-    setRender,
+    renderInvoices,
+    setRenderInvoices,
     formInvoice,
     setFormInvoice,
     invoicesList,

@@ -7,7 +7,11 @@ export function formatToDate(date) {
 }
 
 export function formatToMoney(value) {
-  return value?.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
+
+    return value?.toLocaleString("pt-br", {
+      style: "currency",
+      currency: "BRL",
+    });
 }
 
 export function getInitials(fullName) {
@@ -33,17 +37,17 @@ export function validatePassword(password) {
 }
 
 export function formatCpf(cpf) {
-  cpf = cpf.replace(/\D/g, ""); // remove tudo que não é dígito
-  cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-  cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-  cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  cpf = cpf?.replace(/\D/g, ""); // remove tudo que não é dígito
+  cpf = cpf?.replace(/(\d{3})(\d)/, "$1.$2");
+  cpf = cpf?.replace(/(\d{3})(\d)/, "$1.$2");
+  cpf = cpf?.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   return cpf;
 }
 
 export function formatPhone(phone) {
-  phone = phone.replace(/\D/g, "");
-  phone = phone.replace(/^(\d{2})(\d)/g, "($1) $2");
-  phone = phone.replace(/(\d)(\d{4})$/, "$1-$2");
+  phone = phone?.replace(/\D/g, "");
+  phone = phone?.replace(/^(\d{2})(\d)/g, "($1) $2");
+  phone = phone?.replace(/(\d)(\d{4})$/, "$1-$2");
   return phone;
 }
 

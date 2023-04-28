@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getItem, setItem } from "./../../utils/storage";
 import { ClientsListProvider } from "./../../context/clientsContext";
 import { InvoicesListProvider } from "./../../context/invoices/invoicesContext";
@@ -8,20 +8,24 @@ import TableInvoices from "../../components/TableInvoices/TableInvoices";
 import Menu from "./../../components/Menu/Menu";
 import Home from "./../../components/Home/home";
 import DialgUser from "../../components/DialogUser/DialogUser";
-import "./main.tyles.css.css";
+import "./main.styles.css";
+import useClientsProvider from "../../hooks/useClientsProvider";
+import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 
 export default function Main() {
   setItem("sectionSelected", getItem("sectionSelected") ?? "home");
-  const [render, setRender] = useState(false);
+  const { render, setRender } = useClientsProvider();
+  const { renderInvoices, setRenderInvoices } = useInvoicesProvider();
   useEffect(() => {
     setRender(true);
-  }, [render]);
+    setRenderInvoices(true)
+  }, [render, renderInvoices]);
   return (
     <ClientsListProvider>
       <InvoicesListProvider>
         <main>
           <Header render={render} setRender={setRender} />
-          <Menu setRender={setRender} />
+          <Menu render={render} setRender={setRender} />
           <section className="section-main">
             {getItem("sectionSelected") === "home" ? <Home /> : <></>}
             {getItem("sectionSelected") === "clients" ? (
