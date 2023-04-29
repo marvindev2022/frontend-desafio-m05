@@ -13,14 +13,24 @@ import ClientDetail from "./../../components/ClientDetail/ClientDetail";
 import { setItem } from "../../utils/storage";
 import useInvoicesProvider from "../../../../frontend/src/hooks/Invoices/useInvoicesProvider";
 import { verifyDue } from "../../utils/verifyDue";
-export default function Table({ render, setRender }) {
-  const { clientsList, detalhandoCliente, setDetalhandoCliente } =
+import { loadClients } from "../../utils/requisitions";
+export default function Table() {
+  const { clientsList,setClientsList, detalhandoCliente, setDetalhandoCliente } =
     useClientsProvider();
-  const { invoicesList, setInvoicesList } = useInvoicesProvider();
+  const { invoicesList } = useInvoicesProvider();
   const [idClient, setIdClient] = useState(0);
   const [modalCharge, setModalCharge] = useState(false);
   const [modal, setModal] = useState(false);
+  const [render, setRender] = useState(false);
   const listCharge = clientsList.sort((a, b) => b.id - a.id);
+
+  useEffect(()=>{
+     async function fecthClientList(){
+          const newClientsList = await loadClients()
+          setClientsList(newClientsList)
+        }
+        fecthClientList()
+  },[render,setClientsList])
   return (
     <>
       {detalhandoCliente ? (
@@ -123,7 +133,14 @@ export default function Table({ render, setRender }) {
           </table>
         </>
       )}
-      {modal && <ModalAddClients setModal={setModal} modal={modal} />}
+      {modal && (
+        <ModalAddClients
+          render={render}
+          setRender={setRender}
+          setModal={setModal}
+          modal={modal}
+        />
+      )}
       {modalCharge && (
         <ModalAddCharge
           idClient={idClient}

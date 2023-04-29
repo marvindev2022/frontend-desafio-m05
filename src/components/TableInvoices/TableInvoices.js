@@ -7,26 +7,58 @@ import Group from "../../assets/group.svg";
 import btnEdit from "../../assets/Botão- Editar- Tabela.svg";
 import btnDelete from "../../assets/Botão- Excluir- Tabela.svg";
 import "./tableInvoiced.styles.css";
-import { useState } from "react";
-import ModalAddClients from "../Modal-add-Cliens/Modal-add-clients";
+import { useEffect, useState } from "react";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
-import {  formatToMoney } from "../../utils/formatters";
+import { formatToMoney } from "../../utils/formatters";
 import DialogInvoice from "../DialogInvoice/DialogInvoice";
 import { verifyDue } from "../../utils/verifyDue";
+import api from "./../../service/instance";
+import { notifyError, notifySuccess } from "../../utils/notify";
+import { getItem } from "../../utils/storage";
+import { loadInvoices } from "../../utils/requisitions";
 
 export default function TableInvoiced() {
-  const { invoicesList, formInvoice, setFormInvoice } = useInvoicesProvider();
-  const [modal, setModal] = useState(false);
+  const { invoicesList, setInvoicesList, formInvoice, setFormInvoice } =
+    useInvoicesProvider();
+  const [render, setRender] = useState(false);
 
   function handleClick() {
     document.querySelector(".dialog-invoices")?.showModal();
   }
 
-  function handleDelete() {}
+  async function handleDelete(id, client_id) {
+    try {
+      const { data } = await api.delete(
+        `invoice/${id}?client_id=${client_id}`,
+        {
+          headers: {
+            authorization: `Bearer ${getItem("token")}`,
+          },
+        }
+      );
+      setRender(!render);
+      document.getElementById(`${id}`).classList.add("hidden");
+      notifySuccess(data);
+    } catch (error) {
+      notifyError(error.response.data);
+    }
+  }
+
+  useEffect(() => {
+    async function fecthClientList() {
+      const newInvoicesList = await loadInvoices();
+      setInvoicesList(newInvoicesList);
+    }
+    fecthClientList();
+  }, [render,setInvoicesList]);
+
   return (
     <>
-      <DialogInvoice selectInvoice={formInvoice} />
-      {modal && <ModalAddClients setModal={setModal} modal={modal} />}
+      <DialogInvoice
+        render={render}
+        setRender={setRender}
+        selectInvoice={formInvoice}
+      />
       <div className="header-clients">
         <div className="client-header">
           <img src={IconeClients} alt="Icone Clientes" />
@@ -114,13 +146,13 @@ export default function TableInvoiced() {
                       id={charge.id}
                       className="hidden modal-delete-invoice"
                     >
-                      <p className="alert">Deseja deletar?</p>
-
                       <img
                         src={yes}
                         alt="yes"
                         className="yes-option"
-                        onClick={handleDelete}
+                        onClick={() =>
+                          handleDelete(charge.id, charge.client_id)
+                        }
                       />
                       <img
                         src={no}

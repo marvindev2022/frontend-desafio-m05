@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { formatToMoney } from "../../utils/formatters";
 import { getItem } from "../../utils/storage";
 import api from "./../../service/instance";
 import exit from "./../../assets/x.svg";
 import "./dialogInvoices.css";
 import { notifySuccess } from "../../utils/notify";
 
-export default function DialogInvoice({ selectInvoice }) {
+export default function DialogInvoice({render,setRender, selectInvoice }) {
   const [formInvoice, setFormInvoice] = useState({
     description: "",
     status: "",
@@ -27,6 +26,7 @@ export default function DialogInvoice({ selectInvoice }) {
 
   function handleChange({ target }) {
     setFormInvoice({ ...formInvoice, [target.name]: target.value });
+    
   }
 
   async function handleSubmit(event) {
@@ -46,7 +46,7 @@ export default function DialogInvoice({ selectInvoice }) {
         },
       }
     );
-   
+    setRender(!render)
     notifySuccess(data);
     document.querySelector(".dialog-invoices").close();
   }

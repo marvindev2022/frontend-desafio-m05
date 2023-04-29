@@ -7,6 +7,7 @@ import { getItem } from "../../utils/storage";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import { formatCpf, formatPhone } from "../../utils/formatters";
 import findAddress from "../../utils/findAdress";
+
 const defaultForm = {
   name: "",
   email: "",
@@ -19,12 +20,15 @@ const defaultForm = {
   city: "",
   uf: "",
 };
-export default function ModalAddClients({ modal, setModal }) {
+
+export default function ModalAddClients({render,setRender, modal, setModal }) {
+  
   const [erroName, setErroName] = useState("");
   const [erroEmail, setErroEmail] = useState("");
   const [erroCPF, setErroCPF] = useState("");
   const [erroPhone, setErroPhone] = useState("");
   const [form, setForm] = useState(defaultForm);
+
   async function handleChange({ target }) {
     setForm((prevForm) => ({
       ...prevForm,
@@ -119,6 +123,7 @@ export default function ModalAddClients({ modal, setModal }) {
         }
       );
       if (data === "Cliente cadastrado com sucesso!") {
+       setRender(!render)
         fecharModal();
         return notifySuccess(data);
       }
