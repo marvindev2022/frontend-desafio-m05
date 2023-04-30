@@ -7,21 +7,9 @@ import { getItem, removeItem } from "../../utils/storage";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import { formatCpf, formatPhone } from "../../utils/formatters";
 import findAddress from "../../utils/findAdress";
-const defaultForm = {
-  id: "",
-  name: "",
-  email: "",
-  cpf: "",
-  phone: "",
-  street: "",
-  complement: "",
-  cep: "",
-  neighborhood: "",
-  city: "",
-  uf: "",
-};
 
-export default function DialogEditClient({ client }) {
+
+export default function DialogEditClient({ client,render,setRender }) {
   const [erroName, setErroName] = useState("");
   const [erroEmail, setErroEmail] = useState("");
   const [erroCPF, setErroCPF] = useState("");
@@ -123,7 +111,7 @@ export default function DialogEditClient({ client }) {
         }
       );
       if (data === "Cliente atualizado com sucesso!") {
-
+         setRender(!render)
         document.querySelector(".dialog-edit-client")?.close();
         return notifySuccess(data);
       }

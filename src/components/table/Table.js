@@ -1,40 +1,66 @@
+import useInvoicesProvider from "../../../../frontend/src/hooks/Invoices/useInvoicesProvider";
 import IconeClients from "../../assets/Frame.svg";
 import Magnifier from "../../assets/magnifier.svg";
 import Filter from "../../assets/filter.svg";
 import Group from "../../assets/group.svg";
 import Charge from "../../assets/charge.svg";
-import "./table.styles.css";
 import { useEffect, useState } from "react";
 import ModalAddClients from "../Modal-add-Cliens/Modal-add-clients";
 import useClientsProvider from "../../hooks/useClientsProvider";
-import { formatCpf, formatPhone } from "../../utils/formatters";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import ClientDetail from "./../../components/ClientDetail/ClientDetail";
+import { formatCpf, formatPhone } from "../../utils/formatters";
 import { setItem } from "../../utils/storage";
-import useInvoicesProvider from "../../../../frontend/src/hooks/Invoices/useInvoicesProvider";
 import { verifyDue } from "../../utils/verifyDue";
 import { loadClients } from "../../utils/requisitions";
+import "./table.styles.css";
+
 export default function Table() {
-  const { clientsList,setClientsList, detalhandoCliente, setDetalhandoCliente } =
-    useClientsProvider();
+  const {
+    clientsList,
+    setClientsList,
+    detalhandoCliente,
+    setDetalhandoCliente,
+  } = useClientsProvider();
+
   const { invoicesList } = useInvoicesProvider();
   const [idClient, setIdClient] = useState(0);
   const [modalCharge, setModalCharge] = useState(false);
   const [modal, setModal] = useState(false);
   const [render, setRender] = useState(false);
+  const [closeClientDetail,setCloseClientDetail] = useState(false)
   const listCharge = clientsList.sort((a, b) => b.id - a.id);
 
-  useEffect(()=>{
-     async function fecthClientList(){
-          const newClientsList = await loadClients()
-          setClientsList(newClientsList)
-        }
-        fecthClientList()
-  },[render,setClientsList])
+  useEffect(() => {
+    async function fecthClientList() {
+      const newClientsList = await loadClients();
+      setClientsList(newClientsList);
+    }
+    setDetalhandoCliente(false)
+    fecthClientList();
+  }, [render, setClientsList,closeClientDetail,setDetalhandoCliente]);
+
   return (
     <>
+      {modal && (
+        <ModalAddClients
+          render={render}
+          setRender={setRender}
+          setModal={setModal}
+          modal={modal}
+        />
+      )}
+      {modalCharge && (
+        <ModalAddCharge
+          idClient={idClient}
+          setIdClient={setIdClient}
+          setModalCharge={setModalCharge}
+        />
+      )}
       {detalhandoCliente ? (
         <ClientDetail
+          closeClientDetail={closeClientDetail}
+          setCloseClientDetail={setCloseClientDetail}
           render={render}
           setRender={setRender}
           idClient={idClient}
@@ -95,10 +121,8 @@ export default function Table() {
                           ?.filter(
                             (invoice) => invoice.client_email === charge.email
                           )
-                          .filter(
-                            (invoice) =>
-                              invoice.client_email === charge.email &&
-                              verifyDue(invoice.due_date) === "due"
+                          .some(
+                            (invoice) => verifyDue(invoice.due_date) === "due"
                           )
                           ? "pendent-state"
                           : "paid-state"
@@ -108,10 +132,8 @@ export default function Table() {
                         ?.filter(
                           (invoice) => invoice.client_email === charge.email
                         )
-                        .filter(
-                          (invoice) =>
-                            invoice.client_email === charge.email &&
-                            verifyDue(invoice.due_date) === "due"
+                        .some(
+                          (invoice) => verifyDue(invoice.due_date) === "due"
                         )
                         ? "Inadimplente"
                         : "Em dia "}
@@ -132,21 +154,6 @@ export default function Table() {
             </tbody>
           </table>
         </>
-      )}
-      {modal && (
-        <ModalAddClients
-          render={render}
-          setRender={setRender}
-          setModal={setModal}
-          modal={modal}
-        />
-      )}
-      {modalCharge && (
-        <ModalAddCharge
-          idClient={idClient}
-          setIdClient={setIdClient}
-          setModalCharge={setModalCharge}
-        />
       )}
     </>
   );

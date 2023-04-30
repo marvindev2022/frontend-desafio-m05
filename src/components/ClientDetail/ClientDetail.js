@@ -9,18 +9,20 @@ import { useEffect, useState } from "react";
 import { formatToMoney } from "../../utils/formatters";
 import { loadDetailClient } from "../../utils/requisitions";
 import "./styles.css";
-import useClientsProvider from "../../hooks/useClientsProvider";
 import { verifyDue } from "../../utils/verifyDue";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import DialogEditClients from "../Modal-edit-Clients/Modal-edit-clients";
 import { getItem, setItem } from "../../utils/storage";
 
-export default function ClientDetail({ idClient }) {
+export default function ClientDetail({
+  idClient,
+  closeClientDetail,
+  setCloseClientDetail,
+}) {
   const [getDetailClient, setGetDetailClient] = useState();
-  const { detalhandoCliente, setDetalhandoCliente } = useClientsProvider();
   const { formInvoice, setFormInvoice } = useInvoicesProvider();
   const [modalCharge, setModalCharge] = useState(false);
-  const [_, setIdClient] = useState(0);
+  const [id, setIdClient] = useState(0);
   const [render, setRender] = useState(0);
 
   function handleClick() {
@@ -38,9 +40,9 @@ export default function ClientDetail({ idClient }) {
         );
       }
     }
-    setRender((prevRender) => !prevRender);
+
     fetchDetailClient();
-  }, [_]);
+  }, [id, idClient, render, setRender]);
 
   return (
     <>
@@ -60,6 +62,8 @@ export default function ClientDetail({ idClient }) {
             city: JSON.parse(getItem("clientSelect"))?.user?.city,
             uf: JSON.parse(getItem("clientSelect"))?.user?.uf,
           }}
+          render={render}
+          setRender={setRender}
         />
       )}
       <DialogInvoice selectInvoice={formInvoice} />
@@ -67,7 +71,8 @@ export default function ClientDetail({ idClient }) {
         <>
           <h1
             onClick={() => {
-              setDetalhandoCliente(!detalhandoCliente);
+              setCloseClientDetail(!closeClientDetail);
+              console.log(closeClientDetail);
               setRender(!render);
             }}
             className="header-title-clients"
