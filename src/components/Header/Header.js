@@ -1,4 +1,4 @@
-import { getItem,  setItem } from "../../utils/storage";
+import { getItem} from "../../utils/storage";
 import icon from "../../assets/Icon.svg";
 import exit from "../../assets/Frame 7921.svg";
 import edit from "../../assets/Botão- Editar- Tabela.svg";

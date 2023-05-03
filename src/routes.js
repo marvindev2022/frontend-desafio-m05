@@ -15,14 +15,26 @@ function MainRoutes() {
     <>
       <ToastContainer />
       <Routes>
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="https://marvindev2022.github.io/signin"
+          element={<Signin />}
+        />
+        <Route
+          path="https://marvindev2022.github.io/signup"
+          element={<SignUp />}
+        />
 
-        <Route element={<ProtectedRoutes redirectTo="/signin" />}>
-          <Route path="/main" element={<Main />} />
+        <Route
+          element={
+            <ProtectedRoutes redirectTo="https://marvindev2022.github.io/signin" />
+          }
+        >
+          <Route
+            path="https://marvindev2022.github.io/main"
+            element={<Main />}
+          />
           <Route path="*" element={<Main />} />
         </Route>
-       
       </Routes>
     </>
   );

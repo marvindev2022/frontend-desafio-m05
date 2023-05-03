@@ -98,7 +98,7 @@ export default function Table() {
               </tr>
             </thead>
             <tbody>
-              {listCharge.slice(0, 11).map((charge, index) => (
+              {listCharge.map((charge, index) => (
                 <tr key={charge.id} className="charge-specific">
                   <td
                     onClick={() => {
@@ -122,7 +122,9 @@ export default function Table() {
                             (invoice) => invoice.client_email === charge.email
                           )
                           .some(
-                            (invoice) => verifyDue(invoice.due_date) === "due"
+                            (invoice) =>
+                              invoice.status === "pendente" &&
+                              verifyDue(invoice.due_date) === "due"
                           )
                           ? "pendent-state"
                           : "paid-state"
@@ -133,7 +135,9 @@ export default function Table() {
                           (invoice) => invoice.client_email === charge.email
                         )
                         .some(
-                          (invoice) => verifyDue(invoice.due_date) === "due"
+                          (invoice) =>
+                            invoice.status === "pendente" &&
+                             verifyDue(invoice.due_date) === "due"
                         )
                         ? "Inadimplente"
                         : "Em dia "}

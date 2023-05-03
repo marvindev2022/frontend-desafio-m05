@@ -9,6 +9,15 @@ export const notifySuccess = message => {
     pauseOnHover: false
   });
 };
+export const notifyInfo = message => {
+  toast.info(message, {
+    position: toast.POSITION.BOTTOM_RIGHT,
+    autoClose: 2000,
+    theme: "colored",
+    closeOnClick: true,
+    pauseOnHover: false
+  });
+};
 
 export const notifyError = message => {
   toast.error(message, {

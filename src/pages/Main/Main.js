@@ -7,19 +7,21 @@ import Table from "./../../components/table/Table";
 import TableInvoices from "../../components/TableInvoices/TableInvoices";
 import Menu from "./../../components/Menu/Menu";
 import Home from "./../../components/Home/home";
-import DialgUser from "../../components/DialogUser/DialogUser";
+import DialogEditUser from "../../components/DialogEditUser/DialogEditUser";
 import "./main.styles.css";
 import useClientsProvider from "../../hooks/useClientsProvider";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 
 export default function Main() {
   setItem("sectionSelected", getItem("sectionSelected") ?? "home");
-  const { render, setRender } = useClientsProvider();
   const { renderInvoices, setRenderInvoices } = useInvoicesProvider();
+  const { render, setRender } = useClientsProvider();
+
   useEffect(() => {
     setRender(true);
-    setRenderInvoices(true)
-  }, [render, renderInvoices]);
+    setRenderInvoices(true);
+  }, [render, renderInvoices, setRender, setRenderInvoices]);
+
   return (
     <ClientsListProvider>
       <InvoicesListProvider>
@@ -39,7 +41,7 @@ export default function Main() {
               <></>
             )}
           </section>
-          <DialgUser />
+          <DialogEditUser />
         </main>
       </InvoicesListProvider>
     </ClientsListProvider>

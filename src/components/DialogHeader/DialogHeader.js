@@ -2,22 +2,23 @@ import { useNavigate } from "react-router-dom";
 import { clear } from "../../utils/storage";
 import "./dialogHeader.styles.css";
 
-export default function DialogHeader({ edit, exit, }) {
+export default function DialogHeader({ edit, exit }) {
   const navigate = useNavigate();
 
   function HandleEdit() {
-    
     document.querySelector(".dialog-user-options").close();
     document.querySelector(".dialog-user").showModal();
   }
   function HandleExit() {
     clear();
-    navigate("/signin");
+    navigate("https://marvindev2022.github.io/signin");
   }
-  
 
   return (
-    <dialog  className="dialog-user-options">
+    <dialog
+      onClick={() => document.querySelector(".dialog-user-options").close()}
+      className="dialog-user-options"
+    >
       <section>
         <img
           onClick={HandleEdit}

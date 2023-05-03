@@ -8,10 +8,35 @@ import iconPaid from "./../../assets/Frame (1).svg";
 import "./home.styles.css";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 import { formatToMoney } from "../../utils/formatters";
+import useClientsProvider from "../../hooks/useClientsProvider";
 
+function findClientsWithPendingInvoices(clients, invoices) {
+  const currentDate = new Date();
+  const result = [];
+
+  clients?.forEach((client) => {
+    const hasPendingInvoice = invoices?.some((invoice) => {
+      return (
+        invoice.client_email === client.email &&
+        invoice.status === "pendente" &&
+        new Date(invoice.due_date) < currentDate
+      );
+    });
+    if (hasPendingInvoice) {
+      result.push(client);
+    }
+  });
+
+  return result;
+}
 export default function Home() {
   const { invoicesList } = useInvoicesProvider();
+  const { clientsList } = useClientsProvider();
   const { paid, predicted, unpaid } = invoicesList;
+  const overDueClients = findClientsWithPendingInvoices(
+    clientsList,
+    invoicesList?.all
+  );
 
   const predictdedValue = predicted?.reduce((total, transaction) => {
     return total + Number(transaction.invoice_value);
@@ -121,10 +146,10 @@ export default function Home() {
               <img src={iconUnpaid} alt="Clientes inadimplente" />
               <p> Clientes inadimplente</p>
             </span>
-            <h3 className="unpaid-length">{unpaid?.length}</h3>
+            <h3 className="unpaid-length">{overDueClients?.length}</h3>
           </div>
           <div>
-            <TableListClients transactions={unpaid} />
+            <TableListClients clients={overDueClients} />
           </div>
           <div onClick={handleClick("paid")} className="container-viewall">
             Ver Tudo
@@ -137,10 +162,26 @@ export default function Home() {
               <img src={iconPaid} alt="Clientes em dia" />
               <p> Clientes em dia</p>{" "}
             </span>
-            <h3 className="paid-length">{paid?.length}</h3>
+            <h3 className="paid-length">
+              {
+                clientsList.filter(
+                  (client) =>
+                    !overDueClients.some(
+                      (overDueClient) => overDueClient.email === client.email
+                    )
+                )?.length
+              }
+            </h3>
           </div>
           <div>
-            <TableListClients transactions={paid} />
+            <TableListClients
+              clients={clientsList.filter(
+                (client) =>
+                  !overDueClients.some(
+                    (overDueClient) => overDueClient.email === client.email
+                  )
+              )}
+            />
           </div>
           <div onClick={handleClick("paid")} className="container-viewall">
             Ver Tudo

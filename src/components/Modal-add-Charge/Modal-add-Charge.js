@@ -3,11 +3,10 @@ import Check from "../../assets/check.svg";
 import File from "../../assets/file.svg";
 import Close from "../../assets/x.svg";
 import { useState } from "react";
-import InputMask from "react-input-mask";
 import api from "./../../service/instance";
-import { formatToDate, formatToMoney } from "../../utils/formatters";
 import { getItem } from "../../utils/storage";
 import { notifyError, notifySuccess } from "../../utils/notify";
+import { formatToMoney } from "../../utils/formatters";
 export default function ModalAddCharge({
   idClient,
   setIdClient,
@@ -87,7 +86,9 @@ export default function ModalAddCharge({
          setModalCharge(false);
          notifySuccess(data)
       }
-      } catch (error) {}
+      } catch (error) {
+        notifyError(error.response.data)
+      }
   }
 
   return (

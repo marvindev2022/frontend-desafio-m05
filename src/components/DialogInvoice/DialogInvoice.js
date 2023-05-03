@@ -3,7 +3,7 @@ import { getItem } from "../../utils/storage";
 import api from "./../../service/instance";
 import exit from "./../../assets/x.svg";
 import "./dialogInvoices.css";
-import { notifySuccess } from "../../utils/notify";
+import { notifyInfo} from "../../utils/notify";
 
 export default function DialogInvoice({render,setRender, selectInvoice }) {
   const [formInvoice, setFormInvoice] = useState({
@@ -47,7 +47,7 @@ export default function DialogInvoice({render,setRender, selectInvoice }) {
       }
     );
     setRender(!render)
-    notifySuccess(data);
+    notifyInfo(data);
     document.querySelector(".dialog-invoices").close();
   }
   useEffect(() => {

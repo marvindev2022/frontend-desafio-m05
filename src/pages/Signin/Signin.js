@@ -24,7 +24,7 @@ export default function Signin() {
     if (!password) return notifyError("Senha deve ser informada!");
     
     try {
-      const {data} = await api.post("/login", {
+      const {data} = await api.post("login", {
         email,
         password
       });
@@ -36,7 +36,7 @@ export default function Signin() {
       setItem("userName", user.name);
       setItem("email",user.email)
       setItem("userId", user.id);
-      return navigate("/main");
+      return navigate("https://marvindev2022.github.io/main");
     } catch (error) {
       notifyError(`${error.response.data}`);
     }

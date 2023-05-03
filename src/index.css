@@ -9,8 +9,6 @@
   max-height: 1280px;
 }
 body {
-
-  
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -27,20 +25,23 @@ button {
   cursor: pointer;
 }
 main {
-  background-color: #F8F8F9;
-min-height:894px ;
-
+  background-color: #f8f8f9;
+  min-height: 894px;
 }
 
- .hidden {
+.hidden {
   display: none;
-
-} 
+}
 dialog {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.034);
 }
-.container-link ,.btn-exit,.btn-edit,.btn-delete,.client,.container-viewall {
-  cursor:pointer
+.container-link,
+.btn-exit,
+.btn-edit,
+.btn-delete,
+.client,
+.container-viewall {
+  cursor: pointer;
 }

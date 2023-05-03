@@ -165,9 +165,9 @@ export default function SignUp() {
                   return notifyError("Preencha todos os campos!");
                 } else if (form.email === "") {
                   return notifyError("Email deve ser preenchido!");
-                } else if(!isValidEmail(form.email)){
-                  return notifyError("Email no formato invalido!")
-                }else if (form.name === "") {
+                } else if (!isValidEmail(form.email)) {
+                  return notifyError("Email no formato invalido!");
+                } else if (form.name === "") {
                   return notifyError("Nome deve ser preenchido!");
                 } else {
                   setItem("phase", "password");
@@ -196,7 +196,7 @@ export default function SignUp() {
           <button
             onClick={() => {
               clear();
-              navigate("/signin");
+              navigate("https://marvindev2022.github.io/signin");
             }}
           >
             Ir para login
@@ -205,7 +205,10 @@ export default function SignUp() {
         {phase !== "final" && (
           <div className="register">
             Já possui uma conta? Faça seu
-            <Link className="link" to={"/signin"}>
+            <Link
+              className="link"
+              to={"https://marvindev2022.github.io/signin"}
+            >
               Login
             </Link>
           </div>

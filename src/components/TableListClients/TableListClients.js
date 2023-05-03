@@ -1,25 +1,21 @@
 import "./TableListClients.styles.css";
-import { formatToDate, formatToMoney } from "./../../utils/formatters";
-export default function TableListClients({ transactions }) {
+import { formatCpf } from "./../../utils/formatters";
+export default function TableListClients({ clients }) {
   return (
     <table className="table-list-clients">
       <thead>
         <tr className="tr-thead-clients">
           <th>Clientes</th>
-          <th>Data de venc.</th>
-          <th>Valor</th>
+          <th>Id. cliente</th>
+          <th>CPF</th>
         </tr>
       </thead>
       <tbody className="">
-        {transactions?.slice(0, 5).map((transacao) => (
+        {clients?.map((client) => (
           <tr className="tr-tbody-clients" key={Math.random() * 1000}>
-            <td className="td-name-clients">{transacao.client_name}</td>
-            <td className="td-id-clients">
-              {formatToDate(transacao.due_date)}
-            </td>
-            <td className="td-value-clients">
-              {formatToMoney(Number(transacao.invoice_value))}
-            </td>
+            <td className="td-name-clients">{client.name}</td>
+            <td className="td-id-clients">{client.id}</td>
+            <td className="td-value-clients">{formatCpf(client.cpf)}</td>
           </tr>
         ))}
       </tbody>
