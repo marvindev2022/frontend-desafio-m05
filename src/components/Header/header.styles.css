@@ -85,9 +85,6 @@
   font-weight: 600;
   font-size: 22px;
   line-height: 30px;
-  /* identical to box height */
-
-  /* Principais/Verde| Normal */
 
   color: #0e8750;
 }
@@ -101,13 +98,9 @@
   font-weight: 600;
   font-size: 18px;
   line-height: 25px;
-  /* identical to box height */
-
-  /* Principais/Verde| Normal */
 
   color: #0e8750;
 
-  /* Inside auto layout */
 
   flex: none;
   order: 0;

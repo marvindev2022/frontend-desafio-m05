@@ -1,4 +1,4 @@
-import useInvoicesProvider from "../../../../frontend/src/hooks/Invoices/useInvoicesProvider";
+import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 import IconeClients from "../../assets/Frame.svg";
 import Magnifier from "../../assets/magnifier.svg";
 import Filter from "../../assets/filter.svg";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import ModalAddClients from "../Modal-add-Cliens/Modal-add-clients";
 import useClientsProvider from "../../hooks/useClientsProvider";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
-import ClientDetail from "./../../components/ClientDetail/ClientDetail";
+import ClientDetail from "../ClientDetail/ClientDetail";
 import { formatCpf, formatPhone } from "../../utils/formatters";
 import { setItem } from "../../utils/storage";
 import { verifyDue } from "../../utils/verifyDue";

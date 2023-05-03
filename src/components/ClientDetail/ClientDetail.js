@@ -72,10 +72,9 @@ export default function ClientDetail({
           <h1
             onClick={() => {
               setCloseClientDetail(!closeClientDetail);
-              console.log(closeClientDetail);
               setRender(!render);
             }}
-            className="header-title-clients"
+            className="header-title-clients-h1"
           >
             Clientes
           </h1>

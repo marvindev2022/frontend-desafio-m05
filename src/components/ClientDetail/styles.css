@@ -92,6 +92,17 @@
   display: flex;
   align-items: center;
 }
+.header-title-clients-h1 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  position: absolute;
+  top:82px;
+  left: 220px;
+  color: #0e875100;
+}
 
 .info-charge-list {
   width: 100%;

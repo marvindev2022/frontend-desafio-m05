@@ -16,12 +16,15 @@ import api from "./../../service/instance";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import { getItem } from "../../utils/storage";
 import { loadInvoices } from "../../utils/requisitions";
+import DialogStatus from "../FilterStatus/DialogStatus";
+import filterStatus from "../FilterStatus/FilterStatus";
 
-export default function TableInvoiced() {
+export default function TableInvoices() {
   const { invoicesList, setInvoicesList, formInvoice, setFormInvoice } =
     useInvoicesProvider();
   const [render, setRender] = useState(false);
-
+  const [filter, setFilter] = useState(false);
+  const [searchText, setSearchText] = useState("");
   function handleClick() {
     document.querySelector(".dialog-invoices")?.showModal();
   }
@@ -44,16 +47,32 @@ export default function TableInvoiced() {
     }
   }
 
+  function handleFilter() {
+    document.querySelector(".dialog-status").showModal();
+  }
+
   useEffect(() => {
     async function fecthClientList() {
       const newInvoicesList = await loadInvoices();
-      setInvoicesList(newInvoicesList);
+
+      filterStatus(filter, setInvoicesList, newInvoicesList);
     }
     fecthClientList();
-  }, [render,setInvoicesList]);
+  }, [render, setInvoicesList, filter, searchText]);
+
+  const filteredInvoices = invoicesList?.all?.filter(
+    (invoice) =>
+      invoice.client_name.toLowerCase().includes(searchText.toLowerCase()) ||
+      invoice.id.toString().toLowerCase().includes(searchText) ||
+      formatToMoney(Number(invoice.invoice_value))
+        .toLowerCase()
+        .includes(searchText) ||
+      invoice.due_date?.slice(0, 10).toLowerCase().includes(searchText)
+  );
 
   return (
     <>
+      <DialogStatus setFilter={setFilter} filter={filter} />
       <DialogInvoice
         render={render}
         setRender={setRender}
@@ -66,9 +85,36 @@ export default function TableInvoiced() {
         </div>
 
         <div className="nav-header-table">
-          <img className="filtro-img" src={Filter} alt="Icone Filtro" />
+          <img
+            onClick={handleFilter}
+            className="filtro-img"
+            src={Filter}
+            alt="Icone Filtro"
+          />
           <div className="input-div">
-            <input type="text" placeholder="Pesquisa" />
+            <input
+              className="input-search"
+              type="search"
+              placeholder="Pesquisa"
+              onChange={(e) => {
+                setSearchText(e.target.value.toLowerCase());
+                const searchTerm = e.target.value.toLowerCase();
+                if (!searchTerm) return;
+                const filteredInvoicesList = invoicesList?.all?.filter(
+                  (invoice) =>
+                    invoice.client_name.toLowerCase().includes(searchTerm) ||
+                    invoice.id.toString().toLowerCase().includes(searchTerm) ||
+                    formatToMoney(Number(invoice.invoice_value))
+                      .toLowerCase()
+                      .includes(searchTerm) ||
+                    invoice.due_date
+                      ?.slice(0, 10)
+                      .toLowerCase()
+                      .includes(searchTerm)
+                );
+                setInvoicesList({ all: filteredInvoicesList });
+              }}
+            />
             <img src={Magnifier} alt="icone lupa" />
           </div>
         </div>
@@ -93,12 +139,12 @@ export default function TableInvoiced() {
           </tr>
         </thead>
         <tbody className="tbody-invoices">
-          {invoicesList?.all
+          {(filteredInvoices ?? invoicesList?.all)
             ?.sort((a, b) => b.id - a.id)
             .map((charge, index) => (
               <tr key={index + 1} className="charge-specific-invoices">
                 <td className="invoices-client">{charge.client_name}</td>
-                <td className="invoices-id">{charge.id * 10005 ** 2}</td>
+                <td className="invoices-id">{charge.id }</td>
                 <td className="invoices-value">
                   {formatToMoney(Number(charge.invoice_value))}
                 </td>

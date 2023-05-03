@@ -1,5 +1,5 @@
 import TableListCard from "../tableCard/tableCard";
-import TableListClients from "../TableListClients/TableListClients";
+import TableListClients from "../TableCardListClientsState/TableListClients";
 import paidInvoiceIcon from "./../../assets/ícone- Cobrança Paga-Color.svg";
 import predictedInvoiceIcon from "./../../assets/ícone- Corbança Pendente-Color.svg";
 import unpaidInvoiceIcon from "./../../assets/ícone- Corbança Vencida-Color.svg";

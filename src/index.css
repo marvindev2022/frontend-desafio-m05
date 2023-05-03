@@ -45,3 +45,9 @@ dialog {
 .container-viewall {
   cursor: pointer;
 }
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}

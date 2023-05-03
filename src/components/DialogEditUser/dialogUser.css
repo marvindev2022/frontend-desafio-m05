@@ -2,11 +2,7 @@
   color: #e70000;
   margin-top:5px
 }
-dialog {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.034);
-}
+
 .container-dialog {
   position: absolute;
   width: 491px;

@@ -3,7 +3,7 @@ import { getItem, setItem } from "./../../utils/storage";
 import { ClientsListProvider } from "./../../context/clientsContext";
 import { InvoicesListProvider } from "./../../context/invoices/invoicesContext";
 import Header from "./../../components/Header/Header";
-import Table from "./../../components/table/Table";
+import Table from "./../../components/tableClients/Table";
 import TableInvoices from "../../components/TableInvoices/TableInvoices";
 import Menu from "./../../components/Menu/Menu";
 import Home from "./../../components/Home/home";
