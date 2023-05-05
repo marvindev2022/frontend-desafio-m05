@@ -20,7 +20,7 @@
   },
   "homepage": "https://marvindev2022.github.io/frontend-desafio-m05/",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
