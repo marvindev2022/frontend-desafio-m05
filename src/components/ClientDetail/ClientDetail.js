@@ -6,7 +6,7 @@ import Frame from "../../assets/Frame.svg";
 import DialogInvoice from "../DialogInvoice/DialogInvoice";
 import useInvoicesProvider from "./../../hooks/Invoices/useInvoicesProvider";
 import { useEffect, useState } from "react";
-import { formatToMoney } from "../../utils/formatters";
+import { formatToDate, formatToMoney } from "../../utils/formatters";
 import { loadDetailClient } from "../../utils/requisitions";
 import "./styles.css";
 import { verifyDue } from "../../utils/verifyDue";
@@ -66,7 +66,7 @@ export default function ClientDetail({
           setRender={setRender}
         />
       )}
-      <DialogInvoice selectInvoice={formInvoice} />
+      <DialogInvoice  setRender={setRender} selectInvoice={formInvoice} />
       {
         <>
           <h1
@@ -192,7 +192,7 @@ export default function ClientDetail({
                     <tr className="charge-specific-invoices" key={index}>
                       <td className="invoices-id">{charge.id * 10005 ** 2}</td>
                       <td className="invoices-date">
-                        {charge.due_date?.slice(0, 10)}
+                        {formatToDate(charge.due_date?.slice(0, 10))}
                       </td>
                       <td className="invoices-value">
                         {formatToMoney(Number(charge.invoice_value))}

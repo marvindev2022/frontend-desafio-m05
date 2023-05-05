@@ -16,8 +16,8 @@ export default function Signin() {
     setInputState({...inputState, [target.name]: target.value});
     return;
   }
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleSubmit(e) {
+    e.preventDefault();
     if (!inputState) return notifyError("Preencha todos os campos!");
     const {email, password} = inputState;
     if (!email) return notifyError("Email deve ser informado!");

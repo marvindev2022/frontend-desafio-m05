@@ -1,9 +1,24 @@
 import { format } from "date-fns";
 
 export function formatToDate(date) {
-  const generatedDate = new Date(date);
+  const inputTimeZone = "America/Sao_Paulo";
+  const outputTimeZone = "UTC";
+  const inputDate = new Date(date);
 
-  return format(generatedDate, "dd/MM/yyyy");
+  // converte a data para o fuso horário desejadoz
+  const outputDate = new Date(
+    inputDate.toLocaleString("en-US", { timeZone: inputTimeZone })
+  );
+
+  // converte a data para o formato desejadox
+  const formattedDate = outputDate.toLocaleDateString("en-US", {
+    timeZone: outputTimeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  return format(new Date(formattedDate), "dd/MM/yyyy");
 }
 
 export function formatToMoney(value) {
@@ -21,14 +36,13 @@ export function getInitials(fullName) {
   if (nameArray.length === 1) {
     initials = nameArray[0].slice(0, 2);
   } else {
-    const firstName = nameArray[0];
-    const middleName = nameArray.length > 2 ? nameArray[1] : "";
-
-    initials = `${firstName.slice(0, 1)}${middleName[0]}`;
+    const [firstName, middleName = ""] = nameArray;
+    initials = `${firstName.slice(0, 1)}${middleName.slice(0, 1)}`;
   }
 
   return initials;
 }
+
 
 export function validatePassword(password) {
   const passwordRegex =

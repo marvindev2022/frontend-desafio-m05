@@ -9,6 +9,7 @@ import "./home.styles.css";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 import { formatToMoney } from "../../utils/formatters";
 import useClientsProvider from "../../hooks/useClientsProvider";
+import {  setItem } from "../../utils/storage";
 
 function findClientsWithPendingInvoices(clients, invoices) {
   const currentDate = new Date();
@@ -29,10 +30,11 @@ function findClientsWithPendingInvoices(clients, invoices) {
 
   return result;
 }
-export default function Home() {
+export default function Home({ render, setRender }) {
   const { invoicesList } = useInvoicesProvider();
   const { clientsList } = useClientsProvider();
   const { paid, predicted, unpaid } = invoicesList;
+
   const overDueClients = findClientsWithPendingInvoices(
     clientsList,
     invoicesList?.all
@@ -48,11 +50,26 @@ export default function Home() {
     return total + Number(transaction.invoice_value);
   }, 0);
 
-  function handleClick(referencelist) {
-    if (referencelist === "paid") return;
-    if (referencelist === "unpaid") return;
-    if (referencelist === "predicted") return;
+  function handleClick(event, referencelist) {
+    if (referencelist === "paid") {
+      setItem("filterBy", "paid");
+      setItem("sectionSelected", "charges");
+      setRender(!render);
+    }
+    if (referencelist === "unpaid") {
+      setItem("filter", "unpaid");
+      setItem("filterBy", "unpaid");
+      setItem("sectionSelected", "charges");
+      setRender(!render);
+    }
+    if (referencelist === "predicted") {
+      setItem("filter", "predicted");
+      setItem("filterBy", "predicted");
+      setItem("sectionSelected", "charges");
+      setRender(!render);
+    }
   }
+
   return (
     <main className="home-main">
       <section className="section-details-home">
@@ -78,7 +95,10 @@ export default function Home() {
             <span className="section-table-card">
               <TableListCard invoice={unpaid} />
             </span>
-            <span onClick={handleClick("unPaid")} className="container-link">
+            <span
+              onClick={(event) => handleClick(event, "unpaid")}
+              className="container-link"
+            >
               Ver Tudo
             </span>
           </div>
@@ -105,7 +125,10 @@ export default function Home() {
             <span className="section-table-card">
               <TableListCard invoice={predicted} />
             </span>
-            <span onClick={handleClick("predicted")} className="container-link">
+            <span
+              onClick={(event) => handleClick(event, "predicted")}
+              className="container-link"
+            >
               Ver Tudo
             </span>
           </div>
@@ -132,7 +155,10 @@ export default function Home() {
             <span className="section-table-card">
               <TableListCard invoice={paid} />
             </span>
-            <span onClick={handleClick("paid")} className="container-link">
+            <span
+              onClick={(event) => handleClick(event, "paid")}
+              className="container-link"
+            >
               Ver Tudo
             </span>
           </div>
@@ -151,7 +177,10 @@ export default function Home() {
           <div>
             <TableListClients clients={overDueClients} />
           </div>
-          <div onClick={handleClick("paid")} className="container-viewall">
+          <div
+            onClick={(event) => handleClick(event, "paid")}
+            className="container-viewall"
+          >
             Ver Tudo
           </div>
         </div>
@@ -183,7 +212,10 @@ export default function Home() {
               )}
             />
           </div>
-          <div onClick={handleClick("paid")} className="container-viewall">
+          <div
+            onClick={(event) => handleClick(event, "paid")}
+            className="container-viewall"
+          >
             Ver Tudo
           </div>
         </div>

@@ -24,21 +24,46 @@ export default function Table() {
   } = useClientsProvider();
 
   const { invoicesList } = useInvoicesProvider();
-  const [idClient, setIdClient] = useState(0);
-  const [modalCharge, setModalCharge] = useState(false);
   const [modal, setModal] = useState(false);
   const [render, setRender] = useState(false);
-  const [closeClientDetail,setCloseClientDetail] = useState(false)
-  const listCharge = clientsList.sort((a, b) => b.id - a.id);
+  const [order, setOrder] = useState(false);
+  const [idClient, setIdClient] = useState(0);
+  const [searchText, setSearchText] = useState("");
+  const [modalCharge, setModalCharge] = useState(false);
+  const [closeClientDetail, setCloseClientDetail] = useState(false);
+  const listCharge = !order
+    ? clientsList?.sort((a, b) => a.name.localeCompare(b.name))
+    : clientsList?.sort((a, b) => b.name.localeCompare(a.name));
+
+
+  function handleChange({ target }) {
+    setSearchText(target.value.toLowerCase());
+    const searchTerm = target.value.toLowerCase();
+    if (!searchTerm) return;
+    const filteredClientsList = clientsList?.filter(
+      (client) =>
+        client.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        client.cpf.toString().includes(searchText) ||
+        client.email.toLowerCase().includes(searchText)
+    );
+    setClientsList(filteredClientsList);
+  }
 
   useEffect(() => {
     async function fecthClientList() {
       const newClientsList = await loadClients();
       setClientsList(newClientsList);
     }
-    setDetalhandoCliente(false)
+    setDetalhandoCliente(false);
     fecthClientList();
-  }, [render, setClientsList,closeClientDetail,setDetalhandoCliente]);
+  }, [render, setClientsList, closeClientDetail, setDetalhandoCliente,searchText]);
+
+  const filteredClients = clientsList?.filter(
+    (client) =>
+      client.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      client.cpf.toString().includes(searchText) ||
+      client.email.toLowerCase().includes(searchText)
+  );
 
   return (
     <>
@@ -76,9 +101,19 @@ export default function Table() {
               <button onClick={() => setModal(!modal)}>
                 + Adicionar cliente
               </button>
-              <img className="filtro-img" src={Filter} alt="Icone Filtro" />
+              <img
+                onClick={handleChange}
+                className="filtro-img"
+                src={Filter}
+                alt="Icone Filtro"
+              />
               <div className="input-div">
-                <input type="text" placeholder="Pesquisa" />
+                <input
+                  onChange={handleChange}
+                  className="input-search"
+                  placeholder="Pesquisa"
+                  type="search"
+                />
                 <img src={Magnifier} alt="icone lupa" />
               </div>
             </div>
@@ -86,7 +121,7 @@ export default function Table() {
           <table className="Table">
             <thead>
               <tr className="header-charge">
-                <th className="client">
+                <th onClick={()=>{setOrder(!order)}} className="client">
                   <img src={Group} alt="" />
                   <span>Cliente</span>
                 </th>
@@ -98,7 +133,7 @@ export default function Table() {
               </tr>
             </thead>
             <tbody>
-              {listCharge.map((charge, index) => (
+              {(filteredClients ?? listCharge)?.map((charge) => (
                 <tr key={charge.id} className="charge-specific">
                   <td
                     onClick={() => {
@@ -137,7 +172,7 @@ export default function Table() {
                         .some(
                           (invoice) =>
                             invoice.status === "pendente" &&
-                             verifyDue(invoice.due_date) === "due"
+                            verifyDue(invoice.due_date) === "due"
                         )
                         ? "Inadimplente"
                         : "Em dia "}

@@ -29,7 +29,7 @@ export default function Main() {
           <Header render={render} setRender={setRender} />
           <Menu render={render} setRender={setRender} />
           <section className="section-main">
-            {getItem("sectionSelected") === "home" ? <Home /> : <></>}
+            {getItem("sectionSelected") === "home" ? <Home render={render} setRender={setRender} /> : <></>}
             {getItem("sectionSelected") === "clients" ? (
               <Table render={render} setRender={setRender} />
             ) : (
