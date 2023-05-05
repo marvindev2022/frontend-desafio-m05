@@ -11,7 +11,7 @@ export default function DialogHeader({ edit, exit }) {
   }
   function HandleExit() {
     clear();
-    navigate("https://marvindev2022.github.io/signin");
+    navigate("/signin");
   }
 
   return (

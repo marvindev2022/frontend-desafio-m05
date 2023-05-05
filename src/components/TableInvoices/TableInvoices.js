@@ -19,6 +19,7 @@ import { loadInvoices } from "../../utils/requisitions";
 import DialogStatus from "../FilterStatusInvoices/DialogStatus";
 import filterStatus from "../FilterStatusInvoices/FilterStatus";
 import orderList from "../../utils/orderList";
+import ModalInvoiceDetail from "../ModalInvoiceDetail/ModalInvoicedetail";
 
 export default function TableInvoices() {
   const { invoicesList, setInvoicesList, formInvoice, setFormInvoice } =
@@ -27,6 +28,8 @@ export default function TableInvoices() {
   const [order, setOrder] = useState(getItem("orderBy") ?? false);
   const [filter, setFilter] = useState(getItem("filterBy ") ?? false);
   const [searchText, setSearchText] = useState("");
+   const [invoiceDetail, setInvoiveDetail] = useState(false);
+   const [idInvoice, setIdInvoice] = useState(0);
   const listCharge = orderList(invoicesList, order);
 
   function handleChange({ target }) {
@@ -85,6 +88,12 @@ export default function TableInvoices() {
 
   return (
     <>
+      {invoiceDetail && (
+        <ModalInvoiceDetail
+          id={idInvoice}
+          setInvoiveDetail={setInvoiveDetail}
+        />
+      )}
       <DialogStatus setFilter={setFilter} filter={filter} />
       <DialogInvoice
         render={render}
@@ -155,7 +164,15 @@ export default function TableInvoices() {
         <tbody className="tbody-invoices">
           {(filteredInvoices ?? listCharge)?.map((charge, index) => (
             <tr key={index + 1} className="charge-specific-invoices">
-              <td className="invoices-client">{charge.client_name}</td>
+              <td
+                onClick={() => {
+                  setIdInvoice(charge.id);
+                  setInvoiveDetail(true);
+                }}
+                className="invoices-client"
+              >
+                {charge.client_name}
+              </td>
               <td className="invoices-id">{charge.id}</td>
               <td className="invoices-value">
                 {formatToMoney(Number(charge.invoice_value))}

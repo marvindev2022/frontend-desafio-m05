@@ -10,9 +10,10 @@ import useClientsProvider from "../../hooks/useClientsProvider";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import ClientDetail from "../ClientDetail/ClientDetail";
 import { formatCpf, formatPhone } from "../../utils/formatters";
-import { setItem } from "../../utils/storage";
+import { getItem, setItem } from "../../utils/storage";
 import { verifyDue } from "../../utils/verifyDue";
 import { loadClients } from "../../utils/requisitions";
+import DialogStatus from "./../FilterStatusInvoices/DialogStatus";
 import "./table.styles.css";
 
 export default function Table() {
@@ -29,12 +30,12 @@ export default function Table() {
   const [order, setOrder] = useState(false);
   const [idClient, setIdClient] = useState(0);
   const [searchText, setSearchText] = useState("");
+  const [filter, setFilter] = useState(getItem("filterBy ") ?? false);
   const [modalCharge, setModalCharge] = useState(false);
   const [closeClientDetail, setCloseClientDetail] = useState(false);
   const listCharge = !order
     ? clientsList?.sort((a, b) => a.name.localeCompare(b.name))
     : clientsList?.sort((a, b) => b.name.localeCompare(a.name));
-
 
   function handleChange({ target }) {
     setSearchText(target.value.toLowerCase());
@@ -56,7 +57,14 @@ export default function Table() {
     }
     setDetalhandoCliente(false);
     fecthClientList();
-  }, [render, setClientsList, closeClientDetail, setDetalhandoCliente,searchText]);
+  }, [
+    
+    render,
+    setClientsList,
+    closeClientDetail,
+    setDetalhandoCliente,
+    searchText,
+  ]);
 
   const filteredClients = clientsList?.filter(
     (client) =>
@@ -67,6 +75,7 @@ export default function Table() {
 
   return (
     <>
+      <DialogStatus setFilter={setFilter} reference={"clients"} />
       {modal && (
         <ModalAddClients
           render={render}
@@ -89,6 +98,7 @@ export default function Table() {
           render={render}
           setRender={setRender}
           idClient={idClient}
+          filter={filter}
         />
       ) : (
         <>
@@ -102,7 +112,9 @@ export default function Table() {
                 + Adicionar cliente
               </button>
               <img
-                onClick={handleChange}
+                onClick={() =>
+                  document.querySelector(".dialog-status").showModal()
+                }
                 className="filtro-img"
                 src={Filter}
                 alt="Icone Filtro"
@@ -121,7 +133,12 @@ export default function Table() {
           <table className="Table">
             <thead>
               <tr className="header-charge">
-                <th onClick={()=>{setOrder(!order)}} className="client">
+                <th
+                  onClick={() => {
+                    setOrder(!order);
+                  }}
+                  className="client"
+                >
                   <img src={Group} alt="" />
                   <span>Cliente</span>
                 </th>

@@ -36,7 +36,7 @@ export default function Signin() {
       setItem("userName", user.name);
       setItem("email",user.email)
       setItem("userId", user.id);
-      return navigate("https://marvindev2022.github.io/main");
+      return navigate("/main");
     } catch (error) {
       notifyError(`${error.response.data}`);
     }

@@ -10,8 +10,7 @@ import "./signup.styles.css";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import api from "../../service/instance";
 import { clear, getItem, setItem } from "../../utils/storage";
-import { validatePassword,isValidEmail } from "../../utils/formatters";
-
+import { validatePassword, isValidEmail } from "../../utils/formatters";
 
 const phaseStorage = "data";
 
@@ -196,7 +195,7 @@ export default function SignUp() {
           <button
             onClick={() => {
               clear();
-              navigate("https://marvindev2022.github.io/signin");
+              navigate("/signin");
             }}
           >
             Ir para login
@@ -205,10 +204,7 @@ export default function SignUp() {
         {phase !== "final" && (
           <div className="register">
             Já possui uma conta? Faça seu
-            <Link
-              className="link"
-              to={"https://marvindev2022.github.io/signin"}
-            >
+            <Link className="link" to={"/signin"}>
               Login
             </Link>
           </div>

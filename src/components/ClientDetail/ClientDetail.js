@@ -8,12 +8,15 @@ import useInvoicesProvider from "./../../hooks/Invoices/useInvoicesProvider";
 import { useEffect, useState } from "react";
 import { formatToDate, formatToMoney } from "../../utils/formatters";
 import { loadDetailClient } from "../../utils/requisitions";
+import yes from "../../assets/Icon.svg";
+import no from "../../assets/x.svg";
 import "./styles.css";
 import { verifyDue } from "../../utils/verifyDue";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import DialogEditClients from "../Modal-edit-Clients/Modal-edit-clients";
 import { getItem, setItem } from "../../utils/storage";
-
+import { notifyError, notifySuccess } from "../../utils/notify";
+import api from "./../../service/instance";
 export default function ClientDetail({
   idClient,
   closeClientDetail,
@@ -28,7 +31,23 @@ export default function ClientDetail({
   function handleClick() {
     document.querySelector(".dialog-invoices")?.showModal();
   }
-
+  async function handleDelete(id, client_id) {
+    try {
+      const { data } = await api.delete(
+        `invoice/${id}?client_id=${client_id}`,
+        {
+          headers: {
+            authorization: `Bearer ${getItem("token")}`,
+          },
+        }
+      );
+      setRender(!render);
+      document.getElementById(`${id}`).classList.add("hidden");
+      notifySuccess(data);
+    } catch (error) {
+      notifyError(error.response.data);
+    }
+  }
   useEffect(() => {
     async function fetchDetailClient() {
       if (idClient) {
@@ -66,7 +85,7 @@ export default function ClientDetail({
           setRender={setRender}
         />
       )}
-      <DialogInvoice  setRender={setRender} selectInvoice={formInvoice} />
+      <DialogInvoice setRender={setRender} selectInvoice={formInvoice} />
       {
         <>
           <h1
@@ -247,6 +266,29 @@ export default function ClientDetail({
                           src={BtnExcluir}
                           alt="Excluir"
                         />
+                        <span
+                          id={charge.id}
+                          className="hidden modal-delete-invoice"
+                        >
+                          <img
+                            src={yes}
+                            alt="yes"
+                            className="yes-option"
+                            onClick={() =>
+                              handleDelete(charge.id, charge.client_id)
+                            }
+                          />
+                          <img
+                            src={no}
+                            alt="no"
+                            className="no-option"
+                            onClick={() =>
+                              document
+                                .getElementById(`${charge.id}`)
+                                .classList.add("hidden")
+                            }
+                          />
+                        </span>
                       </td>
                     </tr>
                   );
