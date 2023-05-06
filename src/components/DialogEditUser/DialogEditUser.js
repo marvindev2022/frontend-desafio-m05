@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { notifyError, notifySuccess } from "../../utils/notify";
+import { notifyError, notifyInfo } from "../../utils/notify";
 import "./dialogUser.css";
 import api from "../../service/instance";
 import { getItem, setItem } from "../../utils/storage";
@@ -19,7 +19,7 @@ const defaultForm = {
 
 const alert = "Este campo deve ser preenchido!";
 
-export default function DialgoUser() {
+export default function DialgoUser({ render, setRender }) {
   const [form, setForm] = useState(defaultForm);
   const { name, email, password, confirmPassword, cpf, phone } = form;
   const [viewPassword, setViewPassword] = useState(false);
@@ -73,7 +73,8 @@ export default function DialgoUser() {
         setItem("email", user.email);
         setForm(defaultForm);
         document.querySelector(".dialog-user").close();
-        return notifySuccess("Cadastro alterado com sucesso!");
+        setRender(!render);
+        return notifyInfo("Cadastro alterado com sucesso!");
       }
       return notifyError(user);
     } catch (error) {
@@ -84,7 +85,7 @@ export default function DialgoUser() {
   function handleChange({ target }) {
     if (target.name === "cpf" || target.name === "phone") {
       setForm({ ...form, [target.name]: target.value });
-  }else {
+    } else {
       setForm({ ...form, [target.name]: target.value });
     }
     const alertElement = document.querySelector(`.alert-${target.name}`);

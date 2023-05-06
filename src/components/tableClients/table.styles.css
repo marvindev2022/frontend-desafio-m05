@@ -168,7 +168,7 @@
   height: 19px;
 
   padding-top: 2px;
-  
+
   text-align: center;
   font-family: "Nunito";
   font-style: normal;
@@ -180,7 +180,7 @@
 }
 
 .pendent-state {
-  width: 120px;
+  min-width: 100px;
   height: 22px;
 
   background-color: #ffefef;
@@ -219,4 +219,8 @@ td {
   height: 50px;
   -webkit-text-size-adjust: auto;
   color: #6e6e85;
+}
+
+.tbody-clients {
+  overflow-y: auto;
 }

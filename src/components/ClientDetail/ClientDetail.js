@@ -8,15 +8,28 @@ import useInvoicesProvider from "./../../hooks/Invoices/useInvoicesProvider";
 import { useEffect, useState } from "react";
 import { formatToDate, formatToMoney } from "../../utils/formatters";
 import { loadDetailClient } from "../../utils/requisitions";
-import yes from "../../assets/Icon.svg";
-import no from "../../assets/x.svg";
 import "./styles.css";
 import { verifyDue } from "../../utils/verifyDue";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import DialogEditClients from "../Modal-edit-Clients/Modal-edit-clients";
 import { getItem, setItem } from "../../utils/storage";
-import { notifyError, notifySuccess } from "../../utils/notify";
-import api from "./../../service/instance";
+import ModalDeleteInvoice from "../DialogDelete/DialogDelete";
+import { notifyError } from "../../utils/notify";
+
+const client = {
+  id: JSON.parse(getItem("clientSelect"))?.id,
+  name: JSON.parse(getItem("clientSelect"))?.user?.name,
+  email: JSON.parse(getItem("clientSelect"))?.user?.email,
+  cpf: JSON.parse(getItem("clientSelect"))?.user?.cpf,
+  phone: JSON.parse(getItem("clientSelect"))?.user?.phone,
+  street: JSON.parse(getItem("clientSelect"))?.user?.street,
+  complement: JSON.parse(getItem("clientSelect"))?.user?.complement,
+  cep: JSON.parse(getItem("clientSelect"))?.user?.cep,
+  neighborhood: JSON.parse(getItem("clientSelect"))?.user?.neighborhood,
+  city: JSON.parse(getItem("clientSelect"))?.user?.city,
+  uf: JSON.parse(getItem("clientSelect"))?.user?.uf,
+};
+
 export default function ClientDetail({
   idClient,
   closeClientDetail,
@@ -27,27 +40,14 @@ export default function ClientDetail({
   const [modalCharge, setModalCharge] = useState(false);
   const [id, setIdClient] = useState(0);
   const [render, setRender] = useState(0);
+  const [idInvoice, setIdInvoice] = useState(0);
+  const [clientId, setClientId] = useState(0);
+  const [modalDelete, setModalDelete] = useState(false);
 
   function handleClick() {
     document.querySelector(".dialog-invoices")?.showModal();
   }
-  async function handleDelete(id, client_id) {
-    try {
-      const { data } = await api.delete(
-        `invoice/${id}?client_id=${client_id}`,
-        {
-          headers: {
-            authorization: `Bearer ${getItem("token")}`,
-          },
-        }
-      );
-      setRender(!render);
-      document.getElementById(`${id}`).classList.add("hidden");
-      notifySuccess(data);
-    } catch (error) {
-      notifyError(error.response.data);
-    }
-  }
+
   useEffect(() => {
     async function fetchDetailClient() {
       if (idClient) {
@@ -65,22 +65,16 @@ export default function ClientDetail({
 
   return (
     <>
+      {modalDelete && (
+        <ModalDeleteInvoice
+          client_id={clientId}
+          id={idInvoice}
+          setModalDelete={setModalDelete}
+        />
+      )}
       {JSON.parse(getItem("clientSelect")) && (
         <DialogEditClients
-          client={{
-            id: JSON.parse(getItem("clientSelect"))?.id,
-            name: JSON.parse(getItem("clientSelect"))?.user?.name,
-            email: JSON.parse(getItem("clientSelect"))?.user?.email,
-            cpf: JSON.parse(getItem("clientSelect"))?.user?.cpf,
-            phone: JSON.parse(getItem("clientSelect"))?.user?.phone,
-            street: JSON.parse(getItem("clientSelect"))?.user?.street,
-            complement: JSON.parse(getItem("clientSelect"))?.user?.complement,
-            cep: JSON.parse(getItem("clientSelect"))?.user?.cep,
-            neighborhood: JSON.parse(getItem("clientSelect"))?.user
-              ?.neighborhood,
-            city: JSON.parse(getItem("clientSelect"))?.user?.city,
-            uf: JSON.parse(getItem("clientSelect"))?.user?.uf,
-          }}
+          client={client}
           render={render}
           setRender={setRender}
         />
@@ -259,36 +253,19 @@ export default function ClientDetail({
                         <img
                           className="btn-delete"
                           onClick={() => {
-                            document
-                              .getElementById(`${charge.id}`)
-                              .classList.remove("hidden");
+                            setClientId(charge.client_id);
+                            setIdInvoice(charge.id);
+                            if (verifyDue(charge.due_date) === "pendent") {
+                              return setModalDelete(true);
+                            } else {
+                              return notifyError(
+                                "Essa conta não pode ser deletada!"
+                              );
+                            }
                           }}
                           src={BtnExcluir}
                           alt="Excluir"
                         />
-                        <span
-                          id={charge.id}
-                          className="hidden modal-delete-invoice"
-                        >
-                          <img
-                            src={yes}
-                            alt="yes"
-                            className="yes-option"
-                            onClick={() =>
-                              handleDelete(charge.id, charge.client_id)
-                            }
-                          />
-                          <img
-                            src={no}
-                            alt="no"
-                            className="no-option"
-                            onClick={() =>
-                              document
-                                .getElementById(`${charge.id}`)
-                                .classList.add("hidden")
-                            }
-                          />
-                        </span>
                       </td>
                     </tr>
                   );

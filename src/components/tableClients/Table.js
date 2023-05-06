@@ -15,6 +15,7 @@ import { verifyDue } from "../../utils/verifyDue";
 import { loadClients } from "../../utils/requisitions";
 import DialogStatus from "./../FilterStatusInvoices/DialogStatus";
 import "./table.styles.css";
+import { filterStatusClients } from "../FilterStatusInvoices/FilterStatus";
 
 export default function Table() {
   const {
@@ -54,11 +55,14 @@ export default function Table() {
     async function fecthClientList() {
       const newClientsList = await loadClients();
       setClientsList(newClientsList);
+      filterStatusClients(filter, setClientsList, newClientsList, invoicesList);
     }
+
     setDetalhandoCliente(false);
     fecthClientList();
   }, [
-    
+    invoicesList,
+    filter,
     render,
     setClientsList,
     closeClientDetail,
@@ -98,7 +102,6 @@ export default function Table() {
           render={render}
           setRender={setRender}
           idClient={idClient}
-          filter={filter}
         />
       ) : (
         <>
@@ -149,7 +152,7 @@ export default function Table() {
                 <th className="create-charge">Criar Cobrança</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody-clients">
               {(filteredClients ?? listCharge)?.map((charge) => (
                 <tr key={charge.id} className="charge-specific">
                   <td

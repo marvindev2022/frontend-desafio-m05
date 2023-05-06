@@ -11,7 +11,7 @@ export default function TableListClients({ clients }) {
         </tr>
       </thead>
       <tbody className="">
-        {clients?.map((client) => (
+        {clients.slice(0,4)?.map((client) => (
           <tr className="tr-tbody-clients" key={Math.random() * 1000}>
             <td className="td-name-clients">{client.name}</td>
             <td className="td-id-clients">{client.id}</td>

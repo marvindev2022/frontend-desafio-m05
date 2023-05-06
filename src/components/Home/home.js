@@ -9,12 +9,14 @@ import "./home.styles.css";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 import { formatToMoney } from "../../utils/formatters";
 import useClientsProvider from "../../hooks/useClientsProvider";
-import {  setItem } from "../../utils/storage";
+import {  removeItem,setItem } from "../../utils/storage";
 
 function findClientsWithPendingInvoices(clients, invoices) {
   const currentDate = new Date();
   const result = [];
 
+  removeItem("filterBy")
+  
   clients?.forEach((client) => {
     const hasPendingInvoice = invoices?.some((invoice) => {
       return (
@@ -57,17 +59,26 @@ export default function Home({ render, setRender }) {
       setRender(!render);
     }
     if (referencelist === "unpaid") {
-      setItem("filter", "unpaid");
-      setItem("filterBy", "unpaid");
+      setItem("filterBy", "due");
       setItem("sectionSelected", "charges");
       setRender(!render);
     }
     if (referencelist === "predicted") {
-      setItem("filter", "predicted");
       setItem("filterBy", "predicted");
       setItem("sectionSelected", "charges");
       setRender(!render);
     }
+    if (referencelist === "em dia") {
+      setItem("filterBy", "em dia");
+      setItem("sectionSelected", "clients");
+      setRender(!render);
+    }
+    if (referencelist === "inadimplente") {
+      setItem("filterBy", "inadimplente");
+      setItem("sectionSelected", "clients");
+      setRender(!render);
+    }
+    
   }
 
   return (
@@ -178,7 +189,7 @@ export default function Home({ render, setRender }) {
             <TableListClients clients={overDueClients} />
           </div>
           <div
-            onClick={(event) => handleClick(event, "paid")}
+            onClick={(event) => handleClick(event, "inadimplente")}
             className="container-viewall"
           >
             Ver Tudo
@@ -213,7 +224,7 @@ export default function Home({ render, setRender }) {
             />
           </div>
           <div
-            onClick={(event) => handleClick(event, "paid")}
+            onClick={(event) => handleClick(event, "em dia")}
             className="container-viewall"
           >
             Ver Tudo

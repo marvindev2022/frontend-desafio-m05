@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/frontend-desafio-m05/static/css/main.f5023ff5.css",
-    "main.js": "/frontend-desafio-m05/static/js/main.1eb5265f.js",
+    "main.css": "/frontend-desafio-m05/static/css/main.5756ff1f.css",
+    "main.js": "/frontend-desafio-m05/static/js/main.de0b7419.js",
     "static/media/background-signin.svg": "/frontend-desafio-m05/static/media/background-signin.3e6d970f0d4b3b1b80e9.svg",
     "static/media/charge.svg": "/frontend-desafio-m05/static/media/charge.57705faa7aabcb5fc45dcc75b69fa58a.svg",
     "static/media/charges.svg": "/frontend-desafio-m05/static/media/charges.6c5171680a82008d1e7165587b98c636.svg",
@@ -21,6 +21,7 @@
     "static/media/ícone- Corbança Vencida-Color.svg": "/frontend-desafio-m05/static/media/ícone- Corbança Vencida-Color.64186f09018c66d52b946254de0df0f7.svg",
     "static/media/x.svg": "/frontend-desafio-m05/static/media/x.cd090b31a251c8fe93b5a61367392194.svg",
     "static/media/Frame (1).svg": "/frontend-desafio-m05/static/media/Frame (1).0ce0833a5ece2bc7e1acf7a07d1e4f08.svg",
+    "static/media/alert.svg": "/frontend-desafio-m05/static/media/alert.bd1e1e002b9ece463dcc9141ffb93fcb.svg",
     "index.html": "/frontend-desafio-m05/index.html",
     "static/media/Success.svg": "/frontend-desafio-m05/static/media/Success.58b448c467b5727d83a4033ad974eb99.svg",
     "static/media/ícone- Cobrança Paga-Color.svg": "/frontend-desafio-m05/static/media/ícone- Cobrança Paga-Color.6e28f6a219118e441e6cef3fdc4e93f1.svg",
@@ -34,11 +35,11 @@
     "static/media/next.svg": "/frontend-desafio-m05/static/media/next.3e3b536ea215944da720de4cc67abdaf.svg",
     "static/media/checked.svg": "/frontend-desafio-m05/static/media/checked.d7521454c8f2fb5db1bf.svg",
     "static/media/In.svg": "/frontend-desafio-m05/static/media/In.a72de57bc568611523ffc230bf0ed68d.svg",
-    "main.f5023ff5.css.map": "/frontend-desafio-m05/static/css/main.f5023ff5.css.map",
-    "main.1eb5265f.js.map": "/frontend-desafio-m05/static/js/main.1eb5265f.js.map"
+    "main.5756ff1f.css.map": "/frontend-desafio-m05/static/css/main.5756ff1f.css.map",
+    "main.de0b7419.js.map": "/frontend-desafio-m05/static/js/main.de0b7419.js.map"
   },
   "entrypoints": [
-    "static/css/main.f5023ff5.css",
-    "static/js/main.1eb5265f.js"
+    "static/css/main.5756ff1f.css",
+    "static/js/main.de0b7419.js"
   ]
 }

@@ -1,14 +1,13 @@
-import { getItem} from "../../utils/storage";
-import icon from "../../assets/Icon.svg";
-import exit from "../../assets/Frame 7921.svg";
+import DialogHeader from "../DialogHeader/DialogHeader";
 import edit from "../../assets/Botão- Editar- Tabela.svg";
 import { getInitials } from "../../utils/formatters";
+import exit from "../../assets/Frame 7921.svg";
+import icon from "../../assets/Icon.svg";
+import { getItem} from "../../utils/storage";
 import "./header.styles.css";
-import DialogHeader from "../DialogHeader/DialogHeader";
 
 export default function Header() {
   const abrevName = getInitials(getItem("userName"));
- 
   
 
 

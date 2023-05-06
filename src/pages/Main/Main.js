@@ -29,7 +29,11 @@ export default function Main() {
           <Header render={render} setRender={setRender} />
           <Menu render={render} setRender={setRender} />
           <section className="section-main">
-            {getItem("sectionSelected") === "home" ? <Home render={render} setRender={setRender} /> : <></>}
+            {getItem("sectionSelected") === "home" ? (
+              <Home render={render} setRender={setRender} />
+            ) : (
+              <></>
+            )}
             {getItem("sectionSelected") === "clients" ? (
               <Table render={render} setRender={setRender} />
             ) : (
@@ -41,7 +45,7 @@ export default function Main() {
               <></>
             )}
           </section>
-          <DialogEditUser />
+          <DialogEditUser render={render} setRender={setRender} />
         </main>
       </InvoicesListProvider>
     </ClientsListProvider>

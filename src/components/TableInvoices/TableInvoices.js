@@ -1,7 +1,5 @@
 import IconeClients from "../../assets/Frame.svg";
 import Magnifier from "../../assets/magnifier.svg";
-import yes from "../../assets/Icon.svg";
-import no from "../../assets/x.svg";
 import Filter from "../../assets/filter.svg";
 import Group from "../../assets/group.svg";
 import btnEdit from "../../assets/Botão- Editar- Tabela.svg";
@@ -12,26 +10,27 @@ import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
 import { formatToDate, formatToMoney } from "../../utils/formatters";
 import DialogInvoice from "../DialogInvoice/DialogInvoice";
 import { verifyDue } from "../../utils/verifyDue";
-import api from "./../../service/instance";
-import { notifyError, notifySuccess } from "../../utils/notify";
 import { getItem } from "../../utils/storage";
 import { loadInvoices } from "../../utils/requisitions";
 import DialogStatus from "../FilterStatusInvoices/DialogStatus";
-import filterStatus from "../FilterStatusInvoices/FilterStatus";
+import { filterStatusInvoices } from "../FilterStatusInvoices/FilterStatus";
 import orderList from "../../utils/orderList";
 import ModalInvoiceDetail from "../ModalInvoiceDetail/ModalInvoicedetail";
+import ModalDeleteInvoice from "../DialogDelete/DialogDelete";
+import { notifyError } from "../../utils/notify";
 
 export default function TableInvoices() {
   const { invoicesList, setInvoicesList, formInvoice, setFormInvoice } =
     useInvoicesProvider();
   const [render, setRender] = useState(false);
   const [order, setOrder] = useState(getItem("orderBy") ?? false);
-  const [filter, setFilter] = useState(getItem("filterBy ") ?? false);
+  const [filter, setFilter] = useState(getItem("filterBy "));
   const [searchText, setSearchText] = useState("");
-   const [invoiceDetail, setInvoiveDetail] = useState(false);
-   const [idInvoice, setIdInvoice] = useState(0);
+  const [invoiceDetail, setInvoiveDetail] = useState(false);
+  const [idInvoice, setIdInvoice] = useState(0);
+  const [clientId, setClientId] = useState(0);
   const listCharge = orderList(invoicesList, order);
-
+  const [modalDelete, setModalDelete] = useState(false);
   function handleChange({ target }) {
     setSearchText(target.value.toLowerCase());
     const searchTerm = target.value.toLowerCase();
@@ -59,35 +58,24 @@ export default function TableInvoices() {
       invoice.due_date?.slice(0, 10).toLowerCase().includes(searchText)
   );
 
-  async function handleDelete(id, client_id) {
-    try {
-      const { data } = await api.delete(
-        `invoice/${id}?client_id=${client_id}`,
-        {
-          headers: {
-            authorization: `Bearer ${getItem("token")}`,
-          },
-        }
-      );
-      setRender(!render);
-      document.getElementById(`${id}`).classList.add("hidden");
-      notifySuccess(data);
-    } catch (error) {
-      notifyError(error.response.data);
-    }
-  }
-
   useEffect(() => {
     async function fecthClientList() {
       const newInvoicesList = await loadInvoices();
-
-      filterStatus(filter, setInvoicesList, newInvoicesList);
+      setInvoicesList(newInvoicesList);
+      filterStatusInvoices(filter, setInvoicesList, newInvoicesList);
     }
     fecthClientList();
-  }, [order, render, setInvoicesList, filter, searchText]);
+  }, [order, render, setInvoicesList, filter, searchText,setFilter]);
 
   return (
     <>
+      {modalDelete && (
+        <ModalDeleteInvoice
+          client_id={clientId}
+          id={idInvoice}
+          setModalDelete={setModalDelete}
+        />
+      )}
       {invoiceDetail && (
         <ModalInvoiceDetail
           id={idInvoice}
@@ -210,31 +198,17 @@ export default function TableInvoices() {
                   <img
                     className="btn-delete"
                     onClick={() => {
-                      document
-                        .getElementById(`${charge.id}`)
-                        .classList.remove("hidden");
+                      setClientId(charge.client_id);
+                      setIdInvoice(charge.id);
+                      if (verifyDue(charge.due_date) === "pendent") {
+                        return setModalDelete(true);
+                      } else {
+                        return notifyError("Essa conta não pode ser deletada!");
+                      }
                     }}
                     src={btnDelete}
                     alt=""
                   />
-                  <span id={charge.id} className="hidden modal-delete-invoice">
-                    <img
-                      src={yes}
-                      alt="yes"
-                      className="yes-option"
-                      onClick={() => handleDelete(charge.id, charge.client_id)}
-                    />
-                    <img
-                      src={no}
-                      alt="no"
-                      className="no-option"
-                      onClick={() =>
-                        document
-                          .getElementById(`${charge.id}`)
-                          .classList.add("hidden")
-                      }
-                    />
-                  </span>
                 </span>
               </td>
             </tr>

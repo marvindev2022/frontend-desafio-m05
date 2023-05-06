@@ -1,0 +1,74 @@
+.ModalDeleteInvoice {
+  z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-family: 'Nunito', sans-serif;
+
+  background-color: rgba(145, 154, 150, 0.3);
+}
+
+.ModalDelete {
+  width: 500px;
+  height: 300px;
+  padding: 40px;
+  border-radius: 30px;
+  gap: 24px;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+
+  background-color: #FFF;
+}
+
+.img-alert {
+  width: 100px;
+}
+
+.ModalDelete span {
+  font-weight: 700;
+
+  color: #CC7800;
+}
+
+.yes-or-not {
+  width: 100%;
+  gap: 12px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.btn-not {
+  width: 80px;
+  height: 20px;
+  font-weight: 700;
+  border-radius: 4px;
+
+  border: none;
+
+  color: #AE1100;
+  background-color: #F2D6D0;
+}
+
+.btn-yes {
+  width: 80px;
+  height: 20px;
+  font-weight: 700;
+  border-radius: 4px;
+
+  border: none;
+
+  color: #034A2A;
+  background-color: #ACD9C5;
+}

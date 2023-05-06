@@ -15,7 +15,7 @@ function MainRoutes() {
     <>
       <ToastContainer />
       <Routes>
-        <Route  path="/signin" element={<Signin />} />
+        <Route path="/signin"element={<Signin />} />
         <Route path="/signup" element={<SignUp />} />
 
         <Route element={<ProtectedRoutes redirectTo="/signin" />}>

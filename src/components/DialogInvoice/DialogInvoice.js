@@ -3,7 +3,7 @@ import { getItem } from "../../utils/storage";
 import api from "./../../service/instance";
 import exit from "./../../assets/x.svg";
 import "./dialogInvoices.css";
-import { notifyInfo} from "../../utils/notify";
+import { notifyError, notifyInfo} from "../../utils/notify";
 
 export default function DialogInvoice({render,setRender, selectInvoice }) {
   const [formInvoice, setFormInvoice] = useState({
@@ -31,25 +31,49 @@ export default function DialogInvoice({render,setRender, selectInvoice }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (!description || !status || !invoice_value || !due_date) return;
-    const { data } = await api.put(
-      `/invoice/${id}`,
-      {
-        description: description,
-        status: status,
-        invoice_value: invoice_value,
-        due_date: due_date,
-      },
-      {
-        headers: {
-          authorization: `Bearer ${getItem("token")}`,
+   const formData = {
+     description,
+     status,
+     invoice_value,
+     due_date,
+   };
+
+   const fields = [
+     { name: "description", label: "Descrição" },
+     { name: "status", label: "Status" },
+     { name: "invoice_value", label: "Valor da Fatura" },
+     { name: "due_date", label: "Data de Vencimento" },
+   ];
+
+   if (fields.some((field) => !formData[field.name])) {
+     const emptyField = fields.find((field) => !formData[field.name]);
+     notifyError(`Preencha o campo ${emptyField.label} que está vazio.`);
+     return;
+   }
+
+    try {
+      const { data } = await api.put(
+        `/invoice/${id}`,
+        {
+          description: description,
+          status: status,
+          invoice_value: invoice_value,
+          due_date: due_date,
         },
-      }
-    );
-    setRender(!render)
-    notifyInfo(data);
-    document.querySelector(".dialog-invoices").close();
+        {
+          headers: {
+            authorization: `Bearer ${getItem("token")}`,
+          },
+        }
+      );
+      setRender(!render);
+      notifyInfo(data);
+      document.querySelector(".dialog-invoices").close();
+    } catch (error) {
+      notifyError(error.response.data);
+    }
   }
+
   useEffect(() => {
     setFormInvoice(selectInvoice);
   }, [selectInvoice]);
