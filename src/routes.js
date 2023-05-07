@@ -21,8 +21,8 @@ function MainRoutes() {
 
         <Route element={<ProtectedRoutes redirectTo="/signin" />}>
           <Route path="/main" element={<Main />} />
-        </Route>
           <Route path="*" element={<NotFound/>} />
+        </Route>
       </Routes>
     </>
   );
