@@ -7,11 +7,8 @@ import api from "./../../service/instance";
 import { getItem } from "../../utils/storage";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import { formatToMoney } from "../../utils/formatters";
-export default function ModalAddCharge({
-  idClient,
-  setIdClient,
-  setModalCharge,
-}) {
+
+export default function ModalAddCharge({ client, setClient, setModalCharge }) {
   const [erroDate, setErroDate] = useState("");
   const [erroValue, setErroValue] = useState("");
   const [erroDescription, setErroDescription] = useState("");
@@ -27,7 +24,7 @@ export default function ModalAddCharge({
       date: "",
       value: "",
     });
-    setIdClient({ id: 0, name: "" });
+    setClient({ id: 0, name: "" });
 
     setModalCharge(false);
   }
@@ -42,53 +39,53 @@ export default function ModalAddCharge({
   async function handleSubmit() {
     if (!form.description || !form.date || !form.value) {
       if (!form.description) {
-       return notifyError("Descrição deve ser preenchido");
+        return notifyError("Descrição deve ser preenchido");
       } else {
         setErroDescription("");
       }
       if (!form.date) {
-      return  notifyError("Data deve ser preenchido");
+        return notifyError("Data deve ser preenchido");
       } else {
         setErroDate("");
       }
       if (!form.value) {
-       return notifyError("Valor deve ser preenchido");
+        return notifyError("Valor deve ser preenchido");
       } else {
         setErroValue("");
       }
     }
-      let status = pay === true ? "pago" : "pendente";
+    let status = pay === true ? "pago" : "pendente";
 
-      try {
-        const {data} = await api.post(
-          "/invoice",
-          {
-            description: form.description,
-            status,
-            invoice_value: form.value,
-            due_date: form.date,
-            client_id: idClient.id,
+    try {
+      const { data } = await api.post(
+        "/invoice",
+        {
+          description: form.description,
+          status,
+          invoice_value: form.value,
+          due_date: form.date,
+          client_id: client.id,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${getItem("token")}`,
           },
-          {
-            headers: {
-              authorization: `Bearer ${getItem("token")}`,
-            },
-          }
-        );
-        if(data){
-         setForm({
-           description: "",
-           date: "",
-           value: "",
-         });
-         setIdClient({ id: 0, name: "" });
+        }
+      );
+      if (data) {
+        setForm({
+          description: "",
+          date: "",
+          value: "",
+        });
+        setClient({ id: 0, name: "" });
 
-         setModalCharge(false);
-         notifySuccess(data)
+        setModalCharge(false);
+        notifySuccess(data);
       }
-      } catch (error) {
-        notifyError(error.response.data)
-      }
+    } catch (error) {
+      notifyError(error.response.data);
+    }
   }
 
   return (
@@ -98,9 +95,9 @@ export default function ModalAddCharge({
           <img src={File} alt="icone de uma pagina" />
           Cadastro de cobranças
         </h1>
-        <label>Nome*</label>
-        <span className="name">{idClient.name}</span>
-        <label htmlFor="description">Descrição*</label>
+        <label>Nome *</label>
+        <span className="name">{client.name}</span>
+        <label htmlFor="description">Descrição *</label>
         <textarea
           name="description"
           value={form.description}
@@ -112,7 +109,7 @@ export default function ModalAddCharge({
         <span>{erroDescription}</span>
         <div className="divider-form">
           <div className="column">
-            <label htmlFor="date">Vencimento:*</label>
+            <label htmlFor="date">Vencimento *</label>
             <input
               onChange={handleChange}
               name="date"
@@ -123,7 +120,7 @@ export default function ModalAddCharge({
             <span>{erroDate}</span>
           </div>
           <div className="column">
-            <label htmlFor="value">Valor:*</label>
+            <label htmlFor="value">Valor *</label>
             <input
               onChange={handleChange}
               name="value"
@@ -168,4 +165,3 @@ export default function ModalAddCharge({
     </div>
   );
 }
-      

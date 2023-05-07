@@ -4,7 +4,6 @@ main {
 }
 .section-main {
   padding-left: 110px;
-  min-width: 98vw;
   min-height: 100vh;
   overflow-x: hidden;
 }

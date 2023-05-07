@@ -1,5 +1,5 @@
 import "./TableListClients.styles.css";
-import { formatCpf } from "../../utils/formatters";
+import { formatCpf } from "./../../../utils/formatters";
 export default function TableListClients({ clients }) {
   return (
     <table className="table-list-clients">

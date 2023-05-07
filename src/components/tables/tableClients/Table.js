@@ -1,21 +1,21 @@
-import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
-import IconeClients from "../../assets/Frame.svg";
-import Magnifier from "../../assets/magnifier.svg";
-import Filter from "../../assets/filter.svg";
-import Group from "../../assets/group.svg";
-import Charge from "../../assets/charge.svg";
+import useInvoicesProvider from "./../../../hooks/Invoices/useInvoicesProvider";
+import IconeClients from "./../../../assets/Frame.svg";
+import Magnifier from "./../../../assets/magnifier.svg";
+import Filter from "./../../../assets/filter.svg";
+import Group from "./../../../assets/group.svg";
+import Charge from "./../../../assets/charge.svg";
 import { useEffect, useState } from "react";
-import ModalAddClients from "../Modal-add-Cliens/Modal-add-clients";
-import useClientsProvider from "../../hooks/useClientsProvider";
-import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
-import ClientDetail from "../ClientDetail/ClientDetail";
-import { formatCpf, formatPhone } from "../../utils/formatters";
-import { getItem, setItem } from "../../utils/storage";
-import { verifyDue } from "../../utils/verifyDue";
-import { loadClients } from "../../utils/requisitions";
-import DialogStatus from "./../FilterStatusInvoices/DialogStatus";
+import ModalAddClients from "./../../Modal-add-Cliens/Modal-add-clients";
+import useClientsProvider from "./../../../hooks/useClientsProvider";
+import ModalAddCharge from "./../../Modal-add-Charge/Modal-add-Charge";
+import ClientDetail from "./../../ClientDetail/ClientDetail";
+import { formatCpf, formatPhone } from "./../../../utils/formatters";
+import { getItem, setItem } from "./../../../utils/storage";
+import { verifyDue } from "./../../../utils/verifyDue";
+import { loadClients } from "./../../../utils/requisitions";
+import DialogStatus from "./../../FilterStatusInvoices/DialogStatus";
 import "./table.styles.css";
-import { filterStatusClients } from "../FilterStatusInvoices/FilterStatus";
+import { filterStatusClients } from "./../../FilterStatusInvoices/FilterStatus";
 
 export default function Table() {
   const {
@@ -29,7 +29,7 @@ export default function Table() {
   const [modal, setModal] = useState(false);
   const [render, setRender] = useState(false);
   const [order, setOrder] = useState(false);
-  const [idClient, setIdClient] = useState(0);
+  const [client, setClient] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState(getItem("filterBy ") ?? false);
   const [modalCharge, setModalCharge] = useState(false);
@@ -90,8 +90,8 @@ export default function Table() {
       )}
       {modalCharge && (
         <ModalAddCharge
-          idClient={idClient}
-          setIdClient={setIdClient}
+          client={client}
+          setClient={setClient}
           setModalCharge={setModalCharge}
         />
       )}
@@ -101,7 +101,7 @@ export default function Table() {
           setCloseClientDetail={setCloseClientDetail}
           render={render}
           setRender={setRender}
-          idClient={idClient}
+          client={client}
         />
       ) : (
         <>
@@ -157,7 +157,7 @@ export default function Table() {
                 <tr key={charge.id} className="charge-specific">
                   <td
                     onClick={() => {
-                      setIdClient(charge.id);
+                      setClient(charge);
 
                       setDetalhandoCliente(!detalhandoCliente);
                       setItem("detailClient", true);
@@ -202,7 +202,7 @@ export default function Table() {
                     <img
                       onClick={() => {
                         setModalCharge(!modalCharge);
-                        setIdClient({ name: charge.name, id: charge.id });
+                        setClient({ name: charge.name, id: charge.id });
                       }}
                       src={Charge}
                       alt=""

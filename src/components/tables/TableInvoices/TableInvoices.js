@@ -1,23 +1,23 @@
-import IconeClients from "../../assets/Frame.svg";
-import Magnifier from "../../assets/magnifier.svg";
-import Filter from "../../assets/filter.svg";
-import Group from "../../assets/group.svg";
-import btnEdit from "../../assets/Botão- Editar- Tabela.svg";
-import btnDelete from "../../assets/Botão- Excluir- Tabela.svg";
-import "./tableInvoiced.styles.css";
+import IconeClients from "./../../../assets/Frame.svg";
+import Magnifier from "./../../../assets/magnifier.svg";
+import Filter from "./../../../assets/filter.svg";
+import Group from "./../../../assets/group.svg";
+import btnEdit from "./../../../assets/Botão- Editar- Tabela.svg";
+import btnDelete from "./../../../assets/Botão- Excluir- Tabela.svg";
 import { useEffect, useState } from "react";
-import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
-import { formatToDate, formatToMoney } from "../../utils/formatters";
-import DialogInvoice from "../DialogInvoice/DialogInvoice";
-import { verifyDue } from "../../utils/verifyDue";
-import { getItem } from "../../utils/storage";
-import { loadInvoices } from "../../utils/requisitions";
-import DialogStatus from "../FilterStatusInvoices/DialogStatus";
-import { filterStatusInvoices } from "../FilterStatusInvoices/FilterStatus";
-import orderList from "../../utils/orderList";
-import ModalInvoiceDetail from "../ModalInvoiceDetail/ModalInvoicedetail";
-import ModalDeleteInvoice from "../DialogDelete/DialogDelete";
-import { notifyError } from "../../utils/notify";
+import useInvoicesProvider from "./../../../hooks/Invoices/useInvoicesProvider";
+import { formatToDate, formatToMoney } from "./../../../utils/formatters";
+import DialogInvoice from "./../../DialogInvoice/DialogInvoice";
+import { verifyDue } from "./../../../utils/verifyDue";
+import { getItem } from "./../../../utils/storage";
+import { loadInvoices } from "./../../../utils/requisitions";
+import DialogStatus from "./../../FilterStatusInvoices/DialogStatus";
+import { filterStatusInvoices } from "./../../FilterStatusInvoices/FilterStatus";
+import orderList from "./../../../utils/orderList";
+import ModalInvoiceDetail from "./../../ModalInvoiceDetail/ModalInvoicedetail";
+import ModalDeleteInvoice from "./../../DialogDelete/DialogDelete";
+import { notifyError } from "./../../../utils/notify";
+import "./tableInvoiced.styles.css";
 
 export default function TableInvoices() {
   const { invoicesList, setInvoicesList, formInvoice, setFormInvoice } =
@@ -65,7 +65,7 @@ export default function TableInvoices() {
       filterStatusInvoices(filter, setInvoicesList, newInvoicesList);
     }
     fecthClientList();
-  }, [order, render, setInvoicesList, filter, searchText,setFilter]);
+  }, [order, render, setInvoicesList, filter, searchText, setFilter]);
 
   return (
     <>

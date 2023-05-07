@@ -58,8 +58,8 @@ export default function DialgoUser({ render, setRender }) {
           name,
           email,
           password,
-          cpf: cpf.replace(/\D/g, ""),
-          phone: phone.replace(/\D/g, ""),
+          cpf: cpf?.replace(/\D/g, ""),
+          phone: phone?.replace(/\D/g, ""),
         },
         {
           headers: {
@@ -71,14 +71,15 @@ export default function DialgoUser({ render, setRender }) {
         setItem("userName", user.name);
         setItem("userId", user.id);
         setItem("email", user.email);
-        setForm(defaultForm);
         document.querySelector(".dialog-user").close();
         setRender(!render);
         return notifyInfo("Cadastro alterado com sucesso!");
       }
+      setForm({});
       return notifyError(user);
     } catch (error) {
-      notifyError(error.response.data);
+      console.log(error)
+      notifyError(error.response);
     }
   }
 
@@ -94,6 +95,7 @@ export default function DialgoUser({ render, setRender }) {
       alertElement.classList.add("hidden");
     }
   }
+
   function showErrorMessage(fieldName) {
     const alertElement = document.querySelector(`.alert-${fieldName}`);
     alertElement.classList.remove("hidden");
@@ -195,6 +197,7 @@ export default function DialgoUser({ render, setRender }) {
                 className="input-password"
                 name="password"
                 id="password"
+                value={form.password}
                 placeholder="●●●●●●●●"
                 onChange={handleChange}
               />
@@ -220,6 +223,7 @@ export default function DialgoUser({ render, setRender }) {
                 className="input-password"
                 name="confirmPassword"
                 id="confirmPassword"
+                value={form.confirmPassword}
                 placeholder="●●●●●●●●"
                 onChange={handleChange}
               />

@@ -113,6 +113,7 @@ export default function DialogEditClient({ client,render,setRender }) {
       if (data === "Cliente atualizado com sucesso!") {
          setRender(!render)
         document.querySelector(".dialog-edit-client")?.close();
+        console.log(data)
         return notifySuccess(data);
       }
     } catch (error) {

@@ -1,5 +1,5 @@
-import TableListCard from "../tableCard/tableCard";
-import TableListClients from "../TableCardListClientsState/TableListClients";
+import TableListCard from "../tables/tableCard/tableCard";
+import TableListClients from "../tables/TableCardListClientsState/TableListClients";
 import paidInvoiceIcon from "./../../assets/ícone- Cobrança Paga-Color.svg";
 import predictedInvoiceIcon from "./../../assets/ícone- Corbança Pendente-Color.svg";
 import unpaidInvoiceIcon from "./../../assets/ícone- Corbança Vencida-Color.svg";
@@ -7,7 +7,7 @@ import iconUnpaid from "./../../assets/ícone- Cliente Inadimplente-Color.svg";
 import iconPaid from "./../../assets/Frame (1).svg";
 import "./home.styles.css";
 import useInvoicesProvider from "../../hooks/Invoices/useInvoicesProvider";
-import { formatToMoney } from "../../utils/formatters";
+import { formatToMoney } from "./../../utils/formatters";
 import useClientsProvider from "../../hooks/useClientsProvider";
 import {  removeItem,setItem } from "../../utils/storage";
 

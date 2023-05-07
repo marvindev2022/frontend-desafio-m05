@@ -1,5 +1,5 @@
 import "./tableCard.styles.css";
-import { formatToMoney } from "../../utils/formatters";
+import { formatToMoney } from "./../../../utils/formatters";
 export default function TableListCard({invoice}) {
   
 

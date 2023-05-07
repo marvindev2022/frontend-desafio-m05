@@ -1,13 +1,14 @@
 import { viaCep } from "./../service/instance";
+import { notifyError } from "./notify";
 
 export default async function findAddress(cep) {
   try {
-    if (cep.length !== 8) return
+    if (cep?.replace(/\D/g, "").length !== 8) return;
       const { data } = await viaCep.get(`${cep}/json`);
 
       return data;
     
   } catch (error) {
-    console.error(error);
+    notifyError("Cep invalido");
   }
 }

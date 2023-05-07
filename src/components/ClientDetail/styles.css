@@ -32,9 +32,12 @@
   background-color: #fff;
 }
 
-.info-row {
+.info-rows {
   gap: 100px;
-
+  display: flex;
+}
+.info-row {
+  gap: 50px;
   display: flex;
 }
 
@@ -176,7 +179,6 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  min-width: 123px;
   height: 60px;
   box-sizing: border-box;
   padding: 5px 20px;
@@ -199,7 +201,6 @@
 
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 150px;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
@@ -210,4 +211,11 @@
 .tbody-container {
   height:250px ;
   overflow-x: auto;
+}
+
+.address p{
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+
 }

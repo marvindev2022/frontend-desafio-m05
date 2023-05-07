@@ -13,7 +13,7 @@ export const notifyInfo = (message) => {
     bodyClassName: "toast-info-body",
     progressClassName: "toast-info-progress",
     icon: <FaCheckCircle />,
-    // Customização de estilos
+    
     style: {
       background: "#C3D4FE",
       color: "#000000",
@@ -36,16 +36,6 @@ export const notifySuccess = message => {
     pauseOnHover: false
   });
 };
-// export const notifyInfo = message => {
-//   toast.info(message, {
-//     position: toast.POSITION.BOTTOM_RIGHT,
-//     autoClose: 2000,
-//     theme: "colored",
-//     closeOnClick: true,
-//     pauseOnHover: false
-//   });
-// };
-
 
 export const notifyError = (message) => {
   toast.error(message, {
@@ -58,7 +48,7 @@ export const notifyError = (message) => {
     draggable: true,
     progress: undefined,
     closeButton: <FaTimesCircle style={{ color: " #e70000" }} />,
-    // Customização de estilos
+   
     style: {
       borderRadius: "10px",
       width: "385px",

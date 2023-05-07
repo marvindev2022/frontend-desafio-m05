@@ -8,34 +8,31 @@ import useInvoicesProvider from "./../../hooks/Invoices/useInvoicesProvider";
 import { useEffect, useState } from "react";
 import { formatToDate, formatToMoney } from "../../utils/formatters";
 import { loadDetailClient } from "../../utils/requisitions";
-import "./styles.css";
 import { verifyDue } from "../../utils/verifyDue";
 import ModalAddCharge from "../Modal-add-Charge/Modal-add-Charge";
 import DialogEditClients from "../Modal-edit-Clients/Modal-edit-clients";
-import { getItem, setItem } from "../../utils/storage";
 import ModalDeleteInvoice from "../DialogDelete/DialogDelete";
 import { notifyError } from "../../utils/notify";
-
-const client = {
-  id: JSON.parse(getItem("clientSelect"))?.id,
-  name: JSON.parse(getItem("clientSelect"))?.user?.name,
-  email: JSON.parse(getItem("clientSelect"))?.user?.email,
-  cpf: JSON.parse(getItem("clientSelect"))?.user?.cpf,
-  phone: JSON.parse(getItem("clientSelect"))?.user?.phone,
-  street: JSON.parse(getItem("clientSelect"))?.user?.street,
-  complement: JSON.parse(getItem("clientSelect"))?.user?.complement,
-  cep: JSON.parse(getItem("clientSelect"))?.user?.cep,
-  neighborhood: JSON.parse(getItem("clientSelect"))?.user?.neighborhood,
-  city: JSON.parse(getItem("clientSelect"))?.user?.city,
-  uf: JSON.parse(getItem("clientSelect"))?.user?.uf,
-};
+import "./styles.css";
 
 export default function ClientDetail({
-  idClient,
+  client,
   closeClientDetail,
   setCloseClientDetail,
 }) {
-  const [getDetailClient, setGetDetailClient] = useState();
+  const [getDetailClient, setGetDetailClient] = useState({
+    id: client.id,
+    name: client.name,
+    email: client.email,
+    cpf: client.cpf,
+    phone: client.phone,
+    street: client.street,
+    complement: client.complement,
+    cep: client.cep,
+    neighborhood: client.neighborhood,
+    city: client.city,
+    uf: client.uf,
+  });
   const { formInvoice, setFormInvoice } = useInvoicesProvider();
   const [modalCharge, setModalCharge] = useState(false);
   const [id, setIdClient] = useState(0);
@@ -43,25 +40,20 @@ export default function ClientDetail({
   const [idInvoice, setIdInvoice] = useState(0);
   const [clientId, setClientId] = useState(0);
   const [modalDelete, setModalDelete] = useState(false);
-
   function handleClick() {
     document.querySelector(".dialog-invoices")?.showModal();
   }
 
   useEffect(() => {
     async function fetchDetailClient() {
-      if (idClient) {
-        const extractDetail = await loadDetailClient(idClient);
+      if (client) {
+        const extractDetail = await loadDetailClient(client.id);
         setGetDetailClient(extractDetail);
-        setItem(
-          "clientSelect",
-          JSON.stringify({ user: extractDetail, id: idClient })
-        );
       }
     }
 
     fetchDetailClient();
-  }, [id, idClient, render, setRender]);
+  }, [id, client, render, setRender]);
 
   return (
     <>
@@ -72,13 +64,13 @@ export default function ClientDetail({
           setModalDelete={setModalDelete}
         />
       )}
-      {JSON.parse(getItem("clientSelect")) && (
+      {
         <DialogEditClients
           client={client}
           render={render}
           setRender={setRender}
         />
-      )}
+      }
       <DialogInvoice setRender={setRender} selectInvoice={formInvoice} />
       {
         <>
@@ -119,7 +111,7 @@ export default function ClientDetail({
                 Editar Cliente
               </button>
             </div>
-            <div className="bottom info-row">
+            <div className="bottom info-rows">
               <div className="gap">
                 <b>E-mail</b>
                 <p>{getDetailClient?.email}</p>
@@ -134,15 +126,15 @@ export default function ClientDetail({
               </div>
             </div>
             <div className="info-row">
-              <div className="gap">
+              <div className="address gap">
                 <b>Endereço</b>
                 <p>{getDetailClient?.street}</p>
               </div>
-              <div className="gap">
+              <div className="address gap">
                 <b>Bairro</b>
                 <p>{getDetailClient?.neighborhood}</p>
               </div>
-              <div className="gap">
+              <div className="address gap">
                 <b>Complemento</b>
                 <p>
                   {getDetailClient?.complement?.length > 0
@@ -150,15 +142,15 @@ export default function ClientDetail({
                     : "N/A"}
                 </p>
               </div>
-              <div className="gap">
+              <div className="address gap">
                 <b>CEP</b>
                 <p>{getDetailClient?.cep}</p>
               </div>
-              <div className="gap">
+              <div className="address gap">
                 <b>Cidade</b>
                 <p>{getDetailClient?.city}</p>
               </div>
-              <div className="gap">
+              <div className="address gap">
                 <b>UF</b>
                 <p>{getDetailClient?.uf}</p>
               </div>
@@ -199,11 +191,11 @@ export default function ClientDetail({
                 </tr>
               </thead>
               <tbody className="tbody-container">
-                {getDetailClient?.extract.map((charge, index) => {
+                {getDetailClient?.extract?.map((charge, index) => {
                   if (charge.id === null) return null;
                   return (
                     <tr className="charge-specific-invoices" key={index}>
-                      <td className="invoices-id">{charge.id * 10005 ** 2}</td>
+                      <td className="invoices-id">{charge.id }</td>
                       <td className="invoices-date">
                         {formatToDate(charge.due_date?.slice(0, 10))}
                       </td>
@@ -277,7 +269,7 @@ export default function ClientDetail({
       }
       {modalCharge && (
         <ModalAddCharge
-          idClient={{ id: idClient, name: getDetailClient?.name }}
+          client={{ id: client, name: getDetailClient?.name }}
           setIdClient={setIdClient}
           setModalCharge={setModalCharge}
         />
