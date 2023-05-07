@@ -4,6 +4,7 @@ import Main from "./pages/Main/Main";
 import Signin from "./pages/Signin/Signin";
 import { getItem } from "./utils/storage";
 import SignUp from "./pages/Signup/Signup";
+import NotFound from "./components/notFound";
 
 function ProtectedRoutes({ redirectTo }) {
   const token = getItem("token");
@@ -20,8 +21,8 @@ function MainRoutes() {
 
         <Route element={<ProtectedRoutes redirectTo="/signin" />}>
           <Route path="/main" element={<Main />} />
-          <Route path="*" element={<Main />} />
         </Route>
+          <Route path="*" element={<NotFound/>} />
       </Routes>
     </>
   );
